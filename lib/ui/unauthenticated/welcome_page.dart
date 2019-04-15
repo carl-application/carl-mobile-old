@@ -1,4 +1,5 @@
 import 'package:carl/ui/shared/carl_button.dart';
+import 'package:carl/ui/shared/carl_face.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -18,14 +19,7 @@ class WelcomePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Hero(
-                  tag: "carl_face",
-                  child: Image.asset(
-                    "assets/carl_face.png",
-                    width: 150,
-                    height: 150,
-                  ),
-                ),
+                CarlFace(size: 200,),
                 SizedBox(
                   height: 30,
                 ),

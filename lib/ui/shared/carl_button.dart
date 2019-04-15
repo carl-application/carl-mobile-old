@@ -15,7 +15,7 @@ class CarlButton extends StatelessWidget {
       shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(30.0)),
       child: Container(
-        width: 200,
+        width: MediaQuery.of(context).size.width  * 0.5,
         child: Center(child: Text(text)),
       ),
       onPressed: () {
