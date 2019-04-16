@@ -1,20 +1,14 @@
+import 'package:carl/localization/localization.dart';
 import "package:flare_flutter/flare_actor.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class WelcomePage extends StatefulWidget {
+class WelcomePage extends StatelessWidget {
   WelcomePage({@required this.onNext});
 
   final VoidCallback onNext;
 
-  @override
-  WelcomePageState createState() {
-    return WelcomePageState();
-  }
-}
-
-class WelcomePageState extends State<WelcomePage> {
-  Widget renderRegisterButton() {
+  Widget renderRegisterButton(BuildContext context) {
     return RaisedButton(
       colorBrightness: Theme.of(context).brightness,
       color: Colors.white,
@@ -26,7 +20,7 @@ class WelcomePageState extends State<WelcomePage> {
         width: MediaQuery.of(context).size.width * 0.8,
         child: Center(
             child: Text(
-          "SALUT CARL !",
+          Localization.of(context).welcomePageRegisterButtonLabel,
           style: TextStyle(
               fontSize: 20,
               color: Theme.of(context).accentColor,
@@ -34,7 +28,7 @@ class WelcomePageState extends State<WelcomePage> {
         )),
       ),
       onPressed: () {
-        this.widget.onNext();
+        this.onNext();
       },
     );
   }
@@ -78,14 +72,14 @@ class WelcomePageState extends State<WelcomePage> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text("Hello, moi c'est CARL !",
+                            Text( Localization.of(context).welcomePageTitle,
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.title),
                             SizedBox(
                               height: 30,
                             ),
                             Text(
-                                "L'assistant de fidélité soucieux de votre vie privée",
+                                Localization.of(context).welcomePageSubtitle,
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.body1)
                           ],
@@ -99,11 +93,11 @@ class WelcomePageState extends State<WelcomePage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      this.renderRegisterButton(),
+                      this.renderRegisterButton(context),
                       SizedBox(
                         height: 30,
                       ),
-                      Text("J'AI DEJA UN COMPTE",
+                      Text( Localization.of(context).welcomePageLoginButtonLabel,
                           textAlign: TextAlign.center,
                           textDirection: TextDirection.ltr,
                           style: Theme.of(context).textTheme.body2)

@@ -3,6 +3,7 @@ import 'package:carl/blocs/authentication/authentication_bloc.dart';
 import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/blocs/authentication/authentication_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/unauthenticated/login_page.dart';
 import 'package:carl/ui/unauthenticated/unauthenticated_navigation.dart';
 import 'package:flutter/material.dart';
@@ -52,21 +53,29 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      localizationsDelegates: [
+        const LocalizationDelegate(),
+      ],
+      supportedLocales: [
+        const Locale('en', ''),
+        const Locale('es', ''),
+      ],
       theme: ThemeData(
         brightness: Brightness.dark,
         primaryColor: Color.fromRGBO(0, 125, 253, 1),
         accentColor: Color.fromRGBO(0, 71, 250, 1),
         splashColor: Colors.black12,
         textTheme: TextTheme(
-          title: TextStyle(
-              fontSize: 34.0, fontWeight: FontWeight.bold, color: Colors.white),
-          body1: TextStyle(
-              fontSize: 18.0, fontFamily: 'Hind', color: Colors.white),
-          body2: TextStyle(
-            fontSize: 18,
-            color: Color.fromRGBO(255, 255, 255, 0.7),
-          )
-        ),
+            title: TextStyle(
+                fontSize: 34.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white),
+            body1: TextStyle(
+                fontSize: 18.0, fontFamily: 'Hind', color: Colors.white),
+            body2: TextStyle(
+              fontSize: 18,
+              color: Color.fromRGBO(255, 255, 255, 0.7),
+            )),
       ),
       initialRoute: '/',
       routes: {
