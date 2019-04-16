@@ -1,12 +1,13 @@
+import 'package:carl/blocs/user_registration/user_registration_bloc.dart';
+import 'package:carl/blocs/user_registration/user_registration_event.dart';
 import 'package:carl/localization/localization.dart';
 import "package:flare_flutter/flare_actor.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WelcomePage extends StatelessWidget {
-  WelcomePage({@required this.onNext});
-
-  final VoidCallback onNext;
+  WelcomePage();
 
   Widget renderRegisterButton(BuildContext context) {
     return RaisedButton(
@@ -28,7 +29,8 @@ class WelcomePage extends StatelessWidget {
         )),
       ),
       onPressed: () {
-        this.onNext();
+        final registrationBloc = BlocProvider.of<UserRegistrationBloc>(context);
+        registrationBloc.dispatch(StartRegistrationEvent());
       },
     );
   }
@@ -72,14 +74,13 @@ class WelcomePage extends StatelessWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text( Localization.of(context).welcomePageTitle,
+                            Text(Localization.of(context).welcomePageTitle,
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.title),
                             SizedBox(
                               height: 30,
                             ),
-                            Text(
-                                Localization.of(context).welcomePageSubtitle,
+                            Text(Localization.of(context).welcomePageSubtitle,
                                 textAlign: TextAlign.center,
                                 style: Theme.of(context).textTheme.body1)
                           ],
@@ -97,7 +98,7 @@ class WelcomePage extends StatelessWidget {
                       SizedBox(
                         height: 30,
                       ),
-                      Text( Localization.of(context).welcomePageLoginButtonLabel,
+                      Text(Localization.of(context).welcomePageLoginButtonLabel,
                           textAlign: TextAlign.center,
                           textDirection: TextDirection.ltr,
                           style: Theme.of(context).textTheme.body2)
