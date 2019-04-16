@@ -16,6 +16,7 @@ class WelcomePage extends StatefulWidget {
 class WelcomePageState extends State<WelcomePage> {
   Widget renderRegisterButton() {
     return RaisedButton(
+      colorBrightness: Theme.of(context).brightness,
       color: Colors.white,
       elevation: 10,
       padding: EdgeInsets.only(top: 20, right: 30, bottom: 20, left: 30),
@@ -32,7 +33,9 @@ class WelcomePageState extends State<WelcomePage> {
               fontWeight: FontWeight.bold),
         )),
       ),
-      onPressed: () {},
+      onPressed: () {
+        this.widget.onNext();
+      },
     );
   }
 

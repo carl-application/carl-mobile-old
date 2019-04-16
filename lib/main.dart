@@ -56,6 +56,7 @@ class _AppState extends State<App> {
         brightness: Brightness.dark,
         primaryColor: Color.fromRGBO(0, 125, 253, 1),
         accentColor: Color.fromRGBO(0, 71, 250, 1),
+        splashColor: Colors.black12,
         textTheme: TextTheme(
           title: TextStyle(
               fontSize: 34.0, fontWeight: FontWeight.bold, color: Colors.white),
