@@ -11,7 +11,6 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Theme.of(context).backgroundColor,
         child: SafeArea(
             child: Padding(
           padding: EdgeInsets.all(40),

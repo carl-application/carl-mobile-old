@@ -10,13 +10,17 @@ class CarlButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
+      color: Colors.white,
       elevation: 10,
       padding: EdgeInsets.only(top: 20, right: 30, bottom: 20, left: 30),
       shape: new RoundedRectangleBorder(
           borderRadius: new BorderRadius.circular(30.0)),
       child: Container(
-        width: MediaQuery.of(context).size.width  * 0.5,
-        child: Center(child: Text(text)),
+        width: MediaQuery.of(context).size.width * 0.5,
+        child: Center(child: Text(
+            text,
+            style: TextStyle(color: Theme.of(context).primaryColor),
+        )),
       ),
       onPressed: () {
         this.onPressed();

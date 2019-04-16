@@ -54,14 +54,17 @@ class _AppState extends State<App> {
     return MaterialApp(
       theme: ThemeData(
         brightness: Brightness.dark,
-        primaryColor: Colors.lightBlue[800],
-        accentColor: Colors.cyan[600],
-        backgroundColor: Color.fromRGBO(0, 125, 253, 1),
+        primaryColor: Color.fromRGBO(0, 125, 253, 1),
+        accentColor: Color.fromRGBO(0, 71, 250, 1),
         textTheme: TextTheme(
           title: TextStyle(
-              fontSize: 36.0, fontWeight: FontWeight.bold, color: Colors.black),
+              fontSize: 34.0, fontWeight: FontWeight.bold, color: Colors.white),
           body1: TextStyle(
-              fontSize: 18.0, fontFamily: 'Hind', color: Colors.black),
+              fontSize: 18.0, fontFamily: 'Hind', color: Colors.white),
+          body2: TextStyle(
+            fontSize: 18,
+            color: Color.fromRGBO(255, 255, 255, 0.7),
+          )
         ),
       ),
       initialRoute: '/',
