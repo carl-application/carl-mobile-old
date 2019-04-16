@@ -9,7 +9,8 @@ class UnauthenticatedNavigation extends StatefulWidget {
 }
 
 class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
-  final PageController controller = PageController();
+  final PageController _controller = PageController();
+  final _navigationAnimationTimeInSeconds = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -17,13 +18,13 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
       textDirection: TextDirection.ltr,
       child: PageView(
         scrollDirection: Axis.vertical,
-        controller: controller,
+        controller: _controller,
         physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           WelcomePage(
             onNext: () {
-              controller.animateToPage(1,
-                  duration: Duration(seconds: 1),
+              _controller.animateToPage(1,
+                  duration: Duration(seconds: _navigationAnimationTimeInSeconds),
                   curve: Curves.easeInOut);
             },
           ),
@@ -35,8 +36,8 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
                     style: TextStyle(color: Colors.black),
                   ),
                   onPressed: () {
-                    controller.animateToPage(0,
-                        duration: Duration(seconds: 1),
+                    _controller.animateToPage(0,
+                        duration: Duration(seconds: _navigationAnimationTimeInSeconds),
                         curve: Curves.easeInOut);
                   }),
             ),

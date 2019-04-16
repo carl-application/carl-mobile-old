@@ -44,13 +44,10 @@ class WelcomePageState extends State<WelcomePage> {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          // Where the linear gradient begins and ends
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          // Add one stop for each color. Stops should increase from 0 to 1
           stops: [0.5, 1],
           colors: [
-            // Colors are easy thanks to Flutter's Colors class.
             Theme.of(context).primaryColor,
             Theme.of(context).accentColor,
           ],
@@ -64,7 +61,7 @@ class WelcomePageState extends State<WelcomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: Container(
                     child: FlareActor("animations/carl_face.flr",
                         alignment: Alignment.center,
@@ -79,6 +76,7 @@ class WelcomePageState extends State<WelcomePage> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 20.0, right: 20),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text("Hello, moi c'est CARL !",
                                 textAlign: TextAlign.center,
@@ -99,17 +97,16 @@ class WelcomePageState extends State<WelcomePage> {
                 Expanded(
                   flex: 1,
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       this.renderRegisterButton(),
                       SizedBox(
                         height: 30,
                       ),
-                      Text(
-                        "J'AI DEJA UN COMPTE",
-                        textAlign: TextAlign.center,
-                        textDirection: TextDirection.ltr,
-                        style: Theme.of(context).textTheme.body2
-                      )
+                      Text("J'AI DEJA UN COMPTE",
+                          textAlign: TextAlign.center,
+                          textDirection: TextDirection.ltr,
+                          style: Theme.of(context).textTheme.body2)
                     ],
                   ),
                 )
