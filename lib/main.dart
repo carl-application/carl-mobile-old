@@ -4,6 +4,7 @@ import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/blocs/authentication/authentication_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/localization/localization.dart';
+import 'package:carl/ui/theme.dart';
 import 'package:carl/ui/unauthenticated/login_page.dart';
 import 'package:carl/ui/unauthenticated/unauthenticated_navigation.dart';
 import 'package:flutter/material.dart';
@@ -60,68 +61,53 @@ class _AppState extends State<App> {
         const Locale('en', ''),
         const Locale('es', ''),
       ],
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Color.fromRGBO(0, 125, 253, 1),
-        accentColor: Color.fromRGBO(0, 71, 250, 1),
-        splashColor: Colors.black12,
-        textTheme: TextTheme(
-            title: TextStyle(
-                fontSize: 34.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.white),
-            body1: TextStyle(
-                fontSize: 18.0, fontFamily: 'Hind', color: Colors.white),
-            body2: TextStyle(
-              fontSize: 18,
-              color: Color.fromRGBO(255, 255, 255, 0.7),
-            )),
-      ),
       initialRoute: '/',
       routes: {
         // When we navigate to the "/second" route, build the SecondScreen Widget
         '/login': (context) => LoginPage(),
       },
-      home: BlocProvider<AuthenticationBloc>(
-        bloc: _authenticationBloc,
-        child: BlocBuilder<AuthenticationEvent, AuthenticationState>(
-            bloc: _authenticationBloc,
-            builder: (BuildContext context, AuthenticationState state) {
-              if (state is AuthenticationUninitialized) {
-                return Container(
-                  color: Colors.green,
-                  child: Center(
-                    child: Text("splash", textDirection: TextDirection.ltr),
-                  ),
-                );
-              }
+      home: CarlTheme(
+        child: BlocProvider<AuthenticationBloc>(
+          bloc: _authenticationBloc,
+          child: BlocBuilder<AuthenticationEvent, AuthenticationState>(
+              bloc: _authenticationBloc,
+              builder: (BuildContext context, AuthenticationState state) {
+                if (state is AuthenticationUninitialized) {
+                  return Container(
+                    color: Colors.green,
+                    child: Center(
+                      child: Text("splash", textDirection: TextDirection.ltr),
+                    ),
+                  );
+                }
 
-              if (state is AuthenticationAuthenticated) {
+                if (state is AuthenticationAuthenticated) {
+                  return Container(
+                      color: Colors.blue,
+                      child: Center(
+                        child: Text(
+                          "Connecté !",
+                          textDirection: TextDirection.ltr,
+                        ),
+                      ));
+                }
+
+                if (state is AuthenticationUnauthenticated) {
+                  return UnauthenticatedNavigation(
+                    userRepository: userRepository,
+                  );
+                }
+
                 return Container(
                     color: Colors.blue,
                     child: Center(
                       child: Text(
-                        "Connecté !",
+                        "yo",
                         textDirection: TextDirection.ltr,
                       ),
                     ));
-              }
-
-              if (state is AuthenticationUnauthenticated) {
-                return UnauthenticatedNavigation(
-                  userRepository: userRepository,
-                );
-              }
-
-              return Container(
-                  color: Colors.blue,
-                  child: Center(
-                    child: Text(
-                      "yo",
-                      textDirection: TextDirection.ltr,
-                    ),
-                  ));
-            }),
+              }),
+        ),
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:carl/blocs/user_registration/user_registration_bloc.dart';
 import 'package:carl/blocs/user_registration/user_registration_event.dart';
 import 'package:carl/blocs/user_registration/user_registration_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/ui/unauthenticated/onboarding_username_page.dart';
 import 'package:carl/ui/unauthenticated/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,6 +22,7 @@ class UnauthenticatedNavigation extends StatefulWidget {
 class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
   PageController _controller;
   final _navigationAnimationTimeInSeconds = 2;
+  final totalSteps = 2;
   UserRegistrationBloc _registrationBloc;
 
   @override
@@ -63,19 +65,7 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
               physics: NeverScrollableScrollPhysics(),
               children: <Widget>[
                 WelcomePage(),
-                Container(
-                  child: Center(
-                    child: RaisedButton(
-                        child: Text(
-                          "back",
-                          style: TextStyle(color: Colors.black),
-                        ),
-                        onPressed: () {
-                          _registrationBloc
-                              .dispatch(SetUsernameEvent(userName: "toto"));
-                        }),
-                  ),
-                ),
+                OnBoardingUsernamePage(position: 1, total: totalSteps,),
                 Container(
                   color: Colors.deepPurple,
                 ),
