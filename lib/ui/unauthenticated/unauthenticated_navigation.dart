@@ -24,10 +24,11 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
   final _navigationAnimationTimeInSeconds = 2;
   final totalSteps = 2;
   UserRegistrationBloc _registrationBloc;
+  var _currentPage = 0;
 
   @override
   void initState() {
-    _controller = PageController(initialPage: 0);
+    _controller = PageController(initialPage: _currentPage);
     final _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
     _registrationBloc =
         UserRegistrationBloc(widget.userRepository, _authenticationBloc);
@@ -36,6 +37,7 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
 
   void navigateTo(int pageNumber) {
     if (_controller.hasClients) {
+      _currentPage = pageNumber;
       _controller.animateToPage(pageNumber,
           duration: Duration(seconds: _navigationAnimationTimeInSeconds),
           curve: Curves.easeInOut);
@@ -57,6 +59,10 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
               navigateTo(1);
             } else if (state is UserNameSet) {
               navigateTo(2);
+            } else if (state is BackLaunched) {
+              navigateTo(_currentPage - 1);
+            } else if (state is NextLaunched) {
+              navigateTo(_currentPage + 1);
             }
 
             return PageView(
@@ -65,7 +71,10 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
               physics: NeverScrollableScrollPhysics(),
               children: <Widget>[
                 WelcomePage(),
-                OnBoardingUsernamePage(position: 1, total: totalSteps,),
+                OnBoardingUsernamePage(
+                  position: 1,
+                  total: totalSteps,
+                ),
                 Container(
                   color: Colors.deepPurple,
                 ),
@@ -75,5 +84,11 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _registrationBloc.dispose();
+    super.dispose();
   }
 }

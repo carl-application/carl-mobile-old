@@ -32,7 +32,7 @@ class CarlTheme extends InheritedWidget {
   get title =>
       TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold);
 
-  get subTitle => TextStyle(color: Colors.white, fontSize: 22);
+  get whiteMediumLabel => TextStyle(color: Colors.white, fontSize: 22);
 
   get bigButtonLabelStyle =>
       TextStyle(fontSize: 20, color: accentColor, fontWeight: FontWeight.bold);

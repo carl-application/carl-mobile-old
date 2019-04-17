@@ -46,10 +46,13 @@ class WelcomePage extends StatelessWidget {
                   Expanded(
                     flex: 1,
                     child: Container(
-                      child: FlareActor("animations/carl_face.flr",
-                          alignment: Alignment.center,
-                          fit: BoxFit.cover,
-                          animation: "pulsation"),
+                      child: Hero(
+                        tag: "carl_face",
+                        child: FlareActor("animations/carl_face.flr",
+                            alignment: Alignment.center,
+                            fit: BoxFit.cover,
+                            animation: "pulsation"),
+                      ),
                     ),
                   ),
                   Expanded(
@@ -69,7 +72,7 @@ class WelcomePage extends StatelessWidget {
                               ),
                               Text(Localization.of(context).welcomePageSubtitle,
                                   textAlign: TextAlign.center,
-                                  style: CarlTheme.of(context).subTitle)
+                                  style: CarlTheme.of(context).whiteMediumLabel)
                             ],
                           ),
                         ),

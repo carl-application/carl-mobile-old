@@ -29,5 +29,13 @@ class UserRegistrationBloc
 
       yield UserNameSet(userName: username);
     }
+
+    if (event is NextEvent) {
+      yield NextLaunched();
+    }
+
+    if (event is BackEvent) {
+      yield BackLaunched();
+    }
   }
 }

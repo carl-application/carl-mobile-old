@@ -29,6 +29,12 @@ class Localization {
 
   String get welcomePageRegisterButtonLabel =>
       _getValue(WelcomePageRegisterButtonLabel);
+
+  String get onBoardingUsernameTitle => _getValue(OnBoardingUserNameTitle);
+
+  String get onBoardingUsernameHint => _getValue(OnBoardingUserNameHint);
+
+  String get onBoardingUsernameLabel => _getValue(OnBoardingUserNameLabel);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

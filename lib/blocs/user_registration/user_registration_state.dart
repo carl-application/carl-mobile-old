@@ -10,6 +10,16 @@ class RegistrationNotStarted extends UserRegistrationState {
   String toString() => 'RegistrationNotStarted';
 }
 
+class BackLaunched extends UserRegistrationState {
+  @override
+  String toString() => 'BackLaunched';
+}
+
+class NextLaunched extends UserRegistrationState {
+  @override
+  String toString() => 'NextLaunched';
+}
+
 class RegistrationStarted extends UserRegistrationState {
   @override
   String toString() => 'RegistrationStarted';

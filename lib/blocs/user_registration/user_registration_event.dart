@@ -10,6 +10,16 @@ class StartRegistrationEvent extends UserRegistrationEvent {
   String toString() => 'StartRegistrationEvent';
 }
 
+class BackEvent extends UserRegistrationEvent {
+  @override
+  String toString() => 'BackEvent';
+}
+
+class NextEvent extends UserRegistrationEvent {
+  @override
+  String toString() => 'NextEvent';
+}
+
 class SetUsernameEvent extends UserRegistrationEvent {
   final String userName;
 
