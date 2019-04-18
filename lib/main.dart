@@ -66,47 +66,49 @@ class _AppState extends State<App> {
         // When we navigate to the "/second" route, build the SecondScreen Widget
         '/login': (context) => LoginPage(),
       },
-      home: CarlTheme(
-        child: BlocProvider<AuthenticationBloc>(
-          bloc: _authenticationBloc,
-          child: BlocBuilder<AuthenticationEvent, AuthenticationState>(
-              bloc: _authenticationBloc,
-              builder: (BuildContext context, AuthenticationState state) {
-                if (state is AuthenticationUninitialized) {
-                  return Container(
-                    color: Colors.green,
-                    child: Center(
-                      child: Text("splash", textDirection: TextDirection.ltr),
-                    ),
-                  );
-                }
+      home: Scaffold(
+        body: CarlTheme(
+          child: BlocProvider<AuthenticationBloc>(
+            bloc: _authenticationBloc,
+            child: BlocBuilder<AuthenticationEvent, AuthenticationState>(
+                bloc: _authenticationBloc,
+                builder: (BuildContext context, AuthenticationState state) {
+                  if (state is AuthenticationUninitialized) {
+                    return Container(
+                      color: Colors.green,
+                      child: Center(
+                        child: Text("splash", textDirection: TextDirection.ltr),
+                      ),
+                    );
+                  }
 
-                if (state is AuthenticationAuthenticated) {
+                  if (state is AuthenticationAuthenticated) {
+                    return Container(
+                        color: Colors.blue,
+                        child: Center(
+                          child: Text(
+                            "Connecté !",
+                            textDirection: TextDirection.ltr,
+                          ),
+                        ));
+                  }
+
+                  if (state is AuthenticationUnauthenticated) {
+                    return UnauthenticatedNavigation(
+                      userRepository: userRepository,
+                    );
+                  }
+
                   return Container(
                       color: Colors.blue,
                       child: Center(
                         child: Text(
-                          "Connecté !",
+                          "yo",
                           textDirection: TextDirection.ltr,
                         ),
                       ));
-                }
-
-                if (state is AuthenticationUnauthenticated) {
-                  return UnauthenticatedNavigation(
-                    userRepository: userRepository,
-                  );
-                }
-
-                return Container(
-                    color: Colors.blue,
-                    child: Center(
-                      child: Text(
-                        "yo",
-                        textDirection: TextDirection.ltr,
-                      ),
-                    ));
-              }),
+                }),
+          ),
         ),
       ),
     );

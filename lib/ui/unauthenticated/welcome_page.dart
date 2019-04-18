@@ -1,14 +1,13 @@
-import 'package:carl/blocs/user_registration/user_registration_bloc.dart';
-import 'package:carl/blocs/user_registration/user_registration_event.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/theme.dart';
 import "package:flare_flutter/flare_actor.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WelcomePage extends StatelessWidget {
-  WelcomePage();
+  WelcomePage({this.onRegisterAsked});
+
+  final VoidCallback onRegisterAsked;
 
   Widget renderRegisterButton(BuildContext context) {
     return RaisedButton(
@@ -16,8 +15,7 @@ class WelcomePage extends StatelessWidget {
       color: Colors.white,
       elevation: 10,
       padding: EdgeInsets.only(top: 20, right: 30, bottom: 20, left: 30),
-      shape: new RoundedRectangleBorder(
-          borderRadius: new BorderRadius.circular(30.0)),
+      shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
       child: Container(
         width: MediaQuery.of(context).size.width * 0.8,
         child: Center(
@@ -25,8 +23,7 @@ class WelcomePage extends StatelessWidget {
                 style: CarlTheme.of(context).bigButtonLabelStyle)),
       ),
       onPressed: () {
-        final registrationBloc = BlocProvider.of<UserRegistrationBloc>(context);
-        registrationBloc.dispatch(StartRegistrationEvent());
+        onRegisterAsked();
       },
     );
   }
@@ -49,9 +46,7 @@ class WelcomePage extends StatelessWidget {
                       child: Hero(
                         tag: "carl_face",
                         child: FlareActor("animations/carl_face.flr",
-                            alignment: Alignment.center,
-                            fit: BoxFit.cover,
-                            animation: "pulsation"),
+                            alignment: Alignment.center, fit: BoxFit.cover, animation: "pulsation"),
                       ),
                     ),
                   ),
@@ -65,8 +60,7 @@ class WelcomePage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(Localization.of(context).welcomePageTitle,
-                                  textAlign: TextAlign.center,
-                                  style: CarlTheme.of(context).title),
+                                  textAlign: TextAlign.center, style: CarlTheme.of(context).title),
                               SizedBox(
                                 height: 30,
                               ),
@@ -88,9 +82,7 @@ class WelcomePage extends StatelessWidget {
                         SizedBox(
                           height: 30,
                         ),
-                        Text(
-                            Localization.of(context)
-                                .welcomePageLoginButtonLabel,
+                        Text(Localization.of(context).welcomePageLoginButtonLabel,
                             textAlign: TextAlign.center,
                             textDirection: TextDirection.ltr,
                             style: CarlTheme.of(context).white30Label)

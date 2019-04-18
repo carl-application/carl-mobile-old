@@ -3,11 +3,14 @@ import 'package:carl/blocs/user_registration/user_registration_bloc.dart';
 import 'package:carl/blocs/user_registration/user_registration_event.dart';
 import 'package:carl/blocs/user_registration/user_registration_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/ui/unauthenticated/indicators.dart';
+import 'package:carl/ui/unauthenticated/onboarding_sex_birthday_page.dart';
 import 'package:carl/ui/unauthenticated/onboarding_username_page.dart';
 import 'package:carl/ui/unauthenticated/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_swiper/flutter_swiper.dart';
 
 class UnauthenticatedNavigation extends StatefulWidget {
   UnauthenticatedNavigation({@required this.userRepository});
@@ -15,32 +18,30 @@ class UnauthenticatedNavigation extends StatefulWidget {
   final UserRepository userRepository;
 
   @override
-  UnauthenticatedNavigationState createState() =>
-      UnauthenticatedNavigationState();
+  UnauthenticatedNavigationState createState() => UnauthenticatedNavigationState();
 }
 
 class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
-  PageController _controller;
-  final _navigationAnimationTimeInSeconds = 2;
+  SwiperController _controller;
   final totalSteps = 2;
   UserRegistrationBloc _registrationBloc;
   var _currentPage = 0;
+  var _userName = "";
 
   @override
   void initState() {
-    _controller = PageController(initialPage: _currentPage);
-    final _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
-    _registrationBloc =
-        UserRegistrationBloc(widget.userRepository, _authenticationBloc);
     super.initState();
+    _controller = SwiperController();
+    final _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
+    _registrationBloc = UserRegistrationBloc(widget.userRepository, _authenticationBloc);
   }
 
   void navigateTo(int pageNumber) {
-    if (_controller.hasClients) {
+    print("Actual page is $_currentPage");
+    print("Need to navigate to $pageNumber");
+    if (pageNumber >= 0 && pageNumber <= totalSteps) {
       _currentPage = pageNumber;
-      _controller.animateToPage(pageNumber,
-          duration: Duration(seconds: _navigationAnimationTimeInSeconds),
-          curve: Curves.easeInOut);
+      _controller.move(pageNumber, animation: true);
     }
   }
 
@@ -48,40 +49,57 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
   Widget build(BuildContext context) {
     return Directionality(
       textDirection: TextDirection.ltr,
-      child: BlocProvider<UserRegistrationBloc>(
+      child: BlocBuilder<UserRegistrationEvent, UserRegistrationState>(
         bloc: _registrationBloc,
-        child: BlocBuilder<UserRegistrationEvent, UserRegistrationState>(
-          bloc: _registrationBloc,
-          builder: (BuildContext context, UserRegistrationState state) {
-            if (state is RegistrationNotStarted) {
-              navigateTo(0);
-            } else if (state is RegistrationStarted) {
-              navigateTo(1);
-            } else if (state is UserNameSet) {
-              navigateTo(2);
-            } else if (state is BackLaunched) {
-              navigateTo(_currentPage - 1);
-            } else if (state is NextLaunched) {
-              navigateTo(_currentPage + 1);
-            }
-
-            return PageView(
-              scrollDirection: Axis.vertical,
-              controller: _controller,
-              physics: NeverScrollableScrollPhysics(),
-              children: <Widget>[
-                WelcomePage(),
-                OnBoardingUsernamePage(
-                  position: 1,
-                  total: totalSteps,
+        builder: (BuildContext context, UserRegistrationState state) {
+          return Stack(
+            children: <Widget>[
+              Swiper(
+                scrollDirection: Axis.vertical,
+                controller: _controller,
+                duration: 2000,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 3,
+                itemBuilder: (BuildContext context, int index) {
+                  switch (index) {
+                    case 0:
+                      return WelcomePage(
+                        onRegisterAsked: () {
+                          navigateTo(1);
+                        },
+                      );
+                    case 1:
+                      return OnBoardingUsernamePage(
+                        userName: _userName,
+                        onUserNameSubmitted: (userName) {
+                          _userName = userName;
+                          Future.delayed(Duration(milliseconds: 500), () {
+                            navigateTo(2);
+                          });
+                        },
+                      );
+                    case 2:
+                      return OnBoardingSexBirthdayPage();
+                  }
+                },
+              ),
+              Positioned(
+                bottom: 40,
+                right: 20,
+                child: Indicators(
+                  topEnable: true,
+                  bottomEnable: true,
+                  onTopCLicked: () {
+                    navigateTo(_currentPage - 1);
+                  },
+                  onDownClicked: () {
+                    navigateTo(_currentPage + 1);
+                  },
                 ),
-                Container(
-                  color: Colors.deepPurple,
-                ),
-              ],
-            );
-          },
-        ),
+              )
+            ],
+          );
+        },
       ),
     );
   }

@@ -1,17 +1,35 @@
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/theme.dart';
-import 'package:carl/ui/unauthenticated/indicators.dart';
-import 'package:carl/ui/unauthenticated/onboarding_position_counter.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class OnBoardingUsernamePage extends StatelessWidget {
-  OnBoardingUsernamePage({@required this.position, @required this.total});
+class OnBoardingUsernamePage extends StatefulWidget {
+  OnBoardingUsernamePage({@required this.onUserNameSubmitted, this.userName});
 
+  final void Function(String) onUserNameSubmitted;
+  final String userName;
+
+  @override
+  OnBoardingUsernamePageState createState() {
+    return OnBoardingUsernamePageState();
+  }
+}
+
+class OnBoardingUsernamePageState extends State<OnBoardingUsernamePage> {
   final _usernameController = TextEditingController();
-  final int position;
-  final int total;
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController.text = widget.userName;
+  }
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +64,6 @@ class OnBoardingUsernamePage extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            OnBoardingPositionCounter(
-                              position: position,
-                              total: total,
-                            )
                           ],
                         ),
                       ),
@@ -62,7 +76,7 @@ class OnBoardingUsernamePage extends StatelessWidget {
                 ],
               ),
               Positioned(
-                top: MediaQuery.of(context).size.height / 2 - 100,
+                top: MediaQuery.of(context).size.height * 0.45,
                 child: Container(
                   height: 100,
                   child: Column(
@@ -71,12 +85,14 @@ class OnBoardingUsernamePage extends StatelessWidget {
                       Container(
                         width: 200,
                         child: TextField(
+                          onSubmitted: (text) {
+                            widget.onUserNameSubmitted(text);
+                          },
                           controller: _usernameController,
                           style: CarlTheme.of(context).whiteMediumLabel,
                           decoration: InputDecoration(
                               border: InputBorder.none,
-                              hintText: Localization.of(context)
-                                  .onBoardingUsernameHint,
+                              hintText: Localization.of(context).onBoardingUsernameHint,
                               hintStyle: CarlTheme.of(context).white30Label),
                         ),
                       ),
@@ -88,13 +104,6 @@ class OnBoardingUsernamePage extends StatelessWidget {
                   ),
                 ),
               ),
-              Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Indicators(
-                    topEnable: true,
-                    bottomEnable: _usernameController.text.isNotEmpty,
-                  ))
             ],
           ),
         )),

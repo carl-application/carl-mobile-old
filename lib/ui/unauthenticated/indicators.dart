@@ -1,14 +1,19 @@
-import 'package:carl/blocs/user_registration/user_registration_bloc.dart';
-import 'package:carl/blocs/user_registration/user_registration_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Indicators extends StatelessWidget {
-  Indicators({@required this.topEnable, @required this.bottomEnable});
+  Indicators(
+      {@required this.topEnable,
+      @required this.bottomEnable,
+      @required this.onTopCLicked,
+      @required this.onDownClicked,
+      this.hideBottom});
 
   final bool topEnable;
   final bool bottomEnable;
+  final bool hideBottom;
+  final VoidCallback onTopCLicked;
+  final VoidCallback onDownClicked;
 
   @override
   Widget build(BuildContext context) {
@@ -17,27 +22,25 @@ class Indicators extends StatelessWidget {
         InkWell(
           onTap: () {
             if (topEnable) {
-              final bloc = BlocProvider.of<UserRegistrationBloc>(context);
-              bloc.dispatch(BackEvent());
+              onTopCLicked();
             }
           },
           child: Icon(
             Icons.expand_less,
             size: 40,
-            color: this.topEnable ? Colors.white : Colors.white30,
+            color: topEnable ? Colors.white : Colors.white30,
           ),
         ),
         InkWell(
           onTap: () {
             if (bottomEnable) {
-              final bloc = BlocProvider.of<UserRegistrationBloc>(context);
-              bloc.dispatch(NextEvent());
+              onDownClicked();
             }
           },
           child: Icon(
             Icons.expand_more,
             size: 40,
-            color: this.bottomEnable ? Colors.white : Colors.white30,
+            color: bottomEnable ? Colors.white : Colors.white30,
           ),
         ),
       ],
