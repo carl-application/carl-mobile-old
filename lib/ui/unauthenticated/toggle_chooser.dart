@@ -2,10 +2,15 @@ import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+class ToggleController {
+  String choice = "";
+}
+
 class ToggleChooser extends StatefulWidget {
-  ToggleChooser({@required this.choices});
+  ToggleChooser({@required this.choices, @required this.toggleController});
 
   final List<String> choices;
+  final ToggleController toggleController;
 
   @override
   _ToggleChooserState createState() => _ToggleChooserState();
@@ -13,13 +18,18 @@ class ToggleChooser extends StatefulWidget {
 
 class _ToggleChooserState extends State<ToggleChooser> {
   get choices => widget.choices;
-
   var _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.toggleController.choice = choices[0];
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 80,
+        height: 90,
         width: double.infinity,
         child: Row(
           children: buildElements(this._selectedIndex),
@@ -37,7 +47,7 @@ class _ToggleChooserState extends State<ToggleChooser> {
               elevation: 10,
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
               child: Padding(
-                padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+                padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -64,6 +74,7 @@ class _ToggleChooserState extends State<ToggleChooser> {
               child: textWidget,
               onTap: () {
                 setState(() {
+                  widget.toggleController.choice = choices[index];
                   this._selectedIndex = index;
                 });
               },

@@ -19,9 +19,16 @@ class OnBoardingSexBirthdayPage extends StatefulWidget {
 }
 
 class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
+  ToggleController _toggleController;
+  DateController _dateController;
+  bool _isLoading;
+
   @override
   void initState() {
     super.initState();
+    _isLoading = false;
+    _toggleController = new ToggleController();
+    _dateController = new DateController();
   }
 
   @override
@@ -59,6 +66,7 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
                           Localization.of(context).man,
                           Localization.of(context).woman
                         ],
+                        toggleController: _toggleController,
                       ),
                       SizedBox(
                         height: 30,
@@ -75,13 +83,27 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
                       ),
                       DateChooser(
                         date: DateTime.utc(1994, 3, 5),
+                        dateController: _dateController,
                       ),
                       SizedBox(
                         height: 40,
                       ),
                       CarlButton(
+                        isLoading: _isLoading,
                         text: Localization.of(context).validate.toUpperCase(),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          print("Sex choice = ${_toggleController.choice}");
+                          print("Birthday = ${_dateController.date.toIso8601String()}");
+
+                          Future.delayed(Duration(seconds: 2), (){
+                            setState(() {
+                              _isLoading = false;
+                            });
+                          });
+                        },
                       )
                     ],
                   ),

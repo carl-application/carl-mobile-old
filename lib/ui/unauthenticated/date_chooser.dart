@@ -3,22 +3,26 @@ import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+class DateController {
+  DateTime date = new DateTime.now();
+}
+
 class DateChooser extends StatefulWidget {
-  DateChooser({this.date});
+  DateChooser({this.date, this.dateController});
 
   DateTime date;
+  DateController dateController;
 
   @override
   _DateChooserState createState() => _DateChooserState();
 }
 
 class _DateChooserState extends State<DateChooser> {
-  DateTime _date;
 
   @override
   void initState() {
     super.initState();
-    _date = widget.date;
+    widget.dateController.date = widget.date;
   }
 
   Widget generateSelector(
@@ -76,29 +80,35 @@ class _DateChooserState extends State<DateChooser> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         generateSelector(
-            initialValue: "${_date.day}",
+            initialValue: "${widget.date.day}",
             values: [for (var i = 1; i < 32; i++) "$i"],
             onNewValue: (newValue) {
               setState(() {
-                this._date = DateTime(_date.year, _date.month, int.parse(newValue));
+                final newDate = DateTime(widget.date.year, widget.date.month, int.parse(newValue));
+                this.widget.date = newDate;
+                this.widget.dateController.date = newDate;
               });
             }),
         generateSelector(
-            initialValue: "${Localization.of(context).getMonths[this._date.month - 1]}",
+            initialValue: "${Localization.of(context).getMonths[this.widget.date.month - 1]}",
             values: Localization.of(context).getMonths,
             flex: 2,
             onNewValue: (newValue) {
               final index = Localization.of(context).getMonths.indexOf(newValue);
               setState(() {
-                this._date = DateTime(_date.year, index + 1, _date.day);
+                final newDate = DateTime(widget.date.year, index + 1, widget.date.day);
+                this.widget.date = newDate;
+                this.widget.dateController.date = newDate;
               });
             }),
         generateSelector(
-            initialValue: "${_date.year}",
+            initialValue: "${widget.date.year}",
             values: [for (var i = 1900; i < 2020; i++) "$i"],
             onNewValue: (newValue) {
               setState(() {
-                this._date = DateTime(int.parse(newValue), _date.month, _date.day);
+                final newDate = DateTime(int.parse(newValue), widget.date.month, widget.date.day);
+                this.widget.date = newDate;
+                this.widget.dateController.date = newDate;
               });
             })
       ],
