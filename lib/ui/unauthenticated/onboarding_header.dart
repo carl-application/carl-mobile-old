@@ -18,8 +18,8 @@ class OnBoardingHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              height: 100,
-              width: 100,
+              height: 70,
+              width: 70,
               child: Image.asset(
                 "assets/ic_carl.png",
                 fit: BoxFit.cover,

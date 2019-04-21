@@ -34,12 +34,31 @@ class Localization {
   String get onBoardingSexAndAgeTitle => _getValue(OnBoardingSexAndAgeTitle);
 
   String get yourSexLabel => _getValue(YourSex);
-  
+
   String get man => _getValue(Man);
-  
+
   String get woman => _getValue(Woman);
-  
+
   String get nc => _getValue(NC);
+
+  String get getBirthdayLabel => _getValue(GetBirthdayLabel);
+
+  List<String> get getMonths => [
+        _getValue(January),
+        _getValue(February),
+        _getValue(March),
+        _getValue(April),
+        _getValue(May),
+        _getValue(June),
+        _getValue(July),
+        _getValue(August),
+        _getValue(September),
+        _getValue(October),
+        _getValue(November),
+        _getValue(December),
+      ];
+
+  String get validate => _getValue(Validate);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

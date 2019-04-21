@@ -33,22 +33,24 @@ class CarlTheme extends InheritedWidget {
 
   // TextStyles
   get title =>
-      TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold);
+      TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold);
 
-  get whiteBigLabel => TextStyle(color: Colors.white, fontSize: 22);
+  get whiteBigLabel => TextStyle(color: Colors.white, fontSize: 18);
 
-  get blueBigLabel => TextStyle(color: primaryColor, fontSize: 22);
+  get blueBigLabel => TextStyle(color: accentColor, fontSize: 18);
 
-  get whiteMediumLabel => TextStyle(color: Colors.white, fontSize: 22);
+  get blueSmallLabel => TextStyle(color: accentColor, fontSize: 15);
+
+  get whiteMediumLabel => TextStyle(color: Colors.white, fontSize: 18);
 
   get bigButtonLabelStyle =>
       TextStyle(fontSize: 20, color: accentColor, fontWeight: FontWeight.bold);
 
   get white30Label =>
-      TextStyle(color: Color.fromRGBO(255, 255, 255, 0.8), fontSize: 20);
+      TextStyle(color: Color.fromRGBO(255, 255, 255, 0.8), fontSize: 16);
 
   get bigNumber =>
-      TextStyle(color: Colors.white, fontSize: 34, fontWeight: FontWeight.bold);
+      TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold);
 
   get littleNumberWhite30 => TextStyle(
         color: Color.fromRGBO(255, 255, 255, 0.8),

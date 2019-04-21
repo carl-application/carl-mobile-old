@@ -9,7 +9,21 @@ const String WelcomePageTitle = 'welcome_page_title',
     YourSex = "your_sex",
     Man = "man",
     Woman = "woman",
-    NC = "nc";
+    NC = "nc",
+    GetBirthdayLabel = "get_birthday_label",
+    January = "january",
+    February = "february",
+    March = "march",
+    April = "april",
+    May = "may",
+    June = "june",
+    July = "july",
+    August = "august",
+    September = "september",
+    October = "october",
+    November = "novemnber",
+    December = "december",
+    Validate = "validate";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -20,11 +34,25 @@ final fr = {
   OnBoardingUserNameHint: "Ils m'appellent...",
   OnBoardingUserNameLabel: "Votre prénom",
   OnBoardingSexAndAgeTitle:
-  "Avec Carl, ces informations ne seront jamais reliées à votre identité !\nVous serez, aux yeux des commerçants, un utilisateur anonyme.",
+      "Avec Carl, ces informations ne seront jamais reliées à votre identité !\nVous serez, aux yeux des commerçants, un utilisateur anonyme.",
   YourSex: "Votre sexe",
   Man: "Homme",
   Woman: "Femme",
-  NC: "N.C"
+  NC: "N.C",
+  GetBirthdayLabel: "Pour recevoir une surprise le jour de votre anniversaire",
+  January: "Janvier",
+  February: "Fevrier",
+  March: "Mars",
+  April: "Avril",
+  May: "Mai",
+  June: "Juin",
+  July: "Juillet",
+  August: "Aout",
+  September: "Septembre",
+  October: "Octobre",
+  November: "Novembre",
+  December: "Décembre",
+  Validate: "Valider"
 };
 
 final en = {
@@ -36,9 +64,23 @@ final en = {
   OnBoardingUserNameHint: "They call me...",
   OnBoardingUserNameLabel: "Your first name",
   OnBoardingSexAndAgeTitle:
-  "With Carl, these informations will never be linked to your identity !\nYou will be, for the merchants, an anonymous user.",
+      "With Carl, these informations will never be linked to your identity !\nYou will be, for the merchants, an anonymous user.",
   YourSex: "Your sex",
   Man: "Man",
   Woman: "Woman",
-  NC: "N.C"
+  NC: "N.C",
+  GetBirthdayLabel: "To receive a surprise on your birthday",
+  January: "January",
+  February: "February",
+  March: "March",
+  April: "April",
+  May: "May",
+  June: "June",
+  July: "July",
+  August: "August",
+  September: "September",
+  October: "October",
+  November: "Novemnber",
+  December: "December",
+  Validate: "Validate"
 };

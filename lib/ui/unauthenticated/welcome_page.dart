@@ -1,4 +1,5 @@
 import 'package:carl/localization/localization.dart';
+import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/theme.dart';
 import "package:flare_flutter/flare_actor.dart";
 import 'package:flutter/material.dart';
@@ -8,25 +9,6 @@ class WelcomePage extends StatelessWidget {
   WelcomePage({this.onRegisterAsked});
 
   final VoidCallback onRegisterAsked;
-
-  Widget renderRegisterButton(BuildContext context) {
-    return RaisedButton(
-      colorBrightness: Theme.of(context).brightness,
-      color: Colors.white,
-      elevation: 10,
-      padding: EdgeInsets.only(top: 20, right: 30, bottom: 20, left: 30),
-      shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-      child: Container(
-        width: MediaQuery.of(context).size.width * 0.8,
-        child: Center(
-            child: Text(Localization.of(context).welcomePageRegisterButtonLabel,
-                style: CarlTheme.of(context).bigButtonLabelStyle)),
-      ),
-      onPressed: () {
-        onRegisterAsked();
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +60,12 @@ class WelcomePage extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        this.renderRegisterButton(context),
+                        CarlButton(
+                          text: Localization.of(context).welcomePageRegisterButtonLabel,
+                          onPressed: () {
+                            onRegisterAsked();
+                          },
+                        ),
                         SizedBox(
                           height: 30,
                         ),
