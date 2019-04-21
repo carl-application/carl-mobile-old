@@ -8,9 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class OnBoardingSexBirthdayPage extends StatefulWidget {
-  OnBoardingSexBirthdayPage({@required this.onBackPressed});
+  OnBoardingSexBirthdayPage({@required this.onBackPressed, @required this.userName});
 
   final VoidCallback onBackPressed;
+  final String userName;
 
   @override
   OnBoardingSexBirthdayPageState createState() {
@@ -95,10 +96,11 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
                           setState(() {
                             _isLoading = true;
                           });
+                          print("Username = ${widget.userName}");
                           print("Sex choice = ${_toggleController.choice}");
                           print("Birthday = ${_dateController.date.toIso8601String()}");
 
-                          Future.delayed(Duration(seconds: 2), (){
+                          Future.delayed(Duration(seconds: 2), () {
                             setState(() {
                               _isLoading = false;
                             });

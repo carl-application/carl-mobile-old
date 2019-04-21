@@ -82,6 +82,7 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
                       );
                     case 2:
                       return OnBoardingSexBirthdayPage(
+                        userName: _userName,
                         onBackPressed: () {
                           navigateTo(_currentPage - 1);
                         },
