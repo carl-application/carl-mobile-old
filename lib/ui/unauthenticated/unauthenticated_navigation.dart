@@ -3,7 +3,6 @@ import 'package:carl/blocs/user_registration/user_registration_bloc.dart';
 import 'package:carl/blocs/user_registration/user_registration_event.dart';
 import 'package:carl/blocs/user_registration/user_registration_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
-import 'package:carl/ui/unauthenticated/indicators.dart';
 import 'package:carl/ui/unauthenticated/onboarding_sex_birthday_page.dart';
 import 'package:carl/ui/unauthenticated/onboarding_username_page.dart';
 import 'package:carl/ui/unauthenticated/welcome_page.dart';
@@ -71,6 +70,9 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
                     case 1:
                       return OnBoardingUsernamePage(
                         userName: _userName,
+                        onBackPressed: () {
+                          navigateTo(_currentPage - 1);
+                        },
                         onUserNameSubmitted: (userName) {
                           _userName = userName;
                           Future.delayed(Duration(milliseconds: 500), () {
@@ -79,24 +81,14 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
                         },
                       );
                     case 2:
-                      return OnBoardingSexBirthdayPage();
+                      return OnBoardingSexBirthdayPage(
+                        onBackPressed: (){
+                          navigateTo(_currentPage - 1);
+                        },
+                      );
                   }
                 },
               ),
-              Positioned(
-                bottom: 40,
-                right: 20,
-                child: Indicators(
-                  topEnable: true,
-                  bottomEnable: true,
-                  onTopCLicked: () {
-                    navigateTo(_currentPage - 1);
-                  },
-                  onDownClicked: () {
-                    navigateTo(_currentPage + 1);
-                  },
-                ),
-              )
             ],
           );
         },

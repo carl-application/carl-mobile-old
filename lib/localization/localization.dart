@@ -13,10 +13,7 @@ class Localization {
     return Localizations.of<Localization>(context, Localization);
   }
 
-  static Map<String, Map<String, String>> _localizedValues = {
-    'fr': fr,
-    'en': en
-  };
+  static Map<String, Map<String, String>> _localizedValues = {'fr': fr, 'en': en};
 
   _getValue(String key) => _localizedValues[locale.languageCode][key];
 
@@ -24,17 +21,25 @@ class Localization {
 
   String get welcomePageSubtitle => _getValue(WelcomePageSubtitle);
 
-  String get welcomePageLoginButtonLabel =>
-      _getValue(WelcomePageLoginButtonLabel);
+  String get welcomePageLoginButtonLabel => _getValue(WelcomePageLoginButtonLabel);
 
-  String get welcomePageRegisterButtonLabel =>
-      _getValue(WelcomePageRegisterButtonLabel);
+  String get welcomePageRegisterButtonLabel => _getValue(WelcomePageRegisterButtonLabel);
 
   String get onBoardingUsernameTitle => _getValue(OnBoardingUserNameTitle);
 
   String get onBoardingUsernameHint => _getValue(OnBoardingUserNameHint);
 
   String get onBoardingUsernameLabel => _getValue(OnBoardingUserNameLabel);
+
+  String get onBoardingSexAndAgeTitle => _getValue(OnBoardingSexAndAgeTitle);
+
+  String get yourSexLabel => _getValue(YourSex);
+  
+  String get man => _getValue(Man);
+  
+  String get woman => _getValue(Woman);
+  
+  String get nc => _getValue(NC);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

@@ -10,7 +10,7 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   flutter:
@@ -22,7 +22,7 @@ dependencies:
   http: 0.12.0
   equatable: 0.1.6
   flare_flutter: 1.3.8
-  flutter_swiper: ^1.1.6
+  flutter_swiper: 1.1.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -49,6 +49,15 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
   - assets/carl_face.png
+  - assets/3.0x/carl_face.png
+  - assets/2.0x/carl_face.png
+  - assets/1.5x/carl_face.png
+  - assets/1.0x/carl_face.png
+  - assets/ic_carl.png
+  - assets/3.0x/ic_carl.png
+  - assets/2.0x/ic_carl.png
+  - assets/1.5x/ic_carl.png
+  - assets/1.0x/ic_carl.png
   - animations/
   #  - images/a_dot_ham.jpeg
 

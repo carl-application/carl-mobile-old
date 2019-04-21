@@ -1,13 +1,15 @@
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/theme.dart';
-import 'package:flare_flutter/flare_actor.dart';
+import 'package:carl/ui/unauthenticated/indicators.dart';
+import 'package:carl/ui/unauthenticated/onboarding_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class OnBoardingUsernamePage extends StatefulWidget {
-  OnBoardingUsernamePage({@required this.onUserNameSubmitted, this.userName});
+  OnBoardingUsernamePage({@required this.onUserNameSubmitted, this.onBackPressed, this.userName});
 
   final void Function(String) onUserNameSubmitted;
+  final VoidCallback onBackPressed;
   final String userName;
 
   @override
@@ -31,6 +33,10 @@ class OnBoardingUsernamePageState extends State<OnBoardingUsernamePage> {
     super.dispose();
   }
 
+  void navigateToNext(String userName) {
+    widget.onUserNameSubmitted(userName);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -44,34 +50,12 @@ class OnBoardingUsernamePageState extends State<OnBoardingUsernamePage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Container(
-                              width: 150,
-                              height: 150,
-                              child: Hero(
-                                tag: "carl_face",
-                                child: FlareActor(
-                                  "animations/carl_face.flr",
-                                  alignment: Alignment.center,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Text(
-                        Localization.of(context).onBoardingUsernameTitle,
-                        style: CarlTheme.of(context).title,
-                      ),
-                    ],
+                  SizedBox(
+                    height: 30,
+                  ),
+                  OnBoardingHeader(
+                    title: Localization.of(context).onBoardingUsernameTitle,
+                    position: 1,
                   ),
                 ],
               ),
@@ -86,7 +70,7 @@ class OnBoardingUsernamePageState extends State<OnBoardingUsernamePage> {
                         width: 200,
                         child: TextField(
                           onSubmitted: (text) {
-                            widget.onUserNameSubmitted(text);
+                            navigateToNext(text);
                           },
                           controller: _usernameController,
                           style: CarlTheme.of(context).whiteMediumLabel,
@@ -104,6 +88,20 @@ class OnBoardingUsernamePageState extends State<OnBoardingUsernamePage> {
                   ),
                 ),
               ),
+              Positioned(
+                bottom: 40,
+                right: 20,
+                child: Indicators(
+                  topEnable: true,
+                  bottomEnable: false,
+                  onTopCLicked: () {
+                    widget.onBackPressed();
+                  },
+                  onDownClicked: () {
+                    navigateToNext(_usernameController.text);
+                  },
+                ),
+              )
             ],
           ),
         )),

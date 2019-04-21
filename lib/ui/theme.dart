@@ -13,6 +13,9 @@ class CarlTheme extends InheritedWidget {
     return context.inheritFromWidgetOfExactType(CarlTheme);
   }
 
+  // Dimensions
+  get generalPadding => 20.0;
+
   // Colors
   get primaryColor => Color.fromRGBO(0, 125, 253, 1);
 
@@ -30,7 +33,11 @@ class CarlTheme extends InheritedWidget {
 
   // TextStyles
   get title =>
-      TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold);
+      TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold);
+
+  get whiteBigLabel => TextStyle(color: Colors.white, fontSize: 22);
+
+  get blueBigLabel => TextStyle(color: primaryColor, fontSize: 22);
 
   get whiteMediumLabel => TextStyle(color: Colors.white, fontSize: 22);
 
