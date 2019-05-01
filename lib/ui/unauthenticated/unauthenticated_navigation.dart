@@ -1,7 +1,5 @@
 import 'package:carl/blocs/authentication/authentication_bloc.dart';
 import 'package:carl/blocs/user_registration/user_registration_bloc.dart';
-import 'package:carl/blocs/user_registration/user_registration_event.dart';
-import 'package:carl/blocs/user_registration/user_registration_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/ui/unauthenticated/onboarding_sex_birthday_page.dart';
 import 'package:carl/ui/unauthenticated/onboarding_username_page.dart';
@@ -47,11 +45,10 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.ltr,
-      child: BlocBuilder<UserRegistrationEvent, UserRegistrationState>(
-        bloc: _registrationBloc,
-        builder: (BuildContext context, UserRegistrationState state) {
-          return Stack(
+        textDirection: TextDirection.ltr,
+        child: BlocProvider<UserRegistrationBloc>(
+          bloc: _registrationBloc,
+          child: Stack(
             children: <Widget>[
               Swiper(
                 scrollDirection: Axis.vertical,
@@ -82,7 +79,7 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
                       );
                     case 2:
                       return OnBoardingSexBirthdayPage(
-                        userName: _userName,
+                        pseudo: _userName,
                         onBackPressed: () {
                           navigateTo(_currentPage - 1);
                         },
@@ -91,10 +88,8 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
                 },
               ),
             ],
-          );
-        },
-      ),
-    );
+          ),
+        ));
   }
 
   @override

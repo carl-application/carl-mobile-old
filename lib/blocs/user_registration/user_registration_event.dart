@@ -1,3 +1,4 @@
+import 'package:carl/models/registration_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
@@ -5,26 +6,11 @@ abstract class UserRegistrationEvent extends Equatable {
   UserRegistrationEvent([List props = const []]) : super(props);
 }
 
-class StartRegistrationEvent extends UserRegistrationEvent {
-  @override
-  String toString() => 'StartRegistrationEvent';
-}
+class RegisterUserEvent extends UserRegistrationEvent {
+  final RegistrationModel registrationModel;
 
-class BackEvent extends UserRegistrationEvent {
-  @override
-  String toString() => 'BackEvent';
-}
-
-class NextEvent extends UserRegistrationEvent {
-  @override
-  String toString() => 'NextEvent';
-}
-
-class SetUsernameEvent extends UserRegistrationEvent {
-  final String userName;
-
-  SetUsernameEvent({@required this.userName}) : super([userName]);
+  RegisterUserEvent({@required this.registrationModel}) : super([registrationModel]);
 
   @override
-  String toString() => 'SetUsernameEvent { userName: $userName }';
+  String toString() => 'RegisterUserEvent { registrationModel : $registrationModel }';
 }

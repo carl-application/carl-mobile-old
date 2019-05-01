@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/widgets.dart';
 
 abstract class UserRegistrationState extends Equatable {
   UserRegistrationState([List props = const []]) : super(props);
@@ -10,26 +9,21 @@ class RegistrationNotStarted extends UserRegistrationState {
   String toString() => 'RegistrationNotStarted';
 }
 
-class BackLaunched extends UserRegistrationState {
+class RegistrationLoading extends UserRegistrationState {
   @override
-  String toString() => 'BackLaunched';
+  String toString() => 'RegistrationLoading';
 }
 
-class NextLaunched extends UserRegistrationState {
+class RegistrationSucceed extends UserRegistrationState {
   @override
-  String toString() => 'NextLaunched';
+  String toString() => 'RegistrationSucceed';
 }
 
-class RegistrationStarted extends UserRegistrationState {
-  @override
-  String toString() => 'RegistrationStarted';
-}
+class RegistrationFailed extends UserRegistrationState {
+  final Exception error;
 
-class UserNameSet extends UserRegistrationState {
-  final String userName;
-
-  UserNameSet({@required this.userName}) : super([userName]);
+  RegistrationFailed(this.error);
 
   @override
-  String toString() => 'UserNameSet { userName: $userName }';
+  String toString() => 'RegistrationFailed { error: $error}';
 }

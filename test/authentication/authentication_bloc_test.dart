@@ -2,6 +2,7 @@ import 'package:carl/blocs/authentication/authentication_bloc.dart';
 import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/blocs/authentication/authentication_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/models/responses/tokens_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -62,7 +63,7 @@ void main() {
       );
 
       authenticationBloc.dispatch(LoggedIn(
-        token: 'instance.token',
+        tokens: TokensResponse(),
       ));
     });
   });

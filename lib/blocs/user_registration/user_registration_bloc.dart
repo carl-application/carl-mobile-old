@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:carl/blocs/authentication/authentication_bloc.dart';
+import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/blocs/user_registration/user_registration_event.dart';
 import 'package:carl/blocs/user_registration/user_registration_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 
-class UserRegistrationBloc
-    extends Bloc<UserRegistrationEvent, UserRegistrationState> {
+class UserRegistrationBloc extends Bloc<UserRegistrationEvent, UserRegistrationState> {
   UserRegistrationBloc(this._userRepository, this._authenticationBloc);
 
   final UserRepository _userRepository;
@@ -20,22 +20,16 @@ class UserRegistrationBloc
   Stream<UserRegistrationState> mapEventToState(
     UserRegistrationEvent event,
   ) async* {
-    if (event is StartRegistrationEvent) {
-      yield RegistrationStarted();
-    }
+    if (event is RegisterUserEvent) {
+      yield RegistrationLoading();
 
-    if (event is SetUsernameEvent) {
-      final username = event.userName;
+      try {
+        final tokens = await _userRepository.register(registrationModel: event.registrationModel);
 
-      yield UserNameSet(userName: username);
-    }
-
-    if (event is NextEvent) {
-      yield NextLaunched();
-    }
-
-    if (event is BackEvent) {
-      yield BackLaunched();
+        _authenticationBloc.dispatch(LoggedIn(tokens: tokens));
+      } catch (error) {
+        yield RegistrationFailed(error);
+      }
     }
   }
 }

@@ -1,4 +1,8 @@
+import 'package:carl/blocs/user_registration/user_registration_bloc.dart';
+import 'package:carl/blocs/user_registration/user_registration_event.dart';
+import 'package:carl/blocs/user_registration/user_registration_state.dart';
 import 'package:carl/localization/localization.dart';
+import 'package:carl/models/registration_model.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:carl/ui/unauthenticated/date_chooser.dart';
@@ -6,12 +10,13 @@ import 'package:carl/ui/unauthenticated/onboarding_header.dart';
 import 'package:carl/ui/unauthenticated/toggle_chooser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnBoardingSexBirthdayPage extends StatefulWidget {
-  OnBoardingSexBirthdayPage({@required this.onBackPressed, @required this.userName});
+  OnBoardingSexBirthdayPage({@required this.onBackPressed, @required this.pseudo});
 
   final VoidCallback onBackPressed;
-  final String userName;
+  final String pseudo;
 
   @override
   OnBoardingSexBirthdayPageState createState() {
@@ -22,14 +27,20 @@ class OnBoardingSexBirthdayPage extends StatefulWidget {
 class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
   ToggleController _toggleController;
   DateController _dateController;
-  bool _isLoading;
+  UserRegistrationBloc _registrationBloc;
 
   @override
   void initState() {
     super.initState();
-    _isLoading = false;
     _toggleController = new ToggleController();
     _dateController = new DateController();
+    _registrationBloc = BlocProvider.of<UserRegistrationBloc>(context);
+  }
+
+  @override
+  void dispose() {
+    _registrationBloc.dispose();
+    super.dispose();
   }
 
   @override
@@ -89,22 +100,31 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
                       SizedBox(
                         height: 40,
                       ),
-                      CarlButton(
-                        isLoading: _isLoading,
-                        text: Localization.of(context).validate.toUpperCase(),
-                        onPressed: () {
-                          setState(() {
-                            _isLoading = true;
-                          });
-                          print("Username = ${widget.userName}");
-                          print("Sex choice = ${_toggleController.choice}");
-                          print("Birthday = ${_dateController.date.toIso8601String()}");
+                      BlocBuilder<UserRegistrationEvent, UserRegistrationState>(
+                        bloc: _registrationBloc,
+                        builder: (BuildContext context, UserRegistrationState state) {
+                          final isLoading = state is RegistrationLoading ? true : false;
+                          return CarlButton(
+                            isLoading: isLoading,
+                            text: state is RegistrationFailed
+                                ? state.error.toString()
+                                : Localization.of(context).validate.toUpperCase(),
+                            onPressed: () {
+                              print("Pseudo = ${widget.pseudo}");
+                              print("Sex choice = ${_toggleController.choice}");
+                              print("Birthday = ${_dateController.date.toIso8601String()}");
+                              final fakePassword = "totoro";
+                              final fakeUsername = "${widget.pseudo}@gmail.com";
 
-                          Future.delayed(Duration(seconds: 2), () {
-                            setState(() {
-                              _isLoading = false;
-                            });
-                          });
+                              _registrationBloc.dispatch(RegisterUserEvent(
+                                  registrationModel: RegistrationModel(
+                                      pseudo: widget.pseudo,
+                                      userName: fakeUsername,
+                                      password: fakePassword,
+                                      sex: _toggleController.choice.toLowerCase(),
+                                      birthdayDate: _dateController.date.toIso8601String())));
+                            },
+                          );
                         },
                       )
                     ],

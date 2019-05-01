@@ -4,6 +4,7 @@ import 'package:carl/blocs/login/login_bloc.dart';
 import 'package:carl/blocs/login/login_event.dart';
 import 'package:carl/blocs/login/login_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/models/responses/tokens_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -47,13 +48,13 @@ void main() {
       when(userRepository.authenticate(
         username: 'valid.username',
         password: 'valid.password',
-      )).thenAnswer((_) => Future.value('token'));
+      )).thenAnswer((_) => Future.value(TokensResponse()));
 
       expectLater(
         loginBloc.state,
         emitsInOrder(expectedResponse),
       ).then((_) {
-        verify(authenticationBloc.dispatch(LoggedIn(token: 'token'))).called(1);
+        verify(authenticationBloc.dispatch(LoggedIn(tokens: TokensResponse()))).called(1);
       });
 
       loginBloc.dispatch(LoginButtonPressed(

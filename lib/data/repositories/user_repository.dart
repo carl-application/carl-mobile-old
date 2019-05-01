@@ -1,32 +1,36 @@
 import 'dart:async';
 
+import 'package:carl/data/providers/user_provider.dart';
+import 'package:carl/models/registration_model.dart';
+import 'package:carl/models/responses/tokens_response.dart';
 import 'package:meta/meta.dart';
 
 class UserRepository {
+  final UserProvider userProvider;
 
-  Future<String> authenticate({
+  UserRepository({this.userProvider});
+
+  Future<TokensResponse> authenticate({
     @required String username,
     @required String password,
-  }) async {
-    await Future.delayed(Duration(seconds: 1));
-    return 'token';
+  }) {
+    return userProvider.authenticate(username: username, password: password);
   }
 
-  Future<void> deleteToken() async {
-    /// delete from keystore/keychain
-    //await Future.delayed(Duration(seconds: 1));
-    return;
+  Future<TokensResponse> register(
+      {@required RegistrationModel registrationModel}) {
+    return userProvider.register(registrationModel: registrationModel);
   }
 
-  Future<void> persistToken(String token) async {
-    /// write to keystore/keychain
-    await Future.delayed(Duration(seconds: 1));
-    return;
+  Future<void> deleteToken() {
+    return userProvider.deleteToken();
   }
 
-  Future<bool> hasToken() async {
-    /// read from keystore/keychain
-    await Future.delayed(Duration(seconds: 1));
-    return false;
+  Future<void> persistTokens(String accessToken, String refreshToken, int expiresIn) {
+    return userProvider.persistTokens(accessToken, refreshToken, expiresIn);
+  }
+
+  Future<bool> hasToken() {
+    return userProvider.hasToken();
   }
 }
