@@ -1,9 +1,12 @@
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/theme.dart';
+import 'package:carl/ui/unauthenticated/slider_page_route_builder.dart';
 import "package:flare_flutter/flare_actor.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import 'onboarding_username_page.dart';
 
 class WelcomePage extends StatelessWidget {
   WelcomePage({this.onRegisterAsked});
@@ -63,7 +66,8 @@ class WelcomePage extends StatelessWidget {
                         CarlButton(
                           text: Localization.of(context).welcomePageRegisterButtonLabel,
                           onPressed: () {
-                            onRegisterAsked();
+                            Navigator.push(context, SliderRouteBuilder(exitPage: this, enterPage: OnBoardingUsernamePage()));
+                            //onRegisterAsked();
                           },
                         ),
                         SizedBox(

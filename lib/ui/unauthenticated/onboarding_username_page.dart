@@ -97,7 +97,8 @@ class OnBoardingUsernamePageState extends State<OnBoardingUsernamePage> {
                     topEnable: true,
                     bottomEnable: _usernameController.text.isNotEmpty,
                     onTopCLicked: () {
-                      widget.onBackPressed();
+                      Navigator.of(context).pop();
+                      //widget.onBackPressed();
                     },
                     onDownClicked: () {
                       navigateToNext(_usernameController.text);
