@@ -8,6 +8,7 @@ import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/authenticated/cards_page.dart';
 import 'package:carl/ui/shared/VerticalSlideTransition.dart';
+import 'package:carl/ui/shared/splash_screen_page.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:carl/ui/unauthenticated/login_page.dart';
 import 'package:carl/ui/unauthenticated/unauthenticated_navigation.dart';
@@ -94,12 +95,7 @@ class _AppState extends State<App> {
                 bloc: _authenticationBloc,
                 builder: (BuildContext context, AuthenticationState state) {
                   if (state is AuthenticationUninitialized) {
-                    return Container(
-                      color: Colors.green,
-                      child: Center(
-                        child: Text("splash", textDirection: TextDirection.ltr),
-                      ),
-                    );
+                    return SplashScreenPage();
                   }
 
                   if (state is AuthenticationAuthenticated) {
