@@ -39,11 +39,28 @@ class UserDummyProvider implements UserProvider {
   Future<List<BusinessCard>> retrieveCards() async {
     await Future.delayed(Duration(seconds: 2));
     final list = List<BusinessCard>();
-    list.add(BusinessCard("Midi Pile", "74 rue Chaptal, Levallois", "https://picsum.photos/id/200/200"));
-    list.add(BusinessCard("KFC", "30 rue du Bucket", "https://picsum.photos/id/201/200"));
-    list.add(BusinessCard("Les fleurs du marché", "30 rue de la rose", "https://picsum.photos/id/202/200"));
-    list.add(BusinessCard("La boulangerie du coin", "30 rue de la broche", "https://picsum.photos/id/203/200"));
-    list.add(BusinessCard("Pizza Victoria", "80 rue de la tagliatelle", "https://picsum.photos/id/204/200"));
+    list.add(BusinessCard(
+        "Midi Pile",
+        "74 rue Chaptal, Levallois",
+        "https://picsum.photos/id/200/200",
+        "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"));
+    list.add(BusinessCard("KFC", "30 rue du Bucket", "https://picsum.photos/id/201/200",
+        "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"));
+    list.add(BusinessCard(
+        "Les fleurs du marché",
+        "30 rue de la rose",
+        "https://picsum.photos/id/202/200",
+        "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"));
+    list.add(BusinessCard(
+        "La boulangerie du coin",
+        "30 rue de la broche",
+        "https://picsum.photos/id/203/200",
+        "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"));
+    list.add(BusinessCard(
+        "Pizza Victoria",
+        "80 rue de la tagliatelle",
+        "https://picsum.photos/id/204/200",
+        "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"));
 
     return list;
   }

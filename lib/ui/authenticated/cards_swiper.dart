@@ -140,6 +140,30 @@ class CardScrollWidget extends StatelessWidget {
                         cards[index].imageUrl,
                         fit: BoxFit.cover,
                       ),
+                      Container(
+                        color: Colors.black12,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Image.asset(
+                            "assets/ic_bell_card.png",
+                            width: 50,
+                            height: 50,
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: ClipRRect(
+                          borderRadius: new BorderRadius.circular(50.0),
+                          child: Image.network(
+                            cards[index].logo,
+                            height: 100.0,
+                            width: 100.0,
+                          ),
+                        ),
+                      ),
                       Align(
                           alignment: Alignment.bottomRight,
                           child: Padding(

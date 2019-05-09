@@ -74,11 +74,11 @@ flutter:
   - assets/2.0x/ic_settings.png
   - assets/1.5x/ic_settings.png
   - assets/1.0x/ic_settings.png
-
-  - assets/image_01.png
-  - assets/image_02.jpg
-  - assets/image_03.jpg
-  - assets/image_04.jpg
+  - assets/ic_bell_card.png
+  - assets/3.0x/ic_bell_card.png
+  - assets/2.0x/ic_bell_card.png
+  - assets/1.5x/ic_bell_card.png
+  - assets/1.0x/ic_bell_card.png
 
   - animations/
   #  - images/a_dot_ham.jpeg
