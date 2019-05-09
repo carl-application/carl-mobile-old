@@ -1,7 +1,6 @@
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/theme.dart';
-import "package:flare_flutter/flare_actor.dart";
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -24,11 +23,14 @@ class WelcomePage extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: Container(
-                      child: Hero(
-                        tag: "carl_face",
-                        child: FlareActor("animations/carl_face.flr",
-                            alignment: Alignment.center, fit: BoxFit.cover, animation: "pulsation"),
+                    child: Center(
+                      child: Container(
+                        height: 150,
+                        width: 150,
+                        child: Image.asset(
+                          "assets/ic_carl.png",
+                          fit: BoxFit.contain,
+                        ),
                       ),
                     ),
                   ),

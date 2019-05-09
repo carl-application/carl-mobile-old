@@ -12,15 +12,24 @@ class RoundedIcon extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(20.0),
+        borderRadius: BorderRadius.circular(50.0),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Image.asset(
-          assetIcon,
-          height: 25,
-          width: 25,
-          fit: BoxFit.contain,
+      child: Material(
+        type: MaterialType.circle,
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: (){
+            print("ok");
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Image.asset(
+              assetIcon,
+              height: 20,
+              width: 20,
+              fit: BoxFit.contain,
+            ),
+          ),
         ),
       ),
     );
