@@ -38,4 +38,8 @@ class UserRepository {
   Future<List<BusinessCard>> retrieveCards() {
     return userProvider.retrieveCards();
   }
+
+  Future<BusinessCard> retrieveCardById(int cardId) {
+    return userProvider.retrieveCardById(cardId);
+  }
 }

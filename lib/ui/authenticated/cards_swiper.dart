@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:carl/models/business_card.dart';
+import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -43,7 +44,7 @@ class _CardsSwiperState extends State<CardsSwiper> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(5.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,13 +66,25 @@ class _CardsSwiperState extends State<CardsSwiper> {
                 currentPage: currentPage,
                 cards: cards,
               ),
-              Positioned.fill(
+              Positioned.fromRect(
+                rect: Rect.fromPoints(
+                    Offset(15, 15), Offset(MediaQuery.of(context).size.width * .75, 2000)),
                 child: PageView.builder(
                   itemCount: cards.length,
                   controller: controller,
                   reverse: true,
                   itemBuilder: (context, index) {
-                    return Container();
+                    return GestureDetector(
+                        onTap: () {
+                          final BusinessCard card = cards[controller.page.toInt()];
+                          print("Clicked on card ${card.businessName}");
+                          Navigator.pushNamed(
+                            context,
+                            CardDetailPage.routeName,
+                            arguments: card.id,
+                          );
+                        },
+                        child: Container(color: Colors.transparent));
                   },
                 ),
               )
@@ -125,70 +138,11 @@ class CardScrollWidget extends StatelessWidget {
             bottom: padding + verticalInset * max(-delta, 0.0),
             start: start,
             textDirection: TextDirection.rtl,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(22.0),
-              child: Container(
-                decoration: BoxDecoration(color: Colors.white, boxShadow: [
-                  BoxShadow(color: Colors.black12, offset: Offset(3.0, 6.0), blurRadius: 10.0)
-                ]),
-                child: AspectRatio(
-                  aspectRatio: cardAspectRatio,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: <Widget>[
-                      Image.network(
-                        cards[index].imageUrl,
-                        fit: BoxFit.cover,
-                      ),
-                      Container(
-                        color: Colors.black12,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Image.asset(
-                            "assets/ic_bell_card.png",
-                            width: 50,
-                            height: 50,
-                          ),
-                        ),
-                      ),
-                      Center(
-                        child: ClipRRect(
-                          borderRadius: new BorderRadius.circular(50.0),
-                          child: Image.network(
-                            cards[index].logo,
-                            height: 100.0,
-                            width: 100.0,
-                          ),
-                        ),
-                      ),
-                      Align(
-                          alignment: Alignment.bottomRight,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                Text("${cards.length - index}",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 25.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: "SF-Pro-Text-Regular")),
-                                Text("/ ${cards.length}",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 22.0,
-                                        fontFamily: "SF-Pro-Text-Regular")),
-                              ],
-                            ),
-                          ))
-                    ],
-                  ),
-                ),
-              ),
+            child: CardItem(
+              card: cards[index],
+              cardAspectRatio: cardAspectRatio,
+              position: index,
+              total: cards.length,
             ),
           );
           cardList.add(cardItem);
@@ -197,6 +151,85 @@ class CardScrollWidget extends StatelessWidget {
           children: cardList,
         );
       }),
+    );
+  }
+}
+
+class CardItem extends StatelessWidget {
+  final BusinessCard card;
+  final double cardAspectRatio;
+  final int position;
+  final int total;
+
+  CardItem({this.card, this.cardAspectRatio, this.position, this.total});
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(22.0),
+      child: Container(
+        decoration: BoxDecoration(color: Colors.white, boxShadow: [
+          BoxShadow(color: Colors.black12, offset: Offset(3.0, 6.0), blurRadius: 10.0)
+        ]),
+        child: AspectRatio(
+          aspectRatio: cardAspectRatio,
+          child: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              Image.network(
+                card.imageUrl,
+                fit: BoxFit.cover,
+              ),
+              Container(
+                color: Colors.black12,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Image.asset(
+                    "assets/ic_bell_card.png",
+                    width: 50,
+                    height: 50,
+                  ),
+                ),
+              ),
+              Center(
+                child: ClipRRect(
+                  borderRadius: new BorderRadius.circular(50.0),
+                  child: Image.network(
+                    card.logo,
+                    height: 100.0,
+                    width: 100.0,
+                  ),
+                ),
+              ),
+              if (position != null)
+                Align(
+                    alignment: Alignment.bottomRight,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Text("${total - position}",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: "SF-Pro-Text-Regular")),
+                          Text("/ $total",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22.0,
+                                  fontFamily: "SF-Pro-Text-Regular")),
+                        ],
+                      ),
+                    ))
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

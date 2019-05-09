@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class LoginPage extends StatelessWidget {
+  static const routeName = "/loginPage";
+
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 

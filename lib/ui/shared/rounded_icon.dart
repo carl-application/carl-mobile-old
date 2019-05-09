@@ -20,7 +20,7 @@ class RoundedIcon extends StatelessWidget {
           assetIcon,
           height: 25,
           width: 25,
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
         ),
       ),
     );

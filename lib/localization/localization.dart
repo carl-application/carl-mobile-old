@@ -59,6 +59,8 @@ class Localization {
       ];
 
   String get validate => _getValue(Validate);
+
+  String get add => _getValue(Add);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

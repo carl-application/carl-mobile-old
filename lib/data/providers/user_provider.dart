@@ -18,4 +18,6 @@ abstract class UserProvider {
   Future<bool> hasToken();
 
   Future<List<BusinessCard>> retrieveCards();
+
+  Future<BusinessCard> retrieveCardById(int cardId);
 }

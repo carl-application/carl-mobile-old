@@ -22,6 +22,17 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
       } catch (error) {
         yield CardsLoadingError();
       }
+    } else if (event is RetrieveCardByIdEvent) {
+      yield CardByIdLoading();
+
+      try {
+        final cardId = event.cardId;
+        final card = await _userRepository.retrieveCardById(cardId);
+
+        yield CardByIdLoadingSuccess(card: card);
+      } catch (error) {
+        yield CardByIdLoadingError();
+      }
     }
   }
 }

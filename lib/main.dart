@@ -2,16 +2,19 @@ import 'package:bloc/bloc.dart';
 import 'package:carl/blocs/authentication/authentication_bloc.dart';
 import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/blocs/authentication/authentication_state.dart';
-import 'package:carl/data/providers/user_api_provider.dart';
 import 'package:carl/data/providers/user_dummy_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/localization/localization.dart';
+import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/authenticated/cards_page.dart';
+import 'package:carl/ui/shared/VerticalSlideTransition.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:carl/ui/unauthenticated/login_page.dart';
 import 'package:carl/ui/unauthenticated/unauthenticated_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'blocs/cards/cards_bloc.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -38,12 +41,14 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   AuthenticationBloc _authenticationBloc;
+  CardsBloc _cardsBloc;
 
   UserRepository get userRepository => widget._userRepository;
 
   @override
   void initState() {
     _authenticationBloc = AuthenticationBloc(userRepository);
+    _cardsBloc = CardsBloc(userRepository);
     _authenticationBloc.dispatch(AppStarted());
     super.initState();
   }
@@ -51,27 +56,39 @@ class _AppState extends State<App> {
   @override
   void dispose() {
     _authenticationBloc.dispose();
+    _cardsBloc.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: [
-        const LocalizationDelegate(),
-      ],
-      supportedLocales: [
-        const Locale('en', ''),
-        const Locale('es', ''),
-      ],
-      initialRoute: '/',
-      routes: {
-        // When we navigate to the "/second" route, build the SecondScreen Widget
-        '/login': (context) => LoginPage(),
-      },
-      home: Scaffold(
-        body: CarlTheme(
-          child: BlocProvider<AuthenticationBloc>(
+    return CarlTheme(
+      child: MaterialApp(
+        localizationsDelegates: [
+          const LocalizationDelegate(),
+        ],
+        supportedLocales: [
+          const Locale('en', ''),
+          const Locale('es', ''),
+        ],
+        initialRoute: '/',
+        routes: {
+          LoginPage.routeName: (context) => LoginPage(),
+        },
+        onGenerateRoute: (RouteSettings routeSettings) {
+          final dynamicArguments = routeSettings.arguments;
+          switch (routeSettings.name) {
+            case CardDetailPage.routeName:
+              if (dynamicArguments is int) {
+                return VerticalSlideTransition(
+                  widget: CardDetailPage(dynamicArguments.toInt()),
+                );
+              }
+              break;
+          }
+        },
+        home: Scaffold(
+          body: BlocProvider<AuthenticationBloc>(
             bloc: _authenticationBloc,
             child: BlocBuilder<AuthenticationEvent, AuthenticationState>(
                 bloc: _authenticationBloc,

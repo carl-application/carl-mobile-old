@@ -115,5 +115,10 @@ class UserApiProvider implements UserProvider {
     return cards;
   }
 
+  @override
+  Future<BusinessCard> retrieveCardById(int cardId) {
+    return null;
+  }
+
 
 }

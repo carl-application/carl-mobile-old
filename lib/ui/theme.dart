@@ -16,6 +16,8 @@ class CarlTheme extends InheritedWidget {
   // Dimensions
   get generalPadding => 20.0;
 
+  get pagePadding => EdgeInsets.symmetric(vertical: 20.0, horizontal: 18.0);
+
   // Colors
   get primaryColor => Color.fromRGBO(0, 125, 253, 1);
 
@@ -43,12 +45,20 @@ class CarlTheme extends InheritedWidget {
         ],
       );
 
+  get tagsColors => [Colors.green, Colors.purpleAccent, Colors.pink];
+
+  get percentIndicatorCompleteColor => Color.fromRGBO(126, 211, 33, 1);
+
   // TextStyles
   get title => TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold);
+
+  get bigBlackTitle => TextStyle(color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold);
 
   get blackTitle => TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold);
 
   get greyMediumLabel => TextStyle(color: Colors.grey, fontSize: 18);
+
+  get blackMediumLabel => TextStyle(color: Colors.black, fontSize: 18);
 
   get whiteBigLabel => TextStyle(color: Colors.white, fontSize: 18);
 
@@ -65,9 +75,13 @@ class CarlTheme extends InheritedWidget {
 
   get bigNumber => TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold);
 
+  get blackBigNumber => TextStyle(color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold);
+
+  get blackMediumNumber => TextStyle(color: Colors.black, fontSize: 18);
 
   get littleNumberWhite30 => TextStyle(
         color: Color.fromRGBO(255, 255, 255, 0.8),
         fontSize: 16,
       );
+
 }

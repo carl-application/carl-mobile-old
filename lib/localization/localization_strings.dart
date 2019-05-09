@@ -23,7 +23,8 @@ const String WelcomePageTitle = 'welcome_page_title',
     October = "october",
     November = "novemnber",
     December = "december",
-    Validate = "validate";
+    Validate = "validate",
+    Add = "add";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -52,7 +53,8 @@ final fr = {
   October: "Octobre",
   November: "Novembre",
   December: "Décembre",
-  Validate: "Valider"
+  Validate: "Valider",
+  Add: "Ajouter"
 };
 
 final en = {
@@ -82,5 +84,6 @@ final en = {
   October: "October",
   November: "Novemnber",
   December: "December",
-  Validate: "Validate"
+  Validate: "Validate",
+  Add: "Add"
 };
