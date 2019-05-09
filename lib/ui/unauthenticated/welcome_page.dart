@@ -62,9 +62,11 @@ class WelcomePage extends StatelessWidget {
                       children: <Widget>[
                         CarlButton(
                           text: Localization.of(context).welcomePageRegisterButtonLabel,
+                          textStyle: CarlTheme.of(context).bigButtonLabelStyle,
                           onPressed: () {
                             onRegisterAsked();
                           },
+                          width: MediaQuery.of(context).size.width * 0.8,
                         ),
                         SizedBox(
                           height: 30,

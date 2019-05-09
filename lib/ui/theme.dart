@@ -21,6 +21,8 @@ class CarlTheme extends InheritedWidget {
 
   get accentColor => Color.fromRGBO(0, 71, 250, 1);
 
+  get background => Color.fromRGBO(248, 249, 251, 1);
+
   get mainGradient => LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
@@ -31,9 +33,22 @@ class CarlTheme extends InheritedWidget {
         ],
       );
 
+  get horizontalGradient => LinearGradient(
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+        stops: [0.3, 1],
+        colors: [
+          accentColor,
+          primaryColor,
+        ],
+      );
+
   // TextStyles
-  get title =>
-      TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold);
+  get title => TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold);
+
+  get blackTitle => TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold);
+
+  get greyMediumLabel => TextStyle(color: Colors.grey, fontSize: 18);
 
   get whiteBigLabel => TextStyle(color: Colors.white, fontSize: 18);
 
@@ -46,11 +61,10 @@ class CarlTheme extends InheritedWidget {
   get bigButtonLabelStyle =>
       TextStyle(fontSize: 20, color: accentColor, fontWeight: FontWeight.bold);
 
-  get white30Label =>
-      TextStyle(color: Color.fromRGBO(255, 255, 255, 0.8), fontSize: 16);
+  get white30Label => TextStyle(color: Color.fromRGBO(255, 255, 255, 0.8), fontSize: 16);
 
-  get bigNumber =>
-      TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold);
+  get bigNumber => TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold);
+
 
   get littleNumberWhite30 => TextStyle(
         color: Color.fromRGBO(255, 255, 255, 0.8),

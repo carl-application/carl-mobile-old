@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:carl/data/providers/user_provider.dart';
+import 'package:carl/models/business_card.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/tokens_response.dart';
 import 'package:meta/meta.dart';
@@ -32,5 +33,9 @@ class UserRepository {
 
   Future<bool> hasToken() {
     return userProvider.hasToken();
+  }
+  
+  Future<List<BusinessCard>> retrieveCards() {
+    return userProvider.retrieveCards();
   }
 }

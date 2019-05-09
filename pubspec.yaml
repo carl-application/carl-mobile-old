@@ -59,6 +59,27 @@ flutter:
   - assets/2.0x/ic_carl.png
   - assets/1.5x/ic_carl.png
   - assets/1.0x/ic_carl.png
+  - assets/ic_bell_card.png
+  - assets/3.0x/ic_bell_card.png
+  - assets/2.0x/ic_bell_card.png
+  - assets/1.5x/ic_bell_card.png
+  - assets/1.0x/ic_bell_card.png
+  - assets/ic_search.png
+  - assets/3.0x/ic_search.png
+  - assets/2.0x/ic_search.png
+  - assets/1.5x/ic_search.png
+  - assets/1.0x/ic_search.png
+  - assets/ic_settings.png
+  - assets/3.0x/ic_settings.png
+  - assets/2.0x/ic_settings.png
+  - assets/1.5x/ic_settings.png
+  - assets/1.0x/ic_settings.png
+
+  - assets/image_01.png
+  - assets/image_02.jpg
+  - assets/image_03.jpg
+  - assets/image_04.jpg
+
   - animations/
   #  - images/a_dot_ham.jpeg
 

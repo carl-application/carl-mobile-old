@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:carl/data/api/api.dart';
 import 'package:carl/data/providers/user_provider.dart';
+import 'package:carl/models/business_card.dart';
 import 'package:carl/models/exceptions/email_already_exist_exception.dart';
 import 'package:carl/models/exceptions/server_exception.dart';
 import 'package:carl/models/registration_model.dart';
@@ -14,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const API_BASE_URL = "https://carl-api.herokuapp.com";
 const API_REGISTRATION_URL = "$API_BASE_URL/register";
 const API_REFRESH_TOKEN_URL = "$API_BASE_URL/auth/token";
+const API_RETRIEVE_CARDS = "$API_BASE_URL/user/cards";
 
 const PREFERENCES_ACCESS_TOKEN_KEY = "preferencesAccessTokenKey";
 const PREFERENCES_REFRESH_TOKEN_KEY = "preferencesRefreshTokenKey";
@@ -43,7 +45,7 @@ class UserApiProvider implements UserProvider {
     final lastUpdatedDate =
         DateTime.parse(preferences.getString(PREFERENCES_TOKEN_UPDATED_DATE_KEY));
 
-    final expiredDate = lastUpdatedDate.add(Duration(seconds: expiresIn));
+    final expiredDate = lastUpdatedDate.add(Duration(minutes: expiresIn));
     final now = DateTime.now();
 
     if (now.isAfter(expiredDate)) return false;
@@ -102,4 +104,16 @@ class UserApiProvider implements UserProvider {
     final body = json.decode(response.body.toString());
     return TokensResponse.fromJson(body['authorization']);
   }
+
+  @override
+  Future<List<BusinessCard>> retrieveCards() async {
+    final cards = List();
+    final preferences = await SharedPreferences.getInstance();
+    final accessToken = preferences.getString(PREFERENCES_ACCESS_TOKEN_KEY);
+
+
+    return cards;
+  }
+
+
 }

@@ -106,6 +106,8 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
                           final isLoading = state is RegistrationLoading ? true : false;
                           return CarlButton(
                             isLoading: isLoading,
+                            textStyle: CarlTheme.of(context).bigButtonLabelStyle,
+                            width: MediaQuery.of(context).size.width * 0.8,
                             text: state is RegistrationFailed
                                 ? state.error.toString()
                                 : Localization.of(context).validate.toUpperCase(),

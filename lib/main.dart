@@ -6,6 +6,7 @@ import 'package:carl/data/providers/user_api_provider.dart';
 import 'package:carl/data/providers/user_dummy_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/localization/localization.dart';
+import 'package:carl/ui/authenticated/cards_page.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:carl/ui/unauthenticated/login_page.dart';
 import 'package:carl/ui/unauthenticated/unauthenticated_navigation.dart';
@@ -21,7 +22,7 @@ class SimpleBlocDelegate extends BlocDelegate {
 
 void main() {
   BlocSupervisor().delegate = SimpleBlocDelegate();
-  runApp(App(UserRepository(userProvider: UserApiProvider())));
+  runApp(App(UserRepository(userProvider: UserDummyProvider())));
 }
 
 class App extends StatefulWidget {
@@ -85,14 +86,7 @@ class _AppState extends State<App> {
                   }
 
                   if (state is AuthenticationAuthenticated) {
-                    return Container(
-                        color: Colors.blue,
-                        child: Center(
-                          child: Text(
-                            "Connecté !",
-                            textDirection: TextDirection.ltr,
-                          ),
-                        ));
+                    return CardsPage();
                   }
 
                   return UnauthenticatedNavigation(

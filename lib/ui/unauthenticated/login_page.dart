@@ -1,5 +1,6 @@
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/carl_textfield.dart';
+import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -71,9 +72,11 @@ class LoginPage extends StatelessWidget {
                     ),
                     CarlButton(
                       text: "Valider",
+                      width: MediaQuery.of(context).size.width * 0.8,
                       onPressed: () {
 
                       },
+                      textStyle: CarlTheme.of(context).bigButtonLabelStyle,
                     )
                   ],
                 ),
