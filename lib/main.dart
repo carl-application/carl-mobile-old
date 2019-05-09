@@ -13,6 +13,7 @@ import 'package:carl/ui/theme.dart';
 import 'package:carl/ui/unauthenticated/login_page.dart';
 import 'package:carl/ui/unauthenticated/unauthenticated_navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/cards/cards_bloc.dart';
@@ -63,6 +64,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+
     return CarlTheme(
       child: MaterialApp(
         localizationsDelegates: [

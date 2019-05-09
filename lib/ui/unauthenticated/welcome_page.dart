@@ -2,6 +2,7 @@ import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -11,6 +12,7 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Material(
       child: Container(
         decoration: BoxDecoration(gradient: CarlTheme.of(context).mainGradient),
