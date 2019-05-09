@@ -15,10 +15,11 @@ class RoundedIcon extends StatelessWidget {
         borderRadius: BorderRadius.circular(50.0),
       ),
       child: Material(
-        type: MaterialType.circle,
         color: Colors.transparent,
+        shape: CircleBorder(),
+        clipBehavior: Clip.antiAlias,
         child: InkWell(
-          onTap: (){
+          onTap: () {
             print("ok");
           },
           child: Padding(
