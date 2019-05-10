@@ -6,6 +6,7 @@ import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/blocs/login/login_event.dart';
 import 'package:carl/blocs/login/login_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/models/exceptions/bad_credentials_exception.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc(this._userRepository, this._authenticationBloc);
@@ -29,9 +30,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           password: event.password,
         );
 
+        yield LoginSuccess();
         _authenticationBloc.dispatch(LoggedIn(tokens: tokens));
       } catch (error) {
-        yield LoginFailure(error: error.toString());
+        if (error is BadCredentialsException) {
+          yield LoginCredentialsFailure(error: error.toString());
+        } else {
+          yield LoginFailure(error: error.toString());
+        }
       }
     }
   }

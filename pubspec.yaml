@@ -94,6 +94,16 @@ flutter:
   - assets/2.0x/ic_close.png
   - assets/1.5x/ic_close.png
   - assets/1.0x/ic_close.png
+  - assets/carl_logo.png
+  - assets/3.0x/carl_logo.png
+  - assets/2.0x/carl_logo.png
+  - assets/1.5x/carl_logo.png
+  - assets/1.0x/carl_logo.png
+  - assets/empty_cards.png
+  - assets/3.0x/empty_cards.png
+  - assets/2.0x/empty_cards.png
+  - assets/1.5x/empty_cards.png
+  - assets/1.0x/empty_cards.png
 
   - animations/
   #  - images/a_dot_ham.jpeg

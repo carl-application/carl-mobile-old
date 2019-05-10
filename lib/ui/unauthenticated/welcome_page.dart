@@ -31,12 +31,15 @@ class WelcomePage extends StatelessWidget {
                   Expanded(
                     flex: 1,
                     child: Center(
-                      child: Container(
-                        height: 150,
-                        width: 150,
-                        child: Image.asset(
-                          "assets/ic_carl.png",
-                          fit: BoxFit.contain,
+                      child: Hero(
+                        tag: "loginCarlFace",
+                        child: Container(
+                          height: 150,
+                          width: 150,
+                          child: Image.asset(
+                            "assets/ic_carl.png",
+                            fit: BoxFit.contain,
+                          ),
                         ),
                       ),
                     ),

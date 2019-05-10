@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:carl/data/api/api.dart';
 import 'package:carl/data/providers/user_provider.dart';
 import 'package:carl/models/business_card.dart';
+import 'package:carl/models/exceptions/bad_credentials_exception.dart';
 import 'package:carl/models/exceptions/email_already_exist_exception.dart';
 import 'package:carl/models/exceptions/server_exception.dart';
 import 'package:carl/models/registration_model.dart';
@@ -16,6 +17,7 @@ const API_BASE_URL = "https://carl-api.herokuapp.com";
 const API_REGISTRATION_URL = "$API_BASE_URL/register";
 const API_REFRESH_TOKEN_URL = "$API_BASE_URL/auth/token";
 const API_RETRIEVE_CARDS = "$API_BASE_URL/user/cards";
+const API_LOGIN = "$API_BASE_URL/auth/token";
 
 const PREFERENCES_ACCESS_TOKEN_KEY = "preferencesAccessTokenKey";
 const PREFERENCES_REFRESH_TOKEN_KEY = "preferencesRefreshTokenKey";
@@ -25,8 +27,25 @@ const PREFERENCES_TOKEN_UPDATED_DATE_KEY = "preferencesTokenUpdatedDateKey";
 class UserApiProvider implements UserProvider {
   @override
   Future<TokensResponse> authenticate({String username, String password}) async {
-    await Future.delayed(Duration(seconds: 1));
-    return TokensResponse();
+    final response = await http.post(API_LOGIN,
+        headers: {
+          HttpHeaders.authorizationHeader: Api.getBasicAuthorizationHeader(),
+          HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+        },
+        body: "username=$username&password=$password&grant_type=password");
+
+    if (response.statusCode == 400) {
+      throw BadCredentialsException();
+    }
+    if (response.statusCode != 200) {
+      print("Login failed with code ${response.statusCode}");
+      throw ServerException();
+    }
+
+    print("Login succeed");
+
+    final body = json.decode(response.body.toString());
+    return TokensResponse.fromJson(body);
   }
 
   @override
@@ -107,10 +126,10 @@ class UserApiProvider implements UserProvider {
 
   @override
   Future<List<BusinessCard>> retrieveCards() async {
-    final cards = List();
+    final List<BusinessCard> cards = List();
     final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
 
-    final response = await http.post(
+    final response = await http.get(
       API_RETRIEVE_CARDS,
       headers: {
         HttpHeaders.authorizationHeader: tokenizedHeader,
@@ -127,6 +146,8 @@ class UserApiProvider implements UserProvider {
     final jsonBody = json.decode(response.body.toString());
 
     print("jsonBody of cards is = $jsonBody");
+
+    cards.addAll(List<BusinessCard>.from(jsonBody));
     return cards;
   }
 
