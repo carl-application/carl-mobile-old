@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class RoundedIcon extends StatelessWidget {
   final String assetIcon;
   final Color backgroundColor;
+  final VoidCallback onClick;
 
-  const RoundedIcon({Key key, this.assetIcon, this.backgroundColor = Colors.white})
+  const RoundedIcon({Key key, this.assetIcon, this.backgroundColor = Colors.white, this.onClick})
       : super(key: key);
 
   @override
@@ -20,7 +21,9 @@ class RoundedIcon extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: InkWell(
           onTap: () {
-            print("ok");
+            if(this.onClick != null) {
+              this.onClick();
+            }
           },
           child: Padding(
             padding: const EdgeInsets.all(10.0),

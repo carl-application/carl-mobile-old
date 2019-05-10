@@ -55,7 +55,7 @@ class _CardsPageState extends State<CardsPage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: CarlTheme.of(context).background
+        statusBarColor: Colors.transparent
     ));
     return Container(
       color: CarlTheme.of(context).background,

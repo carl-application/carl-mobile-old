@@ -42,6 +42,39 @@ class _CardDetailPageState extends State<CardDetailPage> {
     super.dispose();
   }
 
+  _showBottomSheet(context) {
+    showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            color: Color(0xFF737373),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).canvasColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+              child: new Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  new ListTile(
+                    leading: new Icon(Icons.music_note),
+                    title: new Text('Music'),
+                  ),
+                  new ListTile(
+                    leading: new Icon(Icons.photo_album),
+                    title: new Text('Photos'),
+                  ),
+                  new ListTile(
+                    leading: new Icon(Icons.videocam),
+                    title: new Text('Video'),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Color> tagsColors = CarlTheme.of(context).tagsColors;
@@ -111,6 +144,9 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                   ),
                                   RoundedIcon(
                                     assetIcon: "assets/ic_option.png",
+                                    onClick: () {
+                                      _showBottomSheet(context);
+                                    },
                                   )
                                 ],
                               ),
@@ -140,7 +176,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                       return Row(
                                         children: <Widget>[
                                           ClipRRect(
-                                            borderRadius: BorderRadius.circular(10.0),
+                                            borderRadius: BorderRadius.circular(15.0),
                                             child: Container(
                                               color: tagsColors[index % tagsColors.length],
                                               child: Center(
@@ -162,7 +198,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                     }),
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 40,
                               ),
                               Column(
                                 children: <Widget>[
@@ -206,7 +242,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 20,
+                                    height: 35,
                                   ),
                                   Container(
                                     width: MediaQuery.of(context).size.width * .8,
