@@ -124,9 +124,10 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                       child: Stack(
                                         fit: StackFit.expand,
                                         children: <Widget>[
-                                          Image.network(
-                                            card.imageUrl,
+                                          FadeInImage(
                                             fit: BoxFit.cover,
+                                            placeholder: AssetImage('assets/carl_face.png'),
+                                            image: NetworkImage(card.imageUrl),
                                           ),
                                           Center(
                                             child: ClipRRect(

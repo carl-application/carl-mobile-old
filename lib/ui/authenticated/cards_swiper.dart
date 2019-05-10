@@ -176,9 +176,10 @@ class CardItem extends StatelessWidget {
           child: Stack(
             fit: StackFit.expand,
             children: <Widget>[
-              Image.network(
-                card.imageUrl,
+              FadeInImage(
                 fit: BoxFit.cover,
+                placeholder: AssetImage('assets/carl_face.png'),
+                image: NetworkImage(card.imageUrl),
               ),
               Container(
                 color: Colors.black12,
