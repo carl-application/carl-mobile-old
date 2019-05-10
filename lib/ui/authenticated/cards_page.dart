@@ -1,11 +1,13 @@
 import 'package:carl/blocs/cards/cards_bloc.dart';
 import 'package:carl/blocs/cards/cards_event.dart';
 import 'package:carl/blocs/cards/cards_state.dart';
+import 'package:carl/data/providers/user_api_provider.dart';
 import 'package:carl/data/providers/user_dummy_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/authenticated/cards_swiper.dart';
 import 'package:carl/ui/shared/carl_button.dart';
+import 'package:carl/ui/shared/error_server.dart';
 import 'package:carl/ui/shared/loader.dart';
 import 'package:carl/ui/shared/rounded_icon.dart';
 import 'package:carl/ui/theme.dart';
@@ -27,7 +29,7 @@ class _CardsPageState extends State<CardsPage> {
   @override
   initState() {
     super.initState();
-    _cardsBloc = CardsBloc(UserRepository(userProvider: UserDummyProvider()));
+    _cardsBloc = CardsBloc(UserRepository(userProvider: UserApiProvider()));
     _cardsBloc.dispatch(RetrieveCardsEvent());
   }
 
@@ -52,6 +54,8 @@ class _CardsPageState extends State<CardsPage> {
           return CardsSwiper(
             cards: state.cards,
           );
+        } else {
+          return ErrorServer();
         }
       },
     );

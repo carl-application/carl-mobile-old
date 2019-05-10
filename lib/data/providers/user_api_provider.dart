@@ -108,10 +108,25 @@ class UserApiProvider implements UserProvider {
   @override
   Future<List<BusinessCard>> retrieveCards() async {
     final cards = List();
-    final preferences = await SharedPreferences.getInstance();
-    final accessToken = preferences.getString(PREFERENCES_ACCESS_TOKEN_KEY);
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
 
+    final response = await http.post(
+      API_RETRIEVE_CARDS,
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
 
+    if (response.statusCode != 200) {
+      print("Error getting cards : ${response.statusCode}");
+      print("Response ${response}");
+      throw ServerException();
+    }
+
+    final jsonBody = json.decode(response.body.toString());
+
+    print("jsonBody of cards is = $jsonBody");
     return cards;
   }
 
@@ -119,6 +134,4 @@ class UserApiProvider implements UserProvider {
   Future<BusinessCard> retrieveCardById(int cardId) {
     return null;
   }
-
-
 }

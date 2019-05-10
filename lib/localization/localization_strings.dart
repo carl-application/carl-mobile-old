@@ -26,7 +26,9 @@ const String WelcomePageTitle = 'welcome_page_title',
     Validate = "validate",
     Add = "add",
     EmptyCardsTitle = "emptyCardsTitle",
-    EmptyCardsDescription = "emptyCardsDescription";
+    EmptyCardsDescription = "emptyCardsDescription",
+    ErrorServerTitle = "errorServerTitle",
+    ErrorServerDescription = "errorServerDescription";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -59,6 +61,8 @@ final fr = {
   Add: "Ajouter",
   EmptyCardsTitle: "Aucune carte de fidélité",
   EmptyCardsDescription: "Cliquer sur le bouton ci-dessous pour scanner votre première carte !",
+  ErrorServerTitle: "Une erreur est survenue",
+  ErrorServerDescription: "Veuillez ré-essayer ultérieurement",
 };
 
 final en = {
@@ -92,4 +96,6 @@ final en = {
   Add: "Add",
   EmptyCardsTitle: "No fidlity cards",
   EmptyCardsDescription: "Click on button to start scanning your first card !",
+  ErrorServerTitle: "An error occured",
+  ErrorServerDescription: "Please try again later",
 };

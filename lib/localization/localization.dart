@@ -65,6 +65,10 @@ class Localization {
   String get emptyCardsTitle => _getValue(EmptyCardsTitle);
 
   String get emptyCardsDescription => _getValue(EmptyCardsDescription);
+
+  String get errorServerTitle => _getValue(ErrorServerTitle);
+
+  String get errorServerDescription => _getValue(ErrorServerDescription);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

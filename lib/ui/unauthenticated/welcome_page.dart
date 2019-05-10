@@ -1,18 +1,23 @@
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/shared/carl_button.dart';
+import 'package:carl/ui/shared/clickable_text.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+
+import 'login_page.dart';
 
 class WelcomePage extends StatelessWidget {
   WelcomePage({this.onRegisterAsked});
 
   final VoidCallback onRegisterAsked;
 
+  _navigateToLogin(context) {
+    Navigator.of(context).pushNamed(LoginPage.routeName);
+  }
+
   @override
   Widget build(BuildContext context) {
-
     return Material(
       child: Container(
         decoration: BoxDecoration(gradient: CarlTheme.of(context).mainGradient),
@@ -75,10 +80,16 @@ class WelcomePage extends StatelessWidget {
                         SizedBox(
                           height: 30,
                         ),
-                        Text(Localization.of(context).welcomePageLoginButtonLabel,
+                        ClickableText(
+                            text: Localization.of(context).welcomePageLoginButtonLabel,
                             textAlign: TextAlign.center,
                             textDirection: TextDirection.ltr,
-                            style: CarlTheme.of(context).white30Label)
+                            textStyle: CarlTheme.of(context).white30Label,
+                            clickedColor: CarlTheme.of(context).primaryColor,
+                            onClick: () {
+                              _navigateToLogin(context);
+                            },
+                        )
                       ],
                     ),
                   )

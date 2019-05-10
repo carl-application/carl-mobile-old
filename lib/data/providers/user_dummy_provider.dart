@@ -82,7 +82,7 @@ class UserDummyProvider implements UserProvider {
   Future<bool> hasToken() async {
     /// write to keystore/keychain
     await Future.delayed(Duration(seconds: 1));
-    return true;
+    return false;
   }
 
   @override
@@ -101,7 +101,7 @@ class UserDummyProvider implements UserProvider {
   Future<List<BusinessCard>> retrieveCards() async {
     await Future.delayed(Duration(seconds: 2));
 
-    return [];
+    return list;
   }
 
   @override
