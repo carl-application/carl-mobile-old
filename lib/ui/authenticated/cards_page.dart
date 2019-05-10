@@ -14,6 +14,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'empty_cards.dart';
+
 class CardsPage extends StatefulWidget {
   @override
   _CardsPageState createState() => _CardsPageState();
@@ -44,6 +46,9 @@ class _CardsPageState extends State<CardsPage> {
             child: Loader(),
           );
         } else if (state is CardsLoadingSuccess) {
+          if (state.cards.isEmpty) {
+            return EmptyCards();
+          }
           return CardsSwiper(
             cards: state.cards,
           );
@@ -54,9 +59,7 @@ class _CardsPageState extends State<CardsPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent
-    ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Container(
       color: CarlTheme.of(context).background,
       child: SafeArea(

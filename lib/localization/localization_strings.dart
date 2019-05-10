@@ -24,7 +24,9 @@ const String WelcomePageTitle = 'welcome_page_title',
     November = "novemnber",
     December = "december",
     Validate = "validate",
-    Add = "add";
+    Add = "add",
+    EmptyCardsTitle = "emptyCardsTitle",
+    EmptyCardsDescription = "emptyCardsDescription";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -54,7 +56,9 @@ final fr = {
   November: "Novembre",
   December: "Décembre",
   Validate: "Valider",
-  Add: "Ajouter"
+  Add: "Ajouter",
+  EmptyCardsTitle: "Aucune carte de fidélité",
+  EmptyCardsDescription: "Cliquer sur le bouton ci-dessous pour scanner votre première carte !",
 };
 
 final en = {
@@ -85,5 +89,7 @@ final en = {
   November: "Novemnber",
   December: "December",
   Validate: "Validate",
-  Add: "Add"
+  Add: "Add",
+  EmptyCardsTitle: "No fidlity cards",
+  EmptyCardsDescription: "Click on button to start scanning your first card !",
 };

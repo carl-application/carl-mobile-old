@@ -101,7 +101,7 @@ class UserDummyProvider implements UserProvider {
   Future<List<BusinessCard>> retrieveCards() async {
     await Future.delayed(Duration(seconds: 2));
 
-    return list;
+    return [];
   }
 
   @override

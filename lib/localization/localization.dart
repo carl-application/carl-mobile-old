@@ -61,6 +61,10 @@ class Localization {
   String get validate => _getValue(Validate);
 
   String get add => _getValue(Add);
+
+  String get emptyCardsTitle => _getValue(EmptyCardsTitle);
+
+  String get emptyCardsDescription => _getValue(EmptyCardsDescription);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {
