@@ -2,7 +2,6 @@ import 'package:carl/blocs/cards/cards_bloc.dart';
 import 'package:carl/blocs/cards/cards_event.dart';
 import 'package:carl/blocs/cards/cards_state.dart';
 import 'package:carl/data/providers/user_api_provider.dart';
-import 'package:carl/data/providers/user_dummy_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/shared/carl_button.dart';
@@ -253,13 +252,15 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                     decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(15.0)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: SingleChildScrollView(
-                                        scrollDirection: Axis.vertical,
-                                        child: Text(card.description ?? "toto",
-                                            textAlign: TextAlign.center,
-                                            style: CarlTheme.of(context).blackMediumLabel),
+                                    child: Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: SingleChildScrollView(
+                                          scrollDirection: Axis.vertical,
+                                          child: Text(card.description ?? "No description",
+                                              textAlign: TextAlign.center,
+                                              style: CarlTheme.of(context).blackMediumLabel),
+                                        ),
                                       ),
                                     ),
                                   )
