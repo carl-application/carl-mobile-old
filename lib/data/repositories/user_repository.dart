@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:carl/data/providers/user_provider.dart';
+import 'package:carl/models/black_listed.dart';
 import 'package:carl/models/business/business_card.dart';
 import 'package:carl/models/business/business_card_detail.dart';
 import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/registration_model.dart';
+import 'package:carl/models/responses/IsBlackListedResponse.dart';
 import 'package:carl/models/responses/tokens_response.dart';
 import 'package:meta/meta.dart';
 
@@ -40,8 +42,20 @@ class UserRepository {
     return userProvider.retrieveCards();
   }
 
+  Future<List<BlackListed>> retrieveBlackListedBusinesses() {
+    return userProvider.retrieveBlackListedBusinesses();
+  }
+
   Future<BusinessCardDetail> retrieveCardById(int cardId) {
     return userProvider.retrieveCardById(cardId);
+  }
+
+  Future<IsBlackListedResponse> isBusinessBlackListed(int businessId) {
+    return userProvider.isBusinessBlackListed(businessId);
+  }
+
+  Future<IsBlackListedResponse> toggleBlackList(int businessId) {
+    return userProvider.toggleBlackList(businessId);
   }
 
   Future<List<Visit>> retrieveVisits(int businessId, int fetchLimit, {DateTime lastFetchedDate}) {

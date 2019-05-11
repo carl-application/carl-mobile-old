@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:carl/data/api/api.dart';
 import 'package:carl/data/providers/user_provider.dart';
+import 'package:carl/models/black_listed.dart';
 import 'package:carl/models/business/business_card.dart';
 import 'package:carl/models/business/business_card_detail.dart';
 import 'package:carl/models/business/visit.dart';
@@ -10,6 +11,7 @@ import 'package:carl/models/exceptions/bad_credentials_exception.dart';
 import 'package:carl/models/exceptions/email_already_exist_exception.dart';
 import 'package:carl/models/exceptions/server_exception.dart';
 import 'package:carl/models/registration_model.dart';
+import 'package:carl/models/responses/IsBlackListedResponse.dart';
 import 'package:carl/models/responses/tokens_response.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -20,6 +22,9 @@ const API_REGISTRATION_URL = "$API_BASE_URL/register";
 const API_REFRESH_TOKEN_URL = "$API_BASE_URL/auth/token";
 const API_RETRIEVE_CARDS = "$API_BASE_URL/user/cards";
 const API_RETRIEVE_VISITS = "$API_BASE_URL/user/visits";
+const API_RETRIEVE_BLACKLISTED = "$API_BASE_URL/user/notifications/blacklist";
+const API_RETRIEVE_IF_BUSINESS_IS_BLACKLISTED = "$API_BASE_URL/user/notifications/blacklist";
+const API_TOGGLE_BLACKLISTED = "$API_BASE_URL/user/notifications/blacklist";
 const API_LOGIN = "$API_BASE_URL/auth/token";
 const API_USER_BUSINESS_META_INFO = "$API_BASE_URL/user/visits/info";
 
@@ -199,5 +204,82 @@ class UserApiProvider implements UserProvider {
 
     visits.addAll((jsonBody as List).map((e) => Visit.fromJson(e)).toList());
     return visits;
+  }
+
+  @override
+  Future<List<BlackListed>> retrieveBlackListedBusinesses() async {
+    final List<BlackListed> blackListed = List();
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+
+    final response = await http.get(
+      API_RETRIEVE_BLACKLISTED,
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      print("Error getting blacklisted cards : ${response.statusCode}");
+      print("Response ${response}");
+      throw ServerException();
+    }
+
+    final jsonBody = json.decode(response.body.toString());
+
+    print("jsonBody of blacklisted is = $jsonBody");
+
+    blackListed.addAll((jsonBody as List).map((e) => BlackListed.fromJson(e)).toList());
+    return blackListed;
+  }
+
+  @override
+  Future<IsBlackListedResponse> isBusinessBlackListed(int businessId) async {
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+
+    final response = await http.get(
+      "$API_RETRIEVE_IF_BUSINESS_IS_BLACKLISTED/$businessId",
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      print("Error getting if business is blacklisted  : ${response.statusCode}");
+      print("Response ${response}");
+      throw ServerException();
+    }
+
+    final jsonBody = json.decode(response.body.toString());
+
+    print("jsonBody is = $jsonBody");
+
+    return IsBlackListedResponse.fromJson(jsonBody);
+  }
+
+  @override
+  Future<IsBlackListedResponse> toggleBlackList(int businessId) async {
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+
+    final response = await http.post(
+      "$API_TOGGLE_BLACKLISTED/$businessId",
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      print("Error toggling blacklisted business  : ${response.statusCode}");
+      print("Response ${response}");
+      throw ServerException();
+    }
+
+    final jsonBody = json.decode(response.body.toString());
+
+    print("jsonBody is = $jsonBody");
+
+    return IsBlackListedResponse.fromJson(jsonBody);
   }
 }

@@ -104,7 +104,7 @@ class VisitItem extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      visit.date.weekday.toString(),
+                      visit.date.day.toString(),
                       style: CarlTheme.of(context).blackMediumLabel,
                     ),
                     SizedBox(

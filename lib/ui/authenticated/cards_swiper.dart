@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:carl/models/black_listed.dart';
 import 'package:carl/models/business/business_card.dart';
+import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
 import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +10,9 @@ import 'package:flutter/widgets.dart';
 
 class CardsSwiper extends StatefulWidget {
   final List<BusinessCard> cards;
+  final List<BlackListed> blackListed;
 
-  const CardsSwiper({Key key, this.cards}) : super(key: key);
+  const CardsSwiper({Key key, this.cards, this.blackListed}) : super(key: key);
 
   @override
   _CardsSwiperState createState() => _CardsSwiperState();
@@ -20,7 +23,9 @@ class _CardsSwiperState extends State<CardsSwiper> {
   BusinessCard currentCard;
   PageController controller;
 
-  get cards => this.widget.cards;
+  get cards => widget.cards;
+
+  get blackListedBusinesses => widget.blackListed;
 
   @override
   void initState() {
@@ -63,9 +68,9 @@ class _CardsSwiperState extends State<CardsSwiper> {
           Stack(
             children: <Widget>[
               CardScrollWidget(
-                currentPage: currentPage,
-                cards: cards,
-              ),
+                  currentPage: currentPage,
+                  cards: cards,
+                  blackListedBusinesses: blackListedBusinesses),
               Positioned.fromRect(
                 rect: Rect.fromPoints(
                     Offset(15, 15), Offset(MediaQuery.of(context).size.width * .75, 2000)),
@@ -81,7 +86,9 @@ class _CardsSwiperState extends State<CardsSwiper> {
                           Navigator.pushNamed(
                             context,
                             CardDetailPage.routeName,
-                            arguments: card.id,
+                            arguments: CardDetailArguments(
+                              card.id
+                            )
                           );
                         },
                         child: Container(color: Colors.transparent));
@@ -102,10 +109,11 @@ var widgetAspectRatio = cardAspectRatio * 1.2;
 class CardScrollWidget extends StatelessWidget {
   final double currentPage;
   final List<BusinessCard> cards;
+  final List<BlackListed> blackListedBusinesses;
   var padding = 15.0;
   var verticalInset = 10.0;
 
-  CardScrollWidget({this.currentPage, this.cards});
+  CardScrollWidget({this.currentPage, this.cards, this.blackListedBusinesses});
 
   @override
   Widget build(BuildContext context) {
@@ -129,6 +137,9 @@ class CardScrollWidget extends StatelessWidget {
         for (var index = 0; index < cards.length; index++) {
           var delta = index - currentPage;
           bool isOnRight = delta > 0;
+          bool isInBlackList = blackListedBusinesses
+              .where((blackListed) => blackListed.blackListedBusiness.id == cards[index].id)
+              .isNotEmpty;
 
           var start =
               padding + max(primaryCardLeft - horizontalInset * -delta * (isOnRight ? 15 : 1), 0.0);
@@ -143,6 +154,7 @@ class CardScrollWidget extends StatelessWidget {
               cardAspectRatio: cardAspectRatio,
               position: index,
               total: cards.length,
+              isBlackListed: isInBlackList,
             ),
           );
           cardList.add(cardItem);
@@ -160,8 +172,9 @@ class CardItem extends StatelessWidget {
   final double cardAspectRatio;
   final int position;
   final int total;
+  final bool isBlackListed;
 
-  CardItem({this.card, this.cardAspectRatio, this.position, this.total});
+  CardItem({this.card, this.cardAspectRatio, this.position, this.total, this.isBlackListed});
 
   @override
   Widget build(BuildContext context) {
@@ -188,11 +201,17 @@ class CardItem extends StatelessWidget {
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: Image.asset(
-                    "assets/ic_bell_card.png",
-                    width: 50,
-                    height: 50,
-                  ),
+                  child: isBlackListed
+                      ? Image.asset(
+                          "assets/notification_off.png",
+                          width: 50,
+                          height: 50,
+                        )
+                      : Image.asset(
+                          "assets/ic_bell_card.png",
+                          width: 50,
+                          height: 50,
+                        ),
                 ),
               ),
               Center(

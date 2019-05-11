@@ -53,6 +53,7 @@ class _CardsPageState extends State<CardsPage> {
           }
           return CardsSwiper(
             cards: state.cards,
+            blackListed: state.blackListedBusinesses,
           );
         } else {
           return ErrorServer();

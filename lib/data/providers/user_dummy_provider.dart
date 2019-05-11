@@ -1,15 +1,18 @@
 import 'package:carl/data/providers/user_provider.dart';
+import 'package:carl/models/black_listed.dart';
 import 'package:carl/models/business/business_card.dart';
 import 'package:carl/models/business/business_card_detail.dart';
 import 'package:carl/models/business/business_image.dart';
 import 'package:carl/models/business/business_tag.dart';
 import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/registration_model.dart';
+import 'package:carl/models/responses/IsBlackListedResponse.dart';
 import 'package:carl/models/responses/tokens_response.dart';
 import 'package:flutter/widgets.dart';
 
 class UserDummyProvider implements UserProvider {
   final list = List<BusinessCard>();
+  var isBlackListed = false;
 
   UserDummyProvider() {
     list.add(BusinessCard(
@@ -112,11 +115,34 @@ class UserDummyProvider implements UserProvider {
   }
 
   @override
-  Future<List<Visit>> retrieveVisits(int businessId, int fetchLimit, {DateTime lastFetchedDate}) async {
+  Future<List<Visit>> retrieveVisits(int businessId, int fetchLimit,
+      {DateTime lastFetchedDate}) async {
     await Future.delayed(Duration(seconds: 1));
     final List<Visit> list = List();
     list.add(Visit(0, DateTime.utc(2019, 5, 11, 9, 20)));
     list.add(Visit(0, DateTime.utc(2019, 4, 11, 9, 20)));
     return list;
+  }
+
+  @override
+  Future<List<BlackListed>> retrieveBlackListedBusinesses() async {
+    await Future.delayed(Duration(milliseconds: 500));
+    final List<BlackListed> list = List();
+    list.add(BlackListed(0, BlackListedBusiness(0)));
+
+    return list;
+  }
+
+  @override
+  Future<IsBlackListedResponse> isBusinessBlackListed(int businessId) async {
+    await Future.delayed(Duration(seconds: 1));
+    return IsBlackListedResponse(isBlackListed: isBlackListed);
+  }
+
+  @override
+  Future<IsBlackListedResponse> toggleBlackList(int businessId) async {
+    await Future.delayed(Duration(seconds: 1));
+    isBlackListed = !isBlackListed;
+    return IsBlackListedResponse(isBlackListed: isBlackListed);
   }
 }

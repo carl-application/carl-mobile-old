@@ -1,28 +1,9 @@
+import 'package:carl/models/black_listed.dart';
 import 'package:carl/models/business/business_card.dart';
-import 'package:carl/models/business/business_card_detail.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class CardsState extends Equatable {
   CardsState([List props = const []]) : super(props);
-}
-
-class Cards extends CardsState {
-  @override
-  String toString() => 'CardsLoadingState';
-}
-
-class CardByIdLoading extends CardsState {
-  @override
-  String toString() => 'CardByIdLoading';
-}
-
-class CardByIdLoadingSuccess extends CardsState {
-  CardByIdLoadingSuccess({this.card});
-
-  final BusinessCardDetail card;
-
-  @override
-  String toString() => 'CardByIdLoadingSuccess';
 }
 
 class CardsLoading extends CardsState {
@@ -31,9 +12,10 @@ class CardsLoading extends CardsState {
 }
 
 class CardsLoadingSuccess extends CardsState {
-  CardsLoadingSuccess({this.cards});
+  CardsLoadingSuccess({this.cards, this.blackListedBusinesses});
 
   final List<BusinessCard> cards;
+  final List<BlackListed> blackListedBusinesses;
 
   @override
   String toString() => 'CardsLoadingSuccess';
@@ -42,9 +24,4 @@ class CardsLoadingSuccess extends CardsState {
 class CardsLoadingError extends CardsState {
   @override
   String toString() => 'CardsLoadingError';
-}
-
-class CardByIdLoadingError extends CardsState {
-  @override
-  String toString() => 'CardByIdLoadingError';
 }

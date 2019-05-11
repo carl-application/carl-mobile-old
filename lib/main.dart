@@ -17,6 +17,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/cards/cards_bloc.dart';
 import 'blocs/login/login_bloc.dart';
+import 'models/navigation_arguments/card_detail_arguments.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -104,9 +105,9 @@ class _AppState extends State<App> {
                     final dynamicArguments = routeSettings.arguments;
                     switch (routeSettings.name) {
                       case CardDetailPage.routeName:
-                        if (dynamicArguments is int) {
+                        if (dynamicArguments is CardDetailArguments) {
                           return VerticalSlideTransition(
-                            widget: CardDetailPage(dynamicArguments.toInt()),
+                            widget: CardDetailPage(dynamicArguments),
                           );
                         }
                         break;

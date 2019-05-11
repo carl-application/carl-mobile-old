@@ -110,6 +110,8 @@ flutter:
   - assets/1.5x/empty_cards.png
   - assets/1.0x/empty_cards.png
 
+  - assets/notification_off.png
+
   - animations/
   #  - images/a_dot_ham.jpeg
 
