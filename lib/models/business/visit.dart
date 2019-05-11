@@ -1,11 +1,13 @@
 class Visit {
   final int id;
-  final DateTime date;
+  final DateTime _date;
 
-  Visit(this.id, this.date);
+  get date => _date.toLocal();
+
+  Visit(this.id, this._date);
 
   @override
-  String toString() => 'Visit { id = $id, date = ${date.toIso8601String()} }';
+  String toString() => 'Visit { id = $id, date = ${_date.toIso8601String()} }';
 
   factory Visit.fromJson(Map<String, dynamic> json) {
     print("parsing json $json");

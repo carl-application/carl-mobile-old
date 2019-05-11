@@ -126,10 +126,9 @@ class VisitItem extends StatelessWidget {
               ),
               Expanded(
                   child: Text(
-                      "${Localization.of(context).at} ${visit.date.hour.toString()} h ${visit.date.minute.toString()} min ${visit.date.second.toString()} sec",
-                    style: CarlTheme.of(context).blackMediumLabel,
-                  )
-              )
+                "${Localization.of(context).at} ${visit.date.hour.toString()} h ${visit.date.minute.toString()} min ${visit.date.second.toString()} sec",
+                style: CarlTheme.of(context).blackMediumLabel,
+              ))
             ],
           ),
         ),

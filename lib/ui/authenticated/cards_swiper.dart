@@ -178,7 +178,7 @@ class CardItem extends StatelessWidget {
             children: <Widget>[
               FadeInImage(
                 fit: BoxFit.cover,
-                placeholder: AssetImage('assets/carl_face.png'),
+                placeholder: AssetImage('assets/carl_logo.png'),
                 image: NetworkImage(card.image.url),
               ),
               Container(
