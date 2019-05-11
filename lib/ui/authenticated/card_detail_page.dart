@@ -8,6 +8,7 @@ import 'package:carl/data/providers/user_api_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
+import 'package:carl/models/navigation_arguments/card_detail_back_arguments.dart';
 import 'package:carl/ui/authenticated/visits_by_user.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/loader.dart';
@@ -36,6 +37,7 @@ class CardDetailPage extends StatefulWidget {
 class _CardDetailPageState extends State<CardDetailPage> {
   CardDetailBloc _cardDetailBloc;
   ToggleBlacklistBloc _toggleBlacklistBloc;
+  bool _isBlackListed = false;
 
   @override
   void initState() {
@@ -50,6 +52,10 @@ class _CardDetailPageState extends State<CardDetailPage> {
     _toggleBlacklistBloc.dispose();
     _cardDetailBloc.dispose();
     super.dispose();
+  }
+
+  _navigateBack(BuildContext context) {
+    Navigator.of(context).pop(CardDetailBackArguments(widget._cardId, _isBlackListed));
   }
 
   _showBottomSheet(context) {
@@ -74,20 +80,23 @@ class _CardDetailPageState extends State<CardDetailPage> {
   Widget _buildIcon(bool isBlackListed) {
     return isBlackListed
         ? RoundedIcon(
-            onClick: () => _toggleBlacklistBloc.dispatch(ToggleNotificationBlackListEvent(cardId: widget._cardId)),
+            onClick: () => _toggleBlacklistBloc
+                .dispatch(ToggleNotificationBlackListEvent(cardId: widget._cardId)),
             assetIcon: "assets/notification_off.png",
           )
         : RoundedIcon(
-            onClick: () => _toggleBlacklistBloc.dispatch(ToggleNotificationBlackListEvent(cardId: widget._cardId)),
+            onClick: () => _toggleBlacklistBloc
+                .dispatch(ToggleNotificationBlackListEvent(cardId: widget._cardId)),
             assetIcon: "assets/ic_bell.png",
           );
   }
 
   Widget _selectNotificationIconByState(ToggleBlacklistState state) {
     if (state is ToggleBlackListSuccess) {
+      _isBlackListed = state.isBlackListed;
       return _buildIcon(state.isBlackListed);
     } else if (state is ToggleBlackListLoading) {
-      return CircularProgressIndicator();
+      return Container(height: 40, width: 40, child: CircularProgressIndicator());
     } else {
       return Container();
     }
@@ -115,6 +124,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                     final percentIndicatorSize = MediaQuery.of(context).size.width * .3;
                     final card = state.card.business;
                     final userProgression = state.card.userVisitsCount;
+                    _isBlackListed = state.isBlackListed;
                     return SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(
@@ -131,7 +141,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                     builder:
                                         (BuildContext context, ToggleBlacklistState toggleState) {
                                       if (toggleState is ToggleBlackInitialState) {
-                                       return  _buildIcon(state.isBlackListed);
+                                        return _buildIcon(state.isBlackListed);
                                       } else {
                                         return _selectNotificationIconByState(toggleState);
                                       }
@@ -313,9 +323,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                   height: 20,
                                 ),
                                 CircleImageInkWell(
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
+                                  onPressed: () => _navigateBack(context),
                                   size: 50,
                                   image: AssetImage('assets/ic_close.png'),
                                   splashColor: Colors.black26,

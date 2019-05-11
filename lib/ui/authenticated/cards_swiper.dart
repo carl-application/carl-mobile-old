@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:carl/models/black_listed.dart';
 import 'package:carl/models/business/business_card.dart';
 import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
+import 'package:carl/models/navigation_arguments/card_detail_back_arguments.dart';
 import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
@@ -25,10 +26,11 @@ class _CardsSwiperState extends State<CardsSwiper> {
 
   get cards => widget.cards;
 
-  get blackListedBusinesses => widget.blackListed;
+  List<BlackListed> blackListedBusinesses;
 
   @override
   void initState() {
+    blackListedBusinesses = widget.blackListed;
     controller = PageController(initialPage: cards.length - 1);
     currentPage = cards.length - 1.0;
     currentCard = cards[cards.length - 1];
@@ -39,6 +41,35 @@ class _CardsSwiperState extends State<CardsSwiper> {
       });
     });
     super.initState();
+  }
+
+  _navigateToDetail(BuildContext context) async {
+    final BusinessCard card = cards[controller.page.toInt()];
+    print("Clicked on card ${card.businessName}");
+    final arguments = await Navigator.pushNamed(context, CardDetailPage.routeName,
+        arguments: CardDetailArguments(card.id));
+
+    print("Arguments back from detail are $arguments");
+    if (arguments is CardDetailBackArguments) {
+      if (arguments.isBlacklisted) {
+        final temp = blackListedBusinesses
+            .where((blackListed) => blackListed.blackListedBusiness.id == arguments.cardId);
+        if (temp.isEmpty) {
+          setState(() {
+            blackListedBusinesses.add(BlackListed(0, BlackListedBusiness(arguments.cardId)));
+          });
+        }
+      } else {
+        final temp = blackListedBusinesses
+            .where((blackListed) => blackListed.blackListedBusiness.id == arguments.cardId);
+        if (temp.isNotEmpty) {
+          setState(() {
+            blackListedBusinesses.removeWhere(
+                (blackListed) => blackListed.blackListedBusiness.id == arguments.cardId);
+          });
+        }
+      }
+    }
   }
 
   @override
@@ -80,17 +111,7 @@ class _CardsSwiperState extends State<CardsSwiper> {
                   reverse: true,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                        onTap: () {
-                          final BusinessCard card = cards[controller.page.toInt()];
-                          print("Clicked on card ${card.businessName}");
-                          Navigator.pushNamed(
-                            context,
-                            CardDetailPage.routeName,
-                            arguments: CardDetailArguments(
-                              card.id
-                            )
-                          );
-                        },
+                        onTap: () => _navigateToDetail(context),
                         child: Container(color: Colors.transparent));
                   },
                 ),
