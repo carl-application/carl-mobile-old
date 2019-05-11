@@ -1,5 +1,6 @@
-import 'package:carl/models/business_card.dart';
-import 'package:carl/models/business_card_detail.dart';
+import 'package:carl/models/business/business_card.dart';
+import 'package:carl/models/business/business_card_detail.dart';
+import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/tokens_response.dart';
 import 'package:flutter/widgets.dart';
@@ -21,4 +22,6 @@ abstract class UserProvider {
   Future<List<BusinessCard>> retrieveCards();
 
   Future<BusinessCardDetail> retrieveCardById(int cardId);
+
+  Future<List<Visit>> retrieveVisits(int businessId, int fetchLimit, {DateTime lastFetchedDate});
 }

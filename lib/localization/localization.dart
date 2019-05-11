@@ -69,6 +69,10 @@ class Localization {
   String get errorServerTitle => _getValue(ErrorServerTitle);
 
   String get errorServerDescription => _getValue(ErrorServerDescription);
+
+  String get visitsHistoricTitle => _getValue(VisitsHistoricTitle);
+
+  String get at => _getValue(At);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

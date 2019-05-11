@@ -60,6 +60,9 @@ class CarlTheme extends InheritedWidget {
 
   get blackMediumLabel => TextStyle(color: Colors.black, fontSize: 18);
 
+  get blackMediumBoldLabel =>
+      TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold);
+
   get whiteBigLabel => TextStyle(color: Colors.white, fontSize: 18);
 
   get blueBigLabel => TextStyle(color: accentColor, fontSize: 18);
@@ -83,5 +86,4 @@ class CarlTheme extends InheritedWidget {
         color: Color.fromRGBO(255, 255, 255, 0.8),
         fontSize: 16,
       );
-
 }

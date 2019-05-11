@@ -4,6 +4,7 @@ import 'package:carl/blocs/cards/cards_state.dart';
 import 'package:carl/data/providers/user_api_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/localization/localization.dart';
+import 'package:carl/ui/authenticated/visits_by_user.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/loader.dart';
 import 'package:carl/ui/shared/rounded_icon.dart';
@@ -53,22 +54,8 @@ class _CardDetailPageState extends State<CardDetailPage> {
                   color: Theme.of(context).canvasColor,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-              child: new Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  new ListTile(
-                    leading: new Icon(Icons.music_note),
-                    title: new Text('Music'),
-                  ),
-                  new ListTile(
-                    leading: new Icon(Icons.photo_album),
-                    title: new Text('Photos'),
-                  ),
-                  new ListTile(
-                    leading: new Icon(Icons.videocam),
-                    title: new Text('Video'),
-                  ),
-                ],
+              child: VisitsByUser(
+                businessId: widget.cardId,
               ),
             ),
           );

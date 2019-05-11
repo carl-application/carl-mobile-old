@@ -1,6 +1,6 @@
 import 'dart:core';
 
-import 'package:carl/models/business_card.dart';
+import 'package:carl/models/business/business_card.dart';
 
 class BusinessCardDetail {
   BusinessCardDetail(this.userVisitsCount, this.business);

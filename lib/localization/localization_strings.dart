@@ -28,7 +28,9 @@ const String WelcomePageTitle = 'welcome_page_title',
     EmptyCardsTitle = "emptyCardsTitle",
     EmptyCardsDescription = "emptyCardsDescription",
     ErrorServerTitle = "errorServerTitle",
-    ErrorServerDescription = "errorServerDescription";
+    ErrorServerDescription = "errorServerDescription",
+    VisitsHistoricTitle = "visitsHistoricTitle",
+    At = "at";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -63,6 +65,8 @@ final fr = {
   EmptyCardsDescription: "Cliquer sur le bouton ci-dessous pour scanner votre première carte !",
   ErrorServerTitle: "Une erreur est survenue",
   ErrorServerDescription: "Veuillez ré-essayer ultérieurement",
+  VisitsHistoricTitle: "Historique des visites",
+  At: "A"
 };
 
 final en = {
@@ -98,4 +102,6 @@ final en = {
   EmptyCardsDescription: "Click on button to start scanning your first card !",
   ErrorServerTitle: "An error occured",
   ErrorServerDescription: "Please try again later",
+  VisitsHistoricTitle: "Visits historic",
+  At: "At"
 };

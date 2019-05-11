@@ -1,5 +1,5 @@
-import 'package:carl/models/business_card.dart';
-import 'package:carl/models/business_card_detail.dart';
+import 'package:carl/models/business/business_card.dart';
+import 'package:carl/models/business/business_card_detail.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class CardsState extends Equatable {

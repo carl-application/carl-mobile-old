@@ -1,7 +1,7 @@
 import 'dart:core';
 
-import 'business_image.dart';
-import 'business_tag.dart';
+import 'package:carl/models/business/business_image.dart';
+import 'package:carl/models/business/business_tag.dart';
 
 class BusinessCard {
   BusinessCard(this.id, this.businessName, this.businessAddress, this.image, this.logo, this.tags,

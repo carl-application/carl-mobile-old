@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:carl/models/business_card.dart';
+import 'package:carl/models/business/business_card.dart';
 import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';

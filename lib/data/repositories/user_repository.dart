@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:carl/data/providers/user_provider.dart';
-import 'package:carl/models/business_card.dart';
-import 'package:carl/models/business_card_detail.dart';
+import 'package:carl/models/business/business_card.dart';
+import 'package:carl/models/business/business_card_detail.dart';
+import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/tokens_response.dart';
 import 'package:meta/meta.dart';
@@ -19,8 +20,7 @@ class UserRepository {
     return userProvider.authenticate(username: username, password: password);
   }
 
-  Future<TokensResponse> register(
-      {@required RegistrationModel registrationModel}) {
+  Future<TokensResponse> register({@required RegistrationModel registrationModel}) {
     return userProvider.register(registrationModel: registrationModel);
   }
 
@@ -35,12 +35,16 @@ class UserRepository {
   Future<bool> hasToken() {
     return userProvider.hasToken();
   }
-  
+
   Future<List<BusinessCard>> retrieveCards() {
     return userProvider.retrieveCards();
   }
 
   Future<BusinessCardDetail> retrieveCardById(int cardId) {
     return userProvider.retrieveCardById(cardId);
+  }
+
+  Future<List<Visit>> retrieveVisits(int businessId, int fetchLimit, {DateTime lastFetchedDate}) {
+    return userProvider.retrieveVisits(businessId, fetchLimit, lastFetchedDate: lastFetchedDate);
   }
 }

@@ -3,8 +3,9 @@ import 'dart:io';
 
 import 'package:carl/data/api/api.dart';
 import 'package:carl/data/providers/user_provider.dart';
-import 'package:carl/models/business_card.dart';
-import 'package:carl/models/business_card_detail.dart';
+import 'package:carl/models/business/business_card.dart';
+import 'package:carl/models/business/business_card_detail.dart';
+import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/exceptions/bad_credentials_exception.dart';
 import 'package:carl/models/exceptions/email_already_exist_exception.dart';
 import 'package:carl/models/exceptions/server_exception.dart';
@@ -18,6 +19,7 @@ const API_BASE_URL = "https://carl-api.herokuapp.com";
 const API_REGISTRATION_URL = "$API_BASE_URL/register";
 const API_REFRESH_TOKEN_URL = "$API_BASE_URL/auth/token";
 const API_RETRIEVE_CARDS = "$API_BASE_URL/user/cards";
+const API_RETRIEVE_VISITS = "$API_BASE_URL/user/visits";
 const API_LOGIN = "$API_BASE_URL/auth/token";
 const API_USER_BUSINESS_META_INFO = "$API_BASE_URL/user/visits/info";
 
@@ -165,10 +167,37 @@ class UserApiProvider implements UserProvider {
       },
     );
 
-    if(response.statusCode != 200) {
+    if (response.statusCode != 200) {
       throw ServerException();
     }
     final jsonBody = json.decode(response.body.toString());
     return BusinessCardDetail.fromJson(jsonBody);
+  }
+
+  @override
+  Future<List<Visit>> retrieveVisits(int businessId, int fetchLimit,
+      {DateTime lastFetchedDate}) async {
+    final List<Visit> visits = List();
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+
+    final response = await http.get(
+      "$API_RETRIEVE_VISITS?businessId=$businessId&fetchLimit=$fetchLimit&lastFetchedDate=${lastFetchedDate != null ? lastFetchedDate.toIso8601String() : ""}",
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+      },
+    );
+
+    if (response.statusCode != 200) {
+      print("Error getting visits : ${response.statusCode}");
+      print("Response $response");
+      throw ServerException();
+    }
+
+    final jsonBody = json.decode(response.body.toString());
+
+    print("jsonBody of visits is = $jsonBody");
+
+    visits.addAll((jsonBody as List).map((e) => Visit.fromJson(e)).toList());
+    return visits;
   }
 }
