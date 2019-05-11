@@ -179,7 +179,7 @@ class CardItem extends StatelessWidget {
               FadeInImage(
                 fit: BoxFit.cover,
                 placeholder: AssetImage('assets/carl_face.png'),
-                image: NetworkImage(card.imageUrl),
+                image: NetworkImage(card.image.url),
               ),
               Container(
                 color: Colors.black12,
@@ -199,7 +199,7 @@ class CardItem extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: new BorderRadius.circular(50.0),
                   child: Image.network(
-                    card.logo,
+                    card.logo.url,
                     height: 100.0,
                     width: 100.0,
                   ),

@@ -1,6 +1,7 @@
 import 'package:carl/blocs/cards/cards_bloc.dart';
 import 'package:carl/blocs/cards/cards_event.dart';
 import 'package:carl/blocs/cards/cards_state.dart';
+import 'package:carl/data/providers/user_api_provider.dart';
 import 'package:carl/data/providers/user_dummy_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/localization/localization.dart';
@@ -32,7 +33,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
   @override
   void initState() {
     super.initState();
-    _cardsBloc = CardsBloc(UserRepository(userProvider: UserDummyProvider()));
+    _cardsBloc = CardsBloc(UserRepository(userProvider: UserApiProvider()));
     _cardsBloc.dispatch(RetrieveCardByIdEvent(cardId: widget.cardId));
   }
 
@@ -95,7 +96,8 @@ class _CardDetailPageState extends State<CardDetailPage> {
                   } else if (state is CardByIdLoadingSuccess) {
                     final cardHeight = MediaQuery.of(context).size.height * .2;
                     final percentIndicatorSize = MediaQuery.of(context).size.width * .3;
-                    final card = state.card;
+                    final card = state.card.business;
+                    final userProgression = state.card.userVisitsCount;
                     return SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(
@@ -127,13 +129,13 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                           FadeInImage(
                                             fit: BoxFit.cover,
                                             placeholder: AssetImage('assets/carl_face.png'),
-                                            image: NetworkImage(card.imageUrl),
+                                            image: NetworkImage(card.image.url),
                                           ),
                                           Center(
                                             child: ClipRRect(
                                               borderRadius: new BorderRadius.circular(50.0),
                                               child: Image.network(
-                                                card.logo,
+                                                card.logo.url,
                                                 height: cardHeight * .3,
                                                 width: cardHeight * .3,
                                               ),
@@ -219,14 +221,14 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                               lineColor: Colors.transparent,
                                               completeColor: CarlTheme.of(context)
                                                   .percentIndicatorCompleteColor,
-                                              completePercent: card.progression / card.total * 100,
+                                              completePercent: userProgression / card.total * 100,
                                               width: 10.0),
                                           child: Center(
                                             child: Row(
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               crossAxisAlignment: CrossAxisAlignment.end,
                                               children: <Widget>[
-                                                Text("${card.progression}",
+                                                Text("$userProgression",
                                                     style: CarlTheme.of(context).blackBigNumber),
                                                 SizedBox(
                                                   width: 5,

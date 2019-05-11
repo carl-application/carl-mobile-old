@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:carl/data/api/api.dart';
 import 'package:carl/data/providers/user_provider.dart';
 import 'package:carl/models/business_card.dart';
+import 'package:carl/models/business_card_detail.dart';
 import 'package:carl/models/exceptions/bad_credentials_exception.dart';
 import 'package:carl/models/exceptions/email_already_exist_exception.dart';
 import 'package:carl/models/exceptions/server_exception.dart';
@@ -18,6 +19,7 @@ const API_REGISTRATION_URL = "$API_BASE_URL/register";
 const API_REFRESH_TOKEN_URL = "$API_BASE_URL/auth/token";
 const API_RETRIEVE_CARDS = "$API_BASE_URL/user/cards";
 const API_LOGIN = "$API_BASE_URL/auth/token";
+const API_USER_BUSINESS_META_INFO = "$API_BASE_URL/user/visits/info";
 
 const PREFERENCES_ACCESS_TOKEN_KEY = "preferencesAccessTokenKey";
 const PREFERENCES_REFRESH_TOKEN_KEY = "preferencesRefreshTokenKey";
@@ -147,12 +149,26 @@ class UserApiProvider implements UserProvider {
 
     print("jsonBody of cards is = $jsonBody");
 
-    cards.addAll(List<BusinessCard>.from(jsonBody));
+    cards.addAll((jsonBody as List).map((e) => BusinessCard.fromJson(e)).toList());
     return cards;
   }
 
   @override
-  Future<BusinessCard> retrieveCardById(int cardId) {
-    return null;
+  Future<BusinessCardDetail> retrieveCardById(int cardId) async {
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+
+    final response = await http.get(
+      "$API_USER_BUSINESS_META_INFO/$cardId",
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if(response.statusCode != 200) {
+      throw ServerException();
+    }
+    final jsonBody = json.decode(response.body.toString());
+    return BusinessCardDetail.fromJson(jsonBody);
   }
 }

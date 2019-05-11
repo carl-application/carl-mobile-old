@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:carl/data/providers/user_provider.dart';
 import 'package:carl/models/business_card.dart';
+import 'package:carl/models/business_card_detail.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/tokens_response.dart';
 import 'package:meta/meta.dart';
@@ -39,7 +40,7 @@ class UserRepository {
     return userProvider.retrieveCards();
   }
 
-  Future<BusinessCard> retrieveCardById(int cardId) {
+  Future<BusinessCardDetail> retrieveCardById(int cardId) {
     return userProvider.retrieveCardById(cardId);
   }
 }

@@ -64,47 +64,49 @@ class _CardsPageState extends State<CardsPage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    return Container(
-      color: CarlTheme.of(context).background,
-      child: SafeArea(
-          child: Padding(
-        padding: CarlTheme.of(context).pagePadding,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 1,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  RoundedIcon(
-                    assetIcon: "assets/ic_settings.png",
-                  ),
-                  RoundedIcon(
-                    assetIcon: "assets/ic_search.png",
-                  )
-                ],
+    return Scaffold(
+      body: Container(
+        color: CarlTheme.of(context).background,
+        child: SafeArea(
+            child: Padding(
+          padding: CarlTheme.of(context).pagePadding,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                flex: 1,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    RoundedIcon(
+                      assetIcon: "assets/ic_settings.png",
+                    ),
+                    RoundedIcon(
+                      assetIcon: "assets/ic_search.png",
+                    )
+                  ],
+                ),
               ),
-            ),
-            Expanded(
-              flex: 8,
-              child: _renderBody(context),
-            ),
-            Expanded(
-              flex: 1,
-              child: Center(
-                  child: CarlButton(
-                text: Localization.of(context).add,
-                onPressed: () {},
-                width: MediaQuery.of(context).size.width * .5,
-                height: 20,
-                color: CarlTheme.of(context).accentColor,
-                textStyle: CarlTheme.of(context).whiteBigLabel,
-              )),
-            ),
-          ],
-        ),
-      )),
+              Expanded(
+                flex: 8,
+                child: _renderBody(context),
+              ),
+              Expanded(
+                flex: 1,
+                child: Center(
+                    child: CarlButton(
+                  text: Localization.of(context).add,
+                  onPressed: () {},
+                  width: MediaQuery.of(context).size.width * .5,
+                  height: 20,
+                  color: CarlTheme.of(context).accentColor,
+                  textStyle: CarlTheme.of(context).whiteBigLabel,
+                )),
+              ),
+            ],
+          ),
+        )),
+      ),
     );
   }
 }

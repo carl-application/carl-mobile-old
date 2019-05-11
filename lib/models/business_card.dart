@@ -1,44 +1,32 @@
 import 'dart:core';
 
+import 'business_image.dart';
+import 'business_tag.dart';
+
 class BusinessCard {
-  BusinessCard(this.id, this.businessName, this.businessAddress, this.imageUrl, this.logo,
-      this.tags, this.progression, this.total, this.description);
+  BusinessCard(this.id, this.businessName, this.businessAddress, this.image, this.logo, this.tags,
+      this.total, this.description);
 
   final int id;
   final String businessName;
   final String businessAddress;
-  final String imageUrl;
-  final String logo;
+  final BusinessImage image;
+  final BusinessImage logo;
   final List<Tag> tags;
-  final int progression;
   final int total;
   final String description;
 
   factory BusinessCard.fromJson(Map<String, dynamic> json) {
+    print("Parsing json $json");
     return BusinessCard(
       json["id"] ?? 0,
-      json["businessName"] ?? "Wrong name",
-      json["businessAddress"] ?? "Wrong address",
-      json["imageUrl"] ?? "Wrong url",
-      json["logo"] ?? "Wrong logo",
-      json["tags"].map((e) => Tag.fromJson(e)).toList(),
-      json["progression"] ?? 2,
-      json["total"] ?? 10,
-      json["description"] ?? "Wrong description",
-    );
-  }
-}
-
-class Tag {
-  final int id;
-  final String name;
-
-  Tag(this.id, this.name);
-
-  factory Tag.fromJson(Map<String, dynamic> json) {
-    return Tag(
-      json["id"] ?? 0,
-      json["name"] ?? "Wrong tag",
+      json["name"] ?? "Wrong name",
+      json["address"] ?? "Wrong address",
+      json["image"] != null ? BusinessImage.fromJson(json["image"]) : BusinessImage(0, "Wrong image"),
+      json["logo"] != null ? BusinessImage.fromJson(json["logo"]) : BusinessImage(1, "Wrong url"),
+      json["tags"] != null ? (json["tags"] as List).map((e) => Tag.fromJson(e)).toList() : [],
+      json["fidelityMax"] ?? 10,
+      json["description"] ?? "No description",
     );
   }
 }

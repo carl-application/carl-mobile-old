@@ -32,6 +32,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
 
         yield CardByIdLoadingSuccess(card: card);
       } catch (error) {
+        print("card by id loading error $error");
         yield CardByIdLoadingError();
       }
     }

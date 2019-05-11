@@ -1,5 +1,8 @@
 import 'package:carl/data/providers/user_provider.dart';
 import 'package:carl/models/business_card.dart';
+import 'package:carl/models/business_card_detail.dart';
+import 'package:carl/models/business_image.dart';
+import 'package:carl/models/business_tag.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/tokens_response.dart';
 import 'package:flutter/widgets.dart';
@@ -12,8 +15,8 @@ class UserDummyProvider implements UserProvider {
         0,
         "Midi Pile",
         "74 rue Chaptal, Levallois",
-        "https://picsum.photos/id/200/200",
-        "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png",
+        BusinessImage(0, "https://picsum.photos/id/200/200"),
+        BusinessImage(0, "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"),
         [
           Tag(0, "Salade"),
           Tag(1, "Fraicheur"),
@@ -21,17 +24,15 @@ class UserDummyProvider implements UserProvider {
           Tag(3, "Boissons"),
           Tag(4, "Tomate"),
         ],
-        8,
         10,
         "Une salade offerte pour 10 achetées !"));
     list.add(BusinessCard(
         1,
         "KFC",
         "30 rue du Bucket",
-        "https://picsum.photos/id/201/200",
-        "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png",
+        BusinessImage(0, "https://picsum.photos/id/201/200"),
+        BusinessImage(0, "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"),
         [Tag(0, "poulet")],
-        4,
         5,
         "Un bucket offert pour 5 achetés !"));
 
@@ -39,30 +40,27 @@ class UserDummyProvider implements UserProvider {
         2,
         "Les fleurs du marché",
         "30 rue de la rose",
-        "https://picsum.photos/id/202/200",
-        "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png",
+        BusinessImage(0, "https://picsum.photos/id/202/200"),
+        BusinessImage(0, "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"),
         [Tag(0, "fleurs")],
-        13,
         15,
         "Le bouquer offert pour 15 achats"));
     list.add(BusinessCard(
         3,
         "La boulangerie du coin",
         "30 rue de la broche",
-        "https://picsum.photos/id/203/200",
-        "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png",
+        BusinessImage(0, "https://picsum.photos/id/203/200"),
+        BusinessImage(0, "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"),
         [Tag(0, "pain")],
-        2,
         10,
         "Un menu midi offert pour 10 achetés"));
     list.add(BusinessCard(
         4,
         "Pizza Victoria",
         "80 rue de la tagliatelle",
-        "https://picsum.photos/id/204/200",
-        "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png",
+        BusinessImage(0, "https://picsum.photos/id/204/200"),
+        BusinessImage(0, "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"),
         [Tag(0, "pizza")],
-        1,
         5,
         "La pizza maxi offerte pour l'achat de 5 pizzas, c'est vraiment une affaire à pas louper moi je vous le dis wallah je fais un message super loooooooooooooooong !"));
   }
@@ -105,8 +103,10 @@ class UserDummyProvider implements UserProvider {
   }
 
   @override
-  Future<BusinessCard> retrieveCardById(int cardId) async {
+  Future<BusinessCardDetail> retrieveCardById(int cardId) async {
     await Future.delayed(Duration(seconds: 1));
-    return list.firstWhere((businessCard) => businessCard.id == cardId);
+    final businessCard = list.firstWhere((businessCard) => businessCard.id == cardId);
+
+    return BusinessCardDetail(cardId + 1, businessCard);
   }
 }

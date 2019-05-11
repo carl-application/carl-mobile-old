@@ -1,4 +1,5 @@
 import 'package:carl/models/business_card.dart';
+import 'package:carl/models/business_card_detail.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class CardsState extends Equatable {
@@ -18,7 +19,7 @@ class CardByIdLoading extends CardsState {
 class CardByIdLoadingSuccess extends CardsState {
   CardByIdLoadingSuccess({this.card});
 
-  final BusinessCard card;
+  final BusinessCardDetail card;
 
   @override
   String toString() => 'CardByIdLoadingSuccess';
