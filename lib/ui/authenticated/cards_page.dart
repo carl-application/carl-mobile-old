@@ -5,7 +5,9 @@ import 'package:carl/data/providers/user_api_provider.dart';
 import 'package:carl/data/providers/user_dummy_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/localization/localization.dart';
+import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
 import 'package:carl/ui/authenticated/cards_swiper.dart';
+import 'package:carl/ui/authenticated/nfc_scan_page.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/error_server.dart';
 import 'package:carl/ui/shared/loader.dart';
@@ -37,6 +39,10 @@ class _CardsPageState extends State<CardsPage> {
   dispose() {
     _cardsBloc.dispose();
     super.dispose();
+  }
+
+  _navigateToScan(BuildContext context) {
+    Navigator.of(context).pushNamed(NfcScanPage.routeName, arguments: CallSource.home);
   }
 
   Widget _renderBody(context) {
@@ -97,7 +103,7 @@ class _CardsPageState extends State<CardsPage> {
                 child: Center(
                     child: CarlButton(
                   text: Localization.of(context).add,
-                  onPressed: () {},
+                  onPressed: () => _navigateToScan(context),
                   width: MediaQuery.of(context).size.width * .5,
                   height: 20,
                   color: CarlTheme.of(context).accentColor,

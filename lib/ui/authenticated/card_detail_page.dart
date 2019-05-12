@@ -9,6 +9,8 @@ import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
 import 'package:carl/models/navigation_arguments/card_detail_back_arguments.dart';
+import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
+import 'package:carl/ui/authenticated/nfc_scan_page.dart';
 import 'package:carl/ui/authenticated/visits_by_user.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/loader.dart';
@@ -52,6 +54,10 @@ class _CardDetailPageState extends State<CardDetailPage> {
     _toggleBlacklistBloc.dispose();
     _cardDetailBloc.dispose();
     super.dispose();
+  }
+
+  _navigateToScan(BuildContext context) {
+    Navigator.of(context).pushNamed(NfcScanPage.routeName, arguments: CallSource.detail);
   }
 
   _navigateBack(BuildContext context) {
@@ -243,7 +249,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                 Column(
                                   children: <Widget>[
                                     Material(
-                                      elevation: 20,
+                                      elevation: 10,
                                       type: MaterialType.circle,
                                       color: Colors.transparent,
                                       child: Container(
@@ -271,9 +277,11 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                                     width: 5,
                                                   ),
                                                   Text("/",
-                                                      style: CarlTheme.of(context).blackMediumNumber),
+                                                      style:
+                                                          CarlTheme.of(context).blackMediumNumber),
                                                   Text("${card.total}",
-                                                      style: CarlTheme.of(context).blackMediumNumber),
+                                                      style:
+                                                          CarlTheme.of(context).blackMediumNumber),
                                                 ],
                                               ),
                                             ),
@@ -315,7 +323,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                 children: <Widget>[
                                   CarlButton(
                                     text: Localization.of(context).add,
-                                    onPressed: () {},
+                                    onPressed: () => _navigateToScan(context),
                                     width: MediaQuery.of(context).size.width * .5,
                                     height: 20,
                                     color: CarlTheme.of(context).accentColor,
