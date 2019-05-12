@@ -38,6 +38,16 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       yield AuthenticationLoading();
       await _userRepository.persistTokens(
           event.tokens.accessToken, event.tokens.refreshToken, event.tokens.expiresIn);
+
+      try {
+        if (firebaseMessaging != null) {
+          final notificationsToken = await firebaseMessaging.getToken();
+          await _userRepository.updateNotificationsToken(notificationsToken);
+        }
+      } catch (error) {
+        print("Error updating notifications token : $error");
+      }
+
       yield AuthenticationAuthenticated();
     }
 
