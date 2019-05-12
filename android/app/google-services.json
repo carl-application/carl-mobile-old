@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "791112122663",
+    "firebase_url": "https://carl-application.firebaseio.com",
+    "project_id": "carl-application",
+    "storage_bucket": "carl-application.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791112122663:android:f7f5425a0d4516b8",
+        "android_client_info": {
+          "package_name": "com.thomasecalle.carl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791112122663-na1gdfda2f5brk7213q8uo6697hc189b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAT3Bjoav7FMHpzKkQbXOrE7u2lsaVHZQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791112122663-na1gdfda2f5brk7213q8uo6697hc189b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

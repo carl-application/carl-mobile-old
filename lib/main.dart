@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:carl/blocs/authentication/authentication_bloc.dart';
 import 'package:carl/blocs/authentication/authentication_event.dart';
@@ -13,6 +15,7 @@ import 'package:carl/ui/shared/splash_screen_page.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:carl/ui/unauthenticated/login_page.dart';
 import 'package:carl/ui/unauthenticated/unauthenticated_navigation.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -47,16 +50,46 @@ class _AppState extends State<App> {
   AuthenticationBloc _authenticationBloc;
   LoginBloc _loginBloc;
   CardsBloc _cardsBloc;
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
   UserRepository get userRepository => widget._userRepository;
 
   @override
   void initState() {
+    super.initState();
     _authenticationBloc = AuthenticationBloc(userRepository);
     _loginBloc = LoginBloc(userRepository, _authenticationBloc);
     _cardsBloc = CardsBloc(userRepository);
     _authenticationBloc.dispatch(AppStarted());
-    super.initState();
+    firebaseCloudMessaging_Listeners();
+  }
+
+  void firebaseCloudMessaging_Listeners() {
+    if (Platform.isIOS) iOS_Permission();
+
+    _firebaseMessaging.getToken().then((token) {
+      print(token);
+    });
+
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('on message $message');
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print('on resume $message');
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print('on launch $message');
+      },
+    );
+  }
+
+  void iOS_Permission() {
+    _firebaseMessaging.requestNotificationPermissions(
+        IosNotificationSettings(sound: true, badge: true, alert: true));
+    _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
+      print("Settings registered: $settings");
+    });
   }
 
   @override
