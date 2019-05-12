@@ -1,6 +1,7 @@
 import 'package:carl/models/black_listed.dart';
 import 'package:carl/models/business/business_card.dart';
 import 'package:carl/models/business/business_card_detail.dart';
+import 'package:carl/models/business/business_image.dart';
 import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/IsBlackListedResponse.dart';
@@ -24,6 +25,8 @@ abstract class UserProvider {
   Future<void> updateNotificationsToken(String notificationsToken);
 
   Future<List<BusinessCard>> retrieveCards();
+
+  Future<BusinessImage> getImageById(int id);
 
   Future<List<BlackListed>> retrieveBlackListedBusinesses();
 

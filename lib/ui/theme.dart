@@ -71,10 +71,10 @@ class CarlTheme extends InheritedWidget {
 
   get blueSmallLabel => TextStyle(color: accentColor, fontSize: 15);
 
-  get whiteMediumLabel => TextStyle(color: Colors.white, fontSize: 18);
+  get whiteMediumLabel => TextStyle(color: Colors.white, fontSize: 14);
 
   get bigButtonLabelStyle =>
-      TextStyle(fontSize: 20, color: accentColor, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 16, color: accentColor, fontWeight: FontWeight.bold);
 
   get white30Label => TextStyle(color: Color.fromRGBO(255, 255, 255, 0.8), fontSize: 16);
 

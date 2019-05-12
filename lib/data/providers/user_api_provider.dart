@@ -6,6 +6,7 @@ import 'package:carl/data/providers/user_provider.dart';
 import 'package:carl/models/black_listed.dart';
 import 'package:carl/models/business/business_card.dart';
 import 'package:carl/models/business/business_card_detail.dart';
+import 'package:carl/models/business/business_image.dart';
 import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/exceptions/bad_credentials_exception.dart';
 import 'package:carl/models/exceptions/email_already_exist_exception.dart';
@@ -28,6 +29,7 @@ const API_TOGGLE_BLACKLISTED = "$API_BASE_URL/user/notifications/blacklist";
 const API_LOGIN = "$API_BASE_URL/auth/token";
 const API_USER_BUSINESS_META_INFO = "$API_BASE_URL/user/visits/info";
 const API_UPDATE_NOTIFICATION_TOKEN = "$API_BASE_URL/user/notifications/token";
+const API_GET_IMAGE_BY_ID = "$API_BASE_URL/images";
 
 const PREFERENCES_ACCESS_TOKEN_KEY = "preferencesAccessTokenKey";
 const PREFERENCES_REFRESH_TOKEN_KEY = "preferencesRefreshTokenKey";
@@ -303,5 +305,30 @@ class UserApiProvider implements UserProvider {
     print("jsonBody is = $jsonBody");
 
     return IsBlackListedResponse.fromJson(jsonBody);
+  }
+
+  @override
+  Future<BusinessImage> getImageById(int id) async {
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+
+    final response = await http.get(
+      "$API_GET_IMAGE_BY_ID/$id",
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      print("Error getting image by id  : ${response.statusCode}");
+      print("Response ${response}");
+      throw ServerException();
+    }
+
+    final jsonBody = json.decode(response.body.toString());
+
+    print("jsonBody is = $jsonBody");
+
+    return BusinessImage.fromJson(jsonBody);
   }
 }

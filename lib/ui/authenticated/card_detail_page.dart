@@ -330,9 +330,8 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                     text: Localization.of(context).add,
                                     onPressed: () => _navigateToScan(context),
                                     width: MediaQuery.of(context).size.width * .5,
-                                    height: 20,
                                     color: CarlTheme.of(context).accentColor,
-                                    textStyle: CarlTheme.of(context).whiteBigLabel,
+                                    textStyle: CarlTheme.of(context).whiteMediumLabel,
                                   ),
                                   SizedBox(
                                     height: 20,

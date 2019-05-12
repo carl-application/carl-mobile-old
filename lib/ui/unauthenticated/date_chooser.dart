@@ -39,14 +39,14 @@ class _DateChooserState extends State<DateChooser> {
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
                   icon: Container(
-                    width: 20,
-                    height: 20,
+                    width: 15,
+                    height: 15,
                     child: Material(
                       shape: CircleBorder(),
                       color: CarlTheme.of(context).accentColor,
                       child: Icon(
                         Icons.expand_more,
-                        size: 15,
+                        size: 10,
                         color: Colors.white,
                       ),
                     ),
@@ -58,12 +58,9 @@ class _DateChooserState extends State<DateChooser> {
                   items: values.map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          value,
-                          style: CarlTheme.of(context).blueSmallLabel,
-                        ),
+                      child: Text(
+                        value,
+                        style: CarlTheme.of(context).blueSmallLabel,
                       ),
                     );
                   }).toList(),

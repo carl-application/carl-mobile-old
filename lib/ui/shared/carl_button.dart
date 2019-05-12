@@ -1,17 +1,15 @@
-import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CarlButton extends StatelessWidget {
-  CarlButton({
-    @required this.text,
-    @required this.onPressed,
-    this.isLoading = false,
-    this.width,
-    this.height = 30,
-    this.color = Colors.white,
-    this.textStyle
-  });
+  CarlButton(
+      {@required this.text,
+      @required this.onPressed,
+      this.isLoading = false,
+      this.width,
+      this.height = 20,
+      this.color = Colors.white,
+      this.textStyle});
 
   final String text;
   final VoidCallback onPressed;
@@ -28,14 +26,14 @@ class CarlButton extends StatelessWidget {
       colorBrightness: Theme.of(context).brightness,
       color: color,
       elevation: 10,
-      padding: EdgeInsets.only(top: 20, right: 30, bottom: 20, left: 30),
+      padding: EdgeInsets.only(top: 15, right: 30, bottom: 15, left: 30),
       shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
       child: Container(
-        height: height,
         width: width,
+        height: height,
         child: Center(
             child: isLoading
-                ? CircularProgressIndicator()
+                ? Container(height: 20, width: 20, child: CircularProgressIndicator())
                 : Text(text, style: textStyle)),
       ),
       onPressed: isLoading ? null : onPressed,

@@ -113,6 +113,17 @@ class UserDummyProvider implements UserProvider {
   }
 
   @override
+  Future<BusinessImage> getImageById(int id) async {
+    await Future.delayed(Duration(milliseconds: 600));
+    final item = list.firstWhere((businessCard) => businessCard.image.id == id);
+    if (item != null) {
+      return item.image;
+    } else {
+      return BusinessImage(0, "oo");
+    }
+  }
+
+  @override
   Future<BusinessCardDetail> retrieveCardById(int cardId) async {
     await Future.delayed(Duration(seconds: 1));
     final businessCard = list.firstWhere((businessCard) => businessCard.id == cardId);

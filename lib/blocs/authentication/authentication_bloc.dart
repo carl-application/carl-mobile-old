@@ -18,12 +18,16 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
     if (event is AppStarted) {
       final bool hasToken = await _userRepository.hasToken();
 
-      if(firebaseMessaging != null) {
-        final notificationsToken = await firebaseMessaging.getToken();
-        await _userRepository.updateNotificationsToken(notificationsToken);
-      }
-
       if (hasToken) {
+        try {
+          if (firebaseMessaging != null) {
+            final notificationsToken = await firebaseMessaging.getToken();
+            await _userRepository.updateNotificationsToken(notificationsToken);
+          }
+        } catch (error) {
+          print("Error updating notifications token : $error");
+        }
+
         yield AuthenticationAuthenticated();
       } else {
         yield AuthenticationUnauthenticated();

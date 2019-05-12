@@ -6,6 +6,8 @@ class CarlTextField extends StatelessWidget {
       {@required this.hintText,
       @required this.controller,
       this.obscureText = false,
+      this.textStyle,
+      this.hintStyle,
       this.textInputAction,
       this.onSubmitted,
       this.focusNode});
@@ -16,6 +18,8 @@ class CarlTextField extends StatelessWidget {
   final TextInputAction textInputAction;
   final Function(String) onSubmitted;
   final FocusNode focusNode;
+  final TextStyle textStyle;
+  final TextStyle hintStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +33,16 @@ class CarlTextField extends StatelessWidget {
         focusNode: focusNode,
         controller: controller,
         textInputAction: textInputAction,
-        style: TextStyle(color: Colors.white, fontSize: 20),
+        style: textStyle ?? TextStyle(color: Colors.white, fontSize: 20),
         textDirection: TextDirection.ltr,
         obscureText: obscureText,
         decoration: InputDecoration(
           border: InputBorder.none,
           filled: false,
-          hintStyle: TextStyle(
-            color: Colors.grey[800],
-          ),
+          hintStyle: hintStyle ??
+              TextStyle(
+                color: Colors.white,
+              ),
           hintText: hintText,
         ),
       ),

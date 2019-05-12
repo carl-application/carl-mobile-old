@@ -10,8 +10,8 @@ class BusinessCard {
   final int id;
   final String businessName;
   final String businessAddress;
-  final BusinessImage image;
-  final BusinessImage logo;
+  BusinessImage image;
+  BusinessImage logo;
   final List<Tag> tags;
   final int total;
   final String description;

@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
         decoration: BoxDecoration(gradient: CarlTheme.of(context).mainGradient),
         child: SafeArea(
           child: Padding(
-            padding: EdgeInsets.all(40),
+            padding: CarlTheme.of(context).pagePadding,
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
@@ -78,19 +78,19 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () => Navigator.pop(context),
                           icon: Icon(
                             Icons.arrow_back,
-                            size: 30,
+                            size: 25,
                             color: Colors.white,
                           ),
                         ),
                         SizedBox(
-                          height: 40,
+                          height: 10,
                         ),
                         Center(
                           child: Hero(
                             tag: "loginCarlFace",
                             child: Container(
-                              height: 150,
-                              width: 150,
+                              height: 100,
+                              width: 100,
                               child: Image.asset(
                                 "assets/ic_carl.png",
                                 fit: BoxFit.contain,
@@ -104,7 +104,7 @@ class _LoginPageState extends State<LoginPage> {
                   Column(
                     children: <Widget>[
                       SizedBox(
-                        height: 100,
+                        height: 40,
                       ),
                       CarlTextField(
                         hintText: "Email",
