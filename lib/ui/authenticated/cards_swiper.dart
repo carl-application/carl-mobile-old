@@ -92,6 +92,8 @@ class _CardsSwiperState extends State<CardsSwiper> {
                 Text(
                   currentCard.businessAddress,
                   style: CarlTheme.of(context).greyMediumLabel,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 )
               ],
             ),
@@ -242,6 +244,7 @@ class CardItem extends StatelessWidget {
                     card.logo.url,
                     height: 100.0,
                     width: 100.0,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),

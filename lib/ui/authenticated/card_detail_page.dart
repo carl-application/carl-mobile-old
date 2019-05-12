@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:carl/blocs/card_detail/card_detail_bloc.dart';
 import 'package:carl/blocs/card_detail/card_detail_event.dart';
 import 'package:carl/blocs/card_detail/card_detail_state.dart';
@@ -36,7 +38,7 @@ class CardDetailPage extends StatefulWidget {
   _CardDetailPageState createState() => _CardDetailPageState();
 }
 
-class _CardDetailPageState extends State<CardDetailPage> {
+class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStateMixin {
   CardDetailBloc _cardDetailBloc;
   ToggleBlacklistBloc _toggleBlacklistBloc;
   bool _isBlackListed = false;
@@ -129,7 +131,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                       );
                     } else if (state is CardByIdLoadingSuccess) {
                       final cardHeight = MediaQuery.of(context).size.height * .2;
-                      final percentIndicatorSize = MediaQuery.of(context).size.width * .3;
+                      final percentIndicatorSize = MediaQuery.of(context).size.width * .25;
                       final card = state.card.business;
                       final userProgression = state.card.userVisitsCount;
                       _isBlackListed = state.isBlackListed;
@@ -181,6 +183,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                                   card.logo.url,
                                                   height: cardHeight * .3,
                                                   width: cardHeight * .3,
+                                                  fit: BoxFit.cover,
                                                 ),
                                               ),
                                             ),
@@ -208,13 +211,15 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                 ),
                                 Text(
                                   card.businessAddress,
-                                  style: CarlTheme.of(context).greyMediumLabel,
+                                  style: CarlTheme.of(context).greyLittleLabel,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 SizedBox(
                                   height: 10,
                                 ),
                                 Container(
-                                  height: 30,
+                                  height: card.tags.length > 0 ? 30 : 0,
                                   child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemCount: card.tags.length,
@@ -244,7 +249,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                       }),
                                 ),
                                 SizedBox(
-                                  height: 40,
+                                  height: card.tags.length > 0 ? 40 : 10,
                                 ),
                                 Column(
                                   children: <Widget>[
@@ -294,7 +299,7 @@ class _CardDetailPageState extends State<CardDetailPage> {
                                     ),
                                     Container(
                                       width: MediaQuery.of(context).size.width * .8,
-                                      height: 100,
+                                      height: 80,
                                       decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.circular(15.0)),
