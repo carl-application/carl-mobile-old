@@ -2,11 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/blocs/authentication/authentication_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> {
-  AuthenticationBloc(this._userRepository);
+  AuthenticationBloc(this._userRepository, {this.firebaseMessaging});
 
   final UserRepository _userRepository;
+  final FirebaseMessaging firebaseMessaging;
 
   @override
   AuthenticationState get initialState => AuthenticationUninitialized();
@@ -15,6 +17,11 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
     if (event is AppStarted) {
       final bool hasToken = await _userRepository.hasToken();
+
+      if(firebaseMessaging != null) {
+        final notificationsToken = await firebaseMessaging.getToken();
+        await _userRepository.updateNotificationsToken(notificationsToken);
+      }
 
       if (hasToken) {
         yield AuthenticationAuthenticated();

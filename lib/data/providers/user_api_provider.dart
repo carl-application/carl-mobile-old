@@ -27,6 +27,7 @@ const API_RETRIEVE_IF_BUSINESS_IS_BLACKLISTED = "$API_BASE_URL/user/notification
 const API_TOGGLE_BLACKLISTED = "$API_BASE_URL/user/notifications/blacklist";
 const API_LOGIN = "$API_BASE_URL/auth/token";
 const API_USER_BUSINESS_META_INFO = "$API_BASE_URL/user/visits/info";
+const API_UPDATE_NOTIFICATION_TOKEN = "$API_BASE_URL/user/notifications/token";
 
 const PREFERENCES_ACCESS_TOKEN_KEY = "preferencesAccessTokenKey";
 const PREFERENCES_REFRESH_TOKEN_KEY = "preferencesRefreshTokenKey";
@@ -99,6 +100,27 @@ class UserApiProvider implements UserProvider {
     final tokens = TokensResponse.fromJson(body);
 
     await persistTokens(tokens.accessToken, tokens.refreshToken, tokens.expiresIn);
+
+    return true;
+  }
+
+  @override
+  Future<void> updateNotificationsToken(String notificationsToken) async {
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+
+    final response = await http.put(
+      "$API_UPDATE_NOTIFICATION_TOKEN/$notificationsToken",
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      print("Error updating notifications token : ${response.statusCode}");
+      print("Response ${response}");
+      throw ServerException();
+    }
 
     return true;
   }

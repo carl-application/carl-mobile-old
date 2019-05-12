@@ -21,6 +21,8 @@ abstract class UserProvider {
 
   Future<bool> hasToken();
 
+  Future<void> updateNotificationsToken(String notificationsToken);
+
   Future<List<BusinessCard>> retrieveCards();
 
   Future<List<BlackListed>> retrieveBlackListedBusinesses();

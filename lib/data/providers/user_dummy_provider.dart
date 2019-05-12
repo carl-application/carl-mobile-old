@@ -88,6 +88,12 @@ class UserDummyProvider implements UserProvider {
   }
 
   @override
+  Future<void> updateNotificationsToken(String notificationsToken) async {
+    await Future.delayed(Duration(seconds: 1));
+    return false;
+  }
+
+  @override
   Future<void> persistTokens(String accessToken, String refreshToken, int expiresIn) async {
     /// read from keystore/keychain
     await Future.delayed(Duration(milliseconds: 300));

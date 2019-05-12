@@ -57,7 +57,7 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    _authenticationBloc = AuthenticationBloc(userRepository);
+    _authenticationBloc = AuthenticationBloc(userRepository, firebaseMessaging: _firebaseMessaging);
     _loginBloc = LoginBloc(userRepository, _authenticationBloc);
     _cardsBloc = CardsBloc(userRepository);
     _authenticationBloc.dispatch(AppStarted());
@@ -66,10 +66,6 @@ class _AppState extends State<App> {
 
   void firebaseCloudMessaging_Listeners() {
     if (Platform.isIOS) iOS_Permission();
-
-    _firebaseMessaging.getToken().then((token) {
-      print(token);
-    });
 
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {

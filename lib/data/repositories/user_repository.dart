@@ -38,6 +38,10 @@ class UserRepository {
     return userProvider.hasToken();
   }
 
+  Future<void> updateNotificationsToken(String notificationsToken) {
+    return userProvider.updateNotificationsToken(notificationsToken);
+  }
+
   Future<List<BusinessCard>> retrieveCards() {
     return userProvider.retrieveCards();
   }
