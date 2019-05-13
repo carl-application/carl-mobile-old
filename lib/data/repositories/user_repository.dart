@@ -9,6 +9,7 @@ import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/IsBlackListedResponse.dart';
 import 'package:carl/models/responses/tokens_response.dart';
+import 'package:carl/models/responses/unread_notifications_count_response.dart';
 import 'package:meta/meta.dart';
 
 class UserRepository {
@@ -69,5 +70,9 @@ class UserRepository {
 
   Future<List<Visit>> retrieveVisits(int businessId, int fetchLimit, {DateTime lastFetchedDate}) {
     return userProvider.retrieveVisits(businessId, fetchLimit, lastFetchedDate: lastFetchedDate);
+  }
+
+  Future<UnreadNotificationsResponse> retrieveUnreadNotificationsCount() {
+    return userProvider.retrieveUnreadNotificationsCount();
   }
 }

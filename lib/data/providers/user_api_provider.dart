@@ -14,6 +14,7 @@ import 'package:carl/models/exceptions/server_exception.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/IsBlackListedResponse.dart';
 import 'package:carl/models/responses/tokens_response.dart';
+import 'package:carl/models/responses/unread_notifications_count_response.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,6 +31,7 @@ const API_LOGIN = "$API_BASE_URL/auth/token";
 const API_USER_BUSINESS_META_INFO = "$API_BASE_URL/user/visits/info";
 const API_UPDATE_NOTIFICATION_TOKEN = "$API_BASE_URL/user/notifications/token";
 const API_GET_IMAGE_BY_ID = "$API_BASE_URL/images";
+const API_GET_UNREAD_NOTIFICATIONS_COUNT = "$API_BASE_URL/user/notifications/unread/count";
 
 const PREFERENCES_ACCESS_TOKEN_KEY = "preferencesAccessTokenKey";
 const PREFERENCES_REFRESH_TOKEN_KEY = "preferencesRefreshTokenKey";
@@ -330,5 +332,29 @@ class UserApiProvider implements UserProvider {
     print("jsonBody is = $jsonBody");
 
     return BusinessImage.fromJson(jsonBody);
+  }
+
+  Future<UnreadNotificationsResponse> retrieveUnreadNotificationsCount() async {
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+
+    final response = await http.get(
+      "$API_GET_UNREAD_NOTIFICATIONS_COUNT",
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      print("Error getting unread notifications  : ${response.statusCode}");
+      print("Response ${response}");
+      throw ServerException();
+    }
+
+    final jsonBody = json.decode(response.body.toString());
+
+    print("jsonBody is = $jsonBody");
+
+    return UnreadNotificationsResponse.fromJson(jsonBody);
   }
 }

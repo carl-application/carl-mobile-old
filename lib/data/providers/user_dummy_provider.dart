@@ -8,6 +8,7 @@ import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/IsBlackListedResponse.dart';
 import 'package:carl/models/responses/tokens_response.dart';
+import 'package:carl/models/responses/unread_notifications_count_response.dart';
 import 'package:flutter/widgets.dart';
 
 class UserDummyProvider implements UserProvider {
@@ -161,5 +162,10 @@ class UserDummyProvider implements UserProvider {
     await Future.delayed(Duration(seconds: 1));
     isBlackListed = !isBlackListed;
     return IsBlackListedResponse(isBlackListed: isBlackListed);
+  }
+
+  Future<UnreadNotificationsResponse> retrieveUnreadNotificationsCount() async {
+    await Future.delayed(Duration(seconds: 1));
+    return UnreadNotificationsResponse(unreadNotificationsCount: 2);
   }
 }

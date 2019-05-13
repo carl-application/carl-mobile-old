@@ -16,7 +16,12 @@ class CarlTheme extends InheritedWidget {
   // Dimensions
   get generalPadding => 20.0;
 
-  get pagePadding => EdgeInsets.symmetric(vertical: 20.0, horizontal: 18.0);
+  get pageHorizontalPadding => 18.0;
+
+  get pageVerticalPadding => 20.0;
+
+  get pagePadding =>
+      EdgeInsets.symmetric(vertical: pageVerticalPadding, horizontal: pageHorizontalPadding);
 
   // Colors
   get primaryColor => Color.fromRGBO(0, 125, 253, 1);
@@ -32,6 +37,16 @@ class CarlTheme extends InheritedWidget {
         colors: [
           primaryColor,
           accentColor,
+        ],
+      );
+
+  get orangeGradient => LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        stops: [0.2, 1],
+        colors: [
+          Color.fromRGBO(250, 217, 97, 1),
+          Color.fromRGBO(247, 107, 28, 1),
         ],
       );
 

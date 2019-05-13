@@ -3,6 +3,8 @@ import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
 import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
 
 class NfcScanPage extends StatefulWidget {
   static const routeName = "/NfcScanPage";
@@ -14,6 +16,9 @@ class NfcScanPage extends StatefulWidget {
 }
 
 class _NfcScanPageState extends State<NfcScanPage> {
+  NfcData _nfcData;
+  String _infos;
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -29,21 +34,64 @@ class _NfcScanPageState extends State<NfcScanPage> {
     }
   }
 
+  Future<void> startNFC() async {
+    setState(() {
+      _nfcData = NfcData();
+      _nfcData.status = NFCStatus.reading;
+      _infos = "NFC: Scan started";
+    });
+
+    FlutterNfcReader.read.listen((response) {
+      setState(() {
+        _nfcData = response;
+        _infos = "NFC: ${response.content}";
+      });
+    });
+  }
+
+  Future<void> stopNFC() async {
+    NfcData response;
+
+    try {
+      print('NFC: Stop scan by user');
+      response = await FlutterNfcReader.stop;
+    } on PlatformException {
+      print('NFC: Stop scan exception');
+      response = NfcData(
+        id: '',
+        content: '',
+        error: 'NFC scan stop exception',
+        statusMapper: '',
+      );
+      response.status = NFCStatus.error;
+    }
+
+    setState(() {
+      _nfcData = response;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         color: CarlTheme.of(context).background,
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text("Scan NFC (from ${widget.source} screen)"),
-              RaisedButton(
-                onPressed: () => _navigateBack(context),
-                child: Text("finished scanning"),
-              ),
-            ],
+          child: FutureBuilder(
+            future: startNFC(),
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("Scan NFC (from ${widget.source} screen)"),
+                  Text(_infos),
+                  RaisedButton(
+                    onPressed: () => _navigateBack(context),
+                    child: Text("finished scanning"),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
