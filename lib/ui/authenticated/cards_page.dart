@@ -12,7 +12,6 @@ import 'package:carl/ui/authenticated/cards_swiper.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/nfc_scan_page.dart';
 import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
-import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/error_server.dart';
 import 'package:carl/ui/shared/loader.dart';
 import 'package:carl/ui/shared/rounded_icon.dart';
@@ -109,8 +108,8 @@ class _CardsPageState extends State<CardsPage> {
                         padding: const EdgeInsets.all(10.0),
                         child: Image.asset(
                           "assets/ic_idea.png",
-                          height: 20,
-                          width: 20,
+                          height: MediaQuery.of(context).size.width * .06,
+                          width: MediaQuery.of(context).size.width * .06,
                           fit: BoxFit.contain,
                         ),
                       ),
@@ -124,8 +123,8 @@ class _CardsPageState extends State<CardsPage> {
                     bottom: 0,
                     right: 0,
                     child: Container(
-                      height: 18,
-                      width: 18,
+                      height: MediaQuery.of(context).size.width * .05,
+                      width: MediaQuery.of(context).size.width * .05,
                       decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                       child: Center(
                         child: Text(
@@ -151,44 +150,46 @@ class _CardsPageState extends State<CardsPage> {
         child: SafeArea(
             child: Padding(
           padding: CarlTheme.of(context).pagePadding,
-          child: Stack(
+          child: Column(
             children: <Widget>[
-              Positioned(
-                  bottom: CarlTheme.of(context).pageVerticalPadding - 8,
-                  left: CarlTheme.of(context).pageHorizontalPadding,
-                  child: _renderGoodDealsIcon()),
-              Column(
-                children: <Widget>[
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        RoundedIcon(
-                          assetIcon: "assets/ic_settings.png",
-                        ),
-                        RoundedIcon(
-                          assetIcon: "assets/ic_search.png",
-                        )
-                      ],
+              Expanded(
+                flex: 1,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    RoundedIcon(
+                      assetIcon: "assets/ic_settings.png",
                     ),
-                  ),
-                  Expanded(
-                    flex: 8,
-                    child: _renderBody(context),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Center(
+                    RoundedIcon(
+                      assetIcon: "assets/ic_search.png",
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                flex: 6,
+                child: _renderBody(context),
+              ),
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: <Widget>[
+                    _renderGoodDealsIcon(),
+                    Expanded(
+                      flex: 7,
+                      child: Center(
                         child: CarlBlueGradientButton(
-                      text: Localization.of(context).add,
-                      onPressed: () => _navigateToScan(context),
-                      width: MediaQuery.of(context).size.width * .5,
-                      textStyle: CarlTheme.of(context).white30Label,
-                    )),
-                  ),
-                ],
+                          text: Localization.of(context).add,
+                          onPressed: () => _navigateToScan(context),
+                          width: MediaQuery.of(context).size.width * .5,
+                          textStyle: CarlTheme.of(context).white30Label,
+                        ),
+                      ),
+                    ),
+                    Spacer()
+                  ],
+                ),
               ),
             ],
           ),

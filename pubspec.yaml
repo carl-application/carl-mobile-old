@@ -28,10 +28,10 @@ dependencies:
   image: 2.0.7
   firebase_core: ^0.4.0
   firebase_messaging: ^5.0.1+1
-  flutter_nfc_reader:
-    git:
-      url: git://github.com/matteocrippa/flutter-nfc-reader.git
-      ref: master
+  #flutter_nfc_reader:
+    #git:
+      #url: git://github.com/matteocrippa/flutter-nfc-reader.git
+      #ref: master
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -115,6 +115,11 @@ flutter:
   - assets/2.0x/empty_cards.png
   - assets/1.5x/empty_cards.png
   - assets/1.0x/empty_cards.png
+  - assets/ic_arrow_right.png
+  - assets/3.0x/ic_arrow_right.png
+  - assets/2.0x/ic_arrow_right.png
+  - assets/1.5x/ic_arrow_right.png
+  - assets/1.0x/ic_arrow_right.png
   - assets/ic_idea.png
 
   - assets/notification_off.png

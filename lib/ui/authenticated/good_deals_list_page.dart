@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_ink_well/image_ink_well.dart';
 
+import 'empty_good_deals.dart';
+
 class GoodDealsListPage extends StatefulWidget {
   static const routeName = "/goodDealsListPage";
 
@@ -76,6 +78,9 @@ class _GoodDealsListPageState extends State<GoodDealsListPage> {
                       return Center(child: Loader());
                     } else if (state is GoodDealsLoadingSuccess) {
                       final deals = state.goodDeals;
+                      if (deals.isEmpty) {
+                        return EmptyGoodDeals();
+                      }
                       return ListView.builder(
                         itemCount: deals.length,
                         itemBuilder: (BuildContext context, int index) {
@@ -92,25 +97,40 @@ class _GoodDealsListPageState extends State<GoodDealsListPage> {
                                           borderRadius: BorderRadius.circular(20.0)),
                                       child: Padding(
                                         padding: const EdgeInsets.all(15.0),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: <Widget>[
-                                            Text(
-                                              deals[index].businessName,
-                                              style: CarlTheme.of(context).blackMediumBoldLabel,
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Text(
+                                                    deals[index].businessName,
+                                                    style:
+                                                        CarlTheme.of(context).blackMediumBoldLabel,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text(
+                                                    deals[index].title,
+                                                    style: CarlTheme.of(context).blackMediumLabel,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                  Text(
+                                                    deals[index].shortDescription,
+                                                    style: CarlTheme.of(context).greyMediumLabel,
+                                                    overflow: TextOverflow.ellipsis,
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            Text(
-                                              deals[index].title,
-                                              style: CarlTheme.of(context).blackMediumLabel,
-                                            ),
-                                            Text(
-                                              deals[index].shortDescription,
-                                              style: CarlTheme.of(context).greyMediumLabel,
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
+                                            Image.asset(
+                                              "assets/ic_arrow_right.png",
+                                              height: 50,
+                                              width: 50,
+                                            )
                                           ],
                                         ),
                                       ),
@@ -124,7 +144,8 @@ class _GoodDealsListPageState extends State<GoodDealsListPage> {
                               Positioned(
                                 top: 0,
                                 right: 0,
-                                child: deals[index].seen == false ? _buildUnReadLabel() : Container(),
+                                child:
+                                    deals[index].seen == false ? _buildUnReadLabel() : Container(),
                               )
                             ],
                           );

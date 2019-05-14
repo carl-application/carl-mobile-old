@@ -30,7 +30,9 @@ const String WelcomePageTitle = 'welcome_page_title',
     ErrorServerTitle = "errorServerTitle",
     ErrorServerDescription = "errorServerDescription",
     VisitsHistoricTitle = "visitsHistoricTitle",
-    At = "at";
+    At = "at",
+    EmptyGoodDealsTitle = "emptyGoodDealsTitle",
+    EmptyGoodDealsDescription = "emptyGoodDealsDescription";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -66,7 +68,10 @@ final fr = {
   ErrorServerTitle: "Une erreur est survenue",
   ErrorServerDescription: "Veuillez ré-essayer ultérieurement",
   VisitsHistoricTitle: "Historique des visites",
-  At: "A"
+  At: "A",
+  EmptyGoodDealsTitle: "Aucun bon plan",
+  EmptyGoodDealsDescription:
+      "Ici se trouveront les futurs bons plans partagés par les professionnels !",
 };
 
 final en = {
@@ -103,5 +108,8 @@ final en = {
   ErrorServerTitle: "An error occured",
   ErrorServerDescription: "Please try again later",
   VisitsHistoricTitle: "Visits historic",
-  At: "At"
+  At: "At",
+  EmptyGoodDealsTitle: "No Good Deals",
+  EmptyGoodDealsDescription:
+  "Here will be the future good deals provided by pros !",
 };

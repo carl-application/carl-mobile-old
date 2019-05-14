@@ -2,12 +2,11 @@ import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 
-class EmptyCards extends StatelessWidget {
+class EmptyGoodDeals extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final imageSize =  MediaQuery.of(context).size.width * .3;
-    return Scaffold(
-      body: Column(
+    return Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
@@ -17,7 +16,7 @@ class EmptyCards extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Image.asset(
-                "assets/empty_cards.png",
+                "assets/ic_idea.png",
                 fit: BoxFit.contain,
                 width: imageSize,
                 height: imageSize,
@@ -28,19 +27,18 @@ class EmptyCards extends StatelessWidget {
             height: 15,
           ),
           Text(
-            Localization.of(context).emptyCardsTitle,
+            Localization.of(context).emptyGoodDealsTitle,
             style: CarlTheme.of(context).blackTitle,
           ),
           SizedBox(
             height: 15,
           ),
           Text(
-            Localization.of(context).emptyCardsDescription,
+            Localization.of(context).emptyGoodDealsDescription,
             style: CarlTheme.of(context).blackMediumLabel,
             textAlign: TextAlign.center,
           ),
         ],
-      ),
-    );
+      );
   }
 }

@@ -140,52 +140,56 @@ class CardScrollWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return new AspectRatio(
-      aspectRatio: widgetAspectRatio,
-      child: LayoutBuilder(builder: (context, contraints) {
-        var width = contraints.maxWidth;
-        var height = contraints.maxHeight;
+    return Container(
+      width: MediaQuery.of(context).size.width * .9,
+      height: MediaQuery.of(context).size.width * .9,
+      child: new AspectRatio(
+        aspectRatio: widgetAspectRatio,
+        child: LayoutBuilder(builder: (context, contraints) {
+          var width = contraints.maxWidth;
+          var height = contraints.maxHeight;
 
-        var safeWidth = width - 2 * padding;
-        var safeHeight = height - 2 * padding;
+          var safeWidth = width - 2 * padding;
+          var safeHeight = height - 2 * padding;
 
-        var heightOfPrimaryCard = safeHeight;
-        var widthOfPrimaryCard = heightOfPrimaryCard * cardAspectRatio;
+          var heightOfPrimaryCard = safeHeight;
+          var widthOfPrimaryCard = heightOfPrimaryCard * cardAspectRatio;
 
-        var primaryCardLeft = safeWidth - widthOfPrimaryCard;
-        var horizontalInset = primaryCardLeft / 2;
+          var primaryCardLeft = safeWidth - widthOfPrimaryCard;
+          var horizontalInset = primaryCardLeft / 2;
 
-        List<Widget> cardList = new List();
+          List<Widget> cardList = new List();
 
-        for (var index = 0; index < cards.length; index++) {
-          var delta = index - currentPage;
-          bool isOnRight = delta > 0;
-          bool isInBlackList = blackListedBusinesses
-              .where((blackListed) => blackListed.blackListedBusiness.id == cards[index].id)
-              .isNotEmpty;
+          for (var index = 0; index < cards.length; index++) {
+            var delta = index - currentPage;
+            bool isOnRight = delta > 0;
+            bool isInBlackList = blackListedBusinesses
+                .where((blackListed) => blackListed.blackListedBusiness.id == cards[index].id)
+                .isNotEmpty;
 
-          var start =
-              padding + max(primaryCardLeft - horizontalInset * -delta * (isOnRight ? 15 : 1), 0.0);
+            var start = padding +
+                max(primaryCardLeft - horizontalInset * -delta * (isOnRight ? 15 : 1), 0.0);
 
-          var cardItem = Positioned.directional(
-            top: padding + verticalInset * max(-delta, 0.0),
-            bottom: padding + verticalInset * max(-delta, 0.0),
-            start: start,
-            textDirection: TextDirection.rtl,
-            child: CardItem(
-              card: cards[index],
-              cardAspectRatio: cardAspectRatio,
-              position: index,
-              total: cards.length,
-              isBlackListed: isInBlackList,
-            ),
+            var cardItem = Positioned.directional(
+              top: padding + verticalInset * max(-delta, 0.0),
+              bottom: padding + verticalInset * max(-delta, 0.0),
+              start: start,
+              textDirection: TextDirection.rtl,
+              child: CardItem(
+                card: cards[index],
+                cardAspectRatio: cardAspectRatio,
+                position: index,
+                total: cards.length,
+                isBlackListed: isInBlackList,
+              ),
+            );
+            cardList.add(cardItem);
+          }
+          return Stack(
+            children: cardList,
           );
-          cardList.add(cardItem);
-        }
-        return Stack(
-          children: cardList,
-        );
-      }),
+        }),
+      ),
     );
   }
 }
@@ -197,10 +201,16 @@ class CardItem extends StatelessWidget {
   final int total;
   final bool isBlackListed;
 
-  CardItem({this.card, this.cardAspectRatio, this.position, this.total, this.isBlackListed});
+  CardItem(
+      {this.card,
+      this.cardAspectRatio,
+      this.position,
+      this.total,
+      this.isBlackListed});
 
   @override
   Widget build(BuildContext context) {
+    final logoSize = MediaQuery.of(context).size.width * .3;
     return ClipRRect(
       borderRadius: BorderRadius.circular(22.0),
       child: Container(
@@ -239,11 +249,11 @@ class CardItem extends StatelessWidget {
               ),
               Center(
                 child: ClipRRect(
-                  borderRadius: new BorderRadius.circular(50.0),
+                  borderRadius: BorderRadius.circular(logoSize),
                   child: Image.network(
                     card.logo.url,
-                    height: 100.0,
-                    width: 100.0,
+                    height: logoSize,
+                    width: logoSize,
                     fit: BoxFit.cover,
                   ),
                 ),

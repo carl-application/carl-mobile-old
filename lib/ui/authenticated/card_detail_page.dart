@@ -200,14 +200,11 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 15,
+                                  height: 10,
                                 ),
                                 Text(
                                   card.businessName,
                                   style: CarlTheme.of(context).bigBlackTitle,
-                                ),
-                                SizedBox(
-                                  height: 10,
                                 ),
                                 Text(
                                   card.businessAddress,
@@ -219,7 +216,7 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                   height: 10,
                                 ),
                                 Container(
-                                  height: card.tags.length > 0 ? 30 : 0,
+                                  height: card.tags.length > 0 ? 25 : 0,
                                   child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemCount: card.tags.length,
@@ -249,7 +246,7 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                       }),
                                 ),
                                 SizedBox(
-                                  height: card.tags.length > 0 ? 25 : 10,
+                                  height: 10,
                                 ),
                                 Column(
                                   children: <Widget>[
@@ -295,11 +292,11 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 20,
+                                      height: 10,
                                     ),
                                     Container(
                                       width: MediaQuery.of(context).size.width * .8,
-                                      height: 80,
+                                      height: MediaQuery.of(context).size.height * .15,
                                       decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.circular(15.0)),
@@ -318,7 +315,7 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 15,
+                                  height: 10,
                                 ),
                               ],
                             ),
@@ -333,11 +330,11 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                     textStyle: CarlTheme.of(context).whiteMediumLabel,
                                   ),
                                   SizedBox(
-                                    height: 15,
+                                    height: 10,
                                   ),
                                   CircleImageInkWell(
                                     onPressed: () => _navigateBack(context),
-                                    size: 50,
+                                    size: 40,
                                     image: AssetImage('assets/ic_close.png'),
                                     splashColor: Colors.black26,
                                   )

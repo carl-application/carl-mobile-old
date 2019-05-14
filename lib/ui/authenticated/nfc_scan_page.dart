@@ -4,7 +4,7 @@ import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
+//import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
 
 class NfcScanPage extends StatefulWidget {
   static const routeName = "/NfcScanPage";
@@ -16,7 +16,7 @@ class NfcScanPage extends StatefulWidget {
 }
 
 class _NfcScanPageState extends State<NfcScanPage> {
-  NfcData _nfcData;
+  //NfcData _nfcData;
   String _infos;
 
   @override
@@ -35,6 +35,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
   }
 
   Future<void> startNFC() async {
+    /*
     setState(() {
       _nfcData = NfcData();
       _nfcData.status = NFCStatus.reading;
@@ -47,9 +48,11 @@ class _NfcScanPageState extends State<NfcScanPage> {
         _infos = "NFC: ${response.content}";
       });
     });
+    */
   }
 
   Future<void> stopNFC() async {
+    /*
     NfcData response;
 
     try {
@@ -69,6 +72,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
     setState(() {
       _nfcData = response;
     });
+    */
   }
 
   @override
@@ -84,7 +88,7 @@ class _NfcScanPageState extends State<NfcScanPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text("Scan NFC (from ${widget.source} screen)"),
-                  Text(_infos),
+                  Text("toto"),
                   RaisedButton(
                     onPressed: () => _navigateBack(context),
                     child: Text("finished scanning"),

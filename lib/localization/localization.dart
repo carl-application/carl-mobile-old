@@ -73,6 +73,10 @@ class Localization {
   String get visitsHistoricTitle => _getValue(VisitsHistoricTitle);
 
   String get at => _getValue(At);
+
+  String get emptyGoodDealsTitle => _getValue(EmptyGoodDealsTitle);
+
+  String get emptyGoodDealsDescription => _getValue(EmptyCardsDescription);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {
