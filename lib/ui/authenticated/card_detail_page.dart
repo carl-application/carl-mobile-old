@@ -14,7 +14,7 @@ import 'package:carl/models/navigation_arguments/card_detail_back_arguments.dart
 import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
 import 'package:carl/ui/authenticated/nfc_scan_page.dart';
 import 'package:carl/ui/authenticated/visits_by_user.dart';
-import 'package:carl/ui/shared/carl_button.dart';
+import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
 import 'package:carl/ui/shared/loader.dart';
 import 'package:carl/ui/shared/rounded_icon.dart';
 import 'package:carl/ui/theme.dart';
@@ -249,7 +249,7 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                       }),
                                 ),
                                 SizedBox(
-                                  height: card.tags.length > 0 ? 40 : 10,
+                                  height: card.tags.length > 0 ? 25 : 10,
                                 ),
                                 Column(
                                   children: <Widget>[
@@ -295,7 +295,7 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                       ),
                                     ),
                                     SizedBox(
-                                      height: 35,
+                                      height: 20,
                                     ),
                                     Container(
                                       width: MediaQuery.of(context).size.width * .8,
@@ -326,15 +326,14 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
-                                  CarlButton(
+                                  CarlBlueGradientButton(
                                     text: Localization.of(context).add,
                                     onPressed: () => _navigateToScan(context),
                                     width: MediaQuery.of(context).size.width * .5,
-                                    color: CarlTheme.of(context).accentColor,
                                     textStyle: CarlTheme.of(context).whiteMediumLabel,
                                   ),
                                   SizedBox(
-                                    height: 20,
+                                    height: 15,
                                   ),
                                   CircleImageInkWell(
                                     onPressed: () => _navigateBack(context),

@@ -3,6 +3,7 @@ import 'package:carl/models/business/business_card.dart';
 import 'package:carl/models/business/business_card_detail.dart';
 import 'package:carl/models/business/business_image.dart';
 import 'package:carl/models/business/visit.dart';
+import 'package:carl/models/good_deal.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/IsBlackListedResponse.dart';
 import 'package:carl/models/responses/tokens_response.dart';
@@ -40,4 +41,8 @@ abstract class UserProvider {
   Future<IsBlackListedResponse> toggleBlackList(int businessId);
 
   Future<List<Visit>> retrieveVisits(int businessId, int fetchLimit, {DateTime lastFetchedDate});
+
+  Future<List<GoodDeal>> retrieveUnreadGoodDeals();
+
+  Future<List<GoodDeal>> retrieveReadGoodDeals();
 }

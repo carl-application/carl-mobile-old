@@ -6,6 +6,7 @@ import 'package:carl/models/business/business_card.dart';
 import 'package:carl/models/business/business_card_detail.dart';
 import 'package:carl/models/business/business_image.dart';
 import 'package:carl/models/business/visit.dart';
+import 'package:carl/models/good_deal.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/IsBlackListedResponse.dart';
 import 'package:carl/models/responses/tokens_response.dart';
@@ -74,5 +75,13 @@ class UserRepository {
 
   Future<UnreadNotificationsResponse> retrieveUnreadNotificationsCount() {
     return userProvider.retrieveUnreadNotificationsCount();
+  }
+
+  Future<List<GoodDeal>> retrieveUnreadGoodDeals() {
+    return userProvider.retrieveUnreadGoodDeals();
+  }
+
+  Future<List<GoodDeal>> retrieveReadGoodDeals() {
+    return userProvider.retrieveReadGoodDeals();
   }
 }

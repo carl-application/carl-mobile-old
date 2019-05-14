@@ -11,6 +11,7 @@ import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/exceptions/bad_credentials_exception.dart';
 import 'package:carl/models/exceptions/email_already_exist_exception.dart';
 import 'package:carl/models/exceptions/server_exception.dart';
+import 'package:carl/models/good_deal.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/IsBlackListedResponse.dart';
 import 'package:carl/models/responses/tokens_response.dart';
@@ -32,6 +33,8 @@ const API_USER_BUSINESS_META_INFO = "$API_BASE_URL/user/visits/info";
 const API_UPDATE_NOTIFICATION_TOKEN = "$API_BASE_URL/user/notifications/token";
 const API_GET_IMAGE_BY_ID = "$API_BASE_URL/images";
 const API_GET_UNREAD_NOTIFICATIONS_COUNT = "$API_BASE_URL/user/notifications/unread/count";
+const API_GET_UNREAD_NOTIFICATIONS = "$API_BASE_URL/user/notifications/unread";
+const API_GET_READ_NOTIFICATIONS = "$API_BASE_URL/user/notifications";
 
 const PREFERENCES_ACCESS_TOKEN_KEY = "preferencesAccessTokenKey";
 const PREFERENCES_REFRESH_TOKEN_KEY = "preferencesRefreshTokenKey";
@@ -346,7 +349,7 @@ class UserApiProvider implements UserProvider {
     );
 
     if (response.statusCode != 200) {
-      print("Error getting unread notifications  : ${response.statusCode}");
+      print("Error getting unread notifications count : ${response.statusCode}");
       print("Response ${response}");
       throw ServerException();
     }
@@ -356,5 +359,39 @@ class UserApiProvider implements UserProvider {
     print("jsonBody is = $jsonBody");
 
     return UnreadNotificationsResponse.fromJson(jsonBody);
+  }
+
+  Future<List<GoodDeal>> retrieveUnreadGoodDeals() async {
+    return _retrieveDeals(API_GET_UNREAD_NOTIFICATIONS);
+  }
+
+  Future<List<GoodDeal>> retrieveReadGoodDeals() async {
+    return _retrieveDeals(API_GET_READ_NOTIFICATIONS);
+  }
+
+  Future<List<GoodDeal>> _retrieveDeals(String apiUrl) async {
+    final List<GoodDeal> deals = List();
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+
+    final response = await http.get(
+      apiUrl,
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      print("Error getting notifications : ${response.statusCode}");
+      print("Response ${response}");
+      throw ServerException();
+    }
+
+    final jsonBody = json.decode(response.body.toString());
+
+    print("jsonBody is = $jsonBody");
+
+    deals.addAll((jsonBody as List).map((e) => GoodDeal.fromJson(e)).toList());
+    return deals;
   }
 }

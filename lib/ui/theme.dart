@@ -50,6 +50,16 @@ class CarlTheme extends InheritedWidget {
         ],
       );
 
+  get blueGradient => LinearGradient(
+        begin: Alignment.centerLeft,
+        end: Alignment.centerRight,
+        stops: [0.25, 1],
+        colors: [
+          Color.fromRGBO(0, 71, 250, 1),
+          Color.fromRGBO(0, 125, 253, 1),
+        ],
+      );
+
   get horizontalGradient => LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
@@ -85,6 +95,8 @@ class CarlTheme extends InheritedWidget {
   get blueBigLabel => TextStyle(color: accentColor, fontSize: 18);
 
   get blueSmallLabel => TextStyle(color: accentColor, fontSize: 15);
+
+  get blackSmallLabel => TextStyle(color: Colors.black, fontSize: 15);
 
   get whiteMediumLabel => TextStyle(color: Colors.white, fontSize: 14);
 

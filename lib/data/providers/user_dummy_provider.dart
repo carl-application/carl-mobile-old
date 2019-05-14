@@ -5,6 +5,7 @@ import 'package:carl/models/business/business_card_detail.dart';
 import 'package:carl/models/business/business_image.dart';
 import 'package:carl/models/business/business_tag.dart';
 import 'package:carl/models/business/visit.dart';
+import 'package:carl/models/good_deal.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/IsBlackListedResponse.dart';
 import 'package:carl/models/responses/tokens_response.dart';
@@ -168,4 +169,19 @@ class UserDummyProvider implements UserProvider {
     await Future.delayed(Duration(seconds: 1));
     return UnreadNotificationsResponse(unreadNotificationsCount: 2);
   }
+
+  Future<List<GoodDeal>> retrieveUnreadGoodDeals() async {
+    await Future.delayed(Duration(seconds: 1));
+    final List<GoodDeal> deals = List();
+
+    return deals;
+  }
+
+  Future<List<GoodDeal>> retrieveReadGoodDeals() async {
+    await Future.delayed(Duration(seconds: 1));
+    final List<GoodDeal> deals = List();
+
+    return deals;
+  }
+
 }

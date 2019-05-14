@@ -9,6 +9,7 @@ import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/authenticated/cards_page.dart';
+import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/nfc_scan_page.dart';
 import 'package:carl/ui/shared/VerticalSlideTransition.dart';
 import 'package:carl/ui/shared/splash_screen_page.dart';
@@ -170,6 +171,11 @@ class _AppState extends State<App> {
                               widget: CardDetailPage(dynamicArguments),
                             );
                           }
+                          break;
+                        case GoodDealsListPage.routeName:
+                          return VerticalSlideTransition(
+                            widget: GoodDealsListPage(),
+                          );
                           break;
                       }
                     },

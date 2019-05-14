@@ -9,7 +9,9 @@ import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
 import 'package:carl/ui/authenticated/cards_swiper.dart';
+import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/nfc_scan_page.dart';
+import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/error_server.dart';
 import 'package:carl/ui/shared/loader.dart';
@@ -101,7 +103,7 @@ class _CardsPageState extends State<CardsPage> {
                     clipBehavior: Clip.antiAlias,
                     child: InkWell(
                       onTap: () {
-                        print("ok");
+                        Navigator.of(context).pushNamed(GoodDealsListPage.routeName);
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -179,11 +181,10 @@ class _CardsPageState extends State<CardsPage> {
                   Expanded(
                     flex: 1,
                     child: Center(
-                        child: CarlButton(
+                        child: CarlBlueGradientButton(
                       text: Localization.of(context).add,
                       onPressed: () => _navigateToScan(context),
-                      width: MediaQuery.of(context).size.width * .3,
-                      color: CarlTheme.of(context).accentColor,
+                      width: MediaQuery.of(context).size.width * .5,
                       textStyle: CarlTheme.of(context).white30Label,
                     )),
                   ),
