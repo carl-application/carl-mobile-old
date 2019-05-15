@@ -86,64 +86,83 @@ class _GoodDealsListPageState extends State<GoodDealsListPage> {
                         itemBuilder: (BuildContext context, int index) {
                           return Stack(
                             children: <Widget>[
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(20.0)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(15.0),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Text(
-                                                    deals[index].businessName,
-                                                    style:
-                                                        CarlTheme.of(context).blackMediumBoldLabel,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                  SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    deals[index].title,
-                                                    style: CarlTheme.of(context).blackMediumLabel,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                  Text(
-                                                    deals[index].shortDescription,
-                                                    style: CarlTheme.of(context).greyMediumLabel,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ],
+                              Card(
+                                elevation: 5,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                                margin: EdgeInsets.all(10),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(20.0)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(15.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Expanded(
+                                                child: Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: <Widget>[
+                                                    Text(
+                                                      deals[index].businessName,
+                                                      style: CarlTheme.of(context)
+                                                          .blackMediumBoldLabel,
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      deals[index].title,
+                                                      style: CarlTheme.of(context).blackMediumLabel,
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                    Text(
+                                                      deals[index].shortDescription,
+                                                      style: CarlTheme.of(context).greyMediumLabel,
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            Image.asset(
-                                              "assets/ic_arrow_right.png",
-                                              height: 50,
-                                              width: 50,
-                                            )
-                                          ],
+                                              Image.asset(
+                                                "assets/ic_arrow_right.png",
+                                                height: 50,
+                                                width: 50,
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Positioned.fill(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Material(
+                                    child: InkWell(
+                                      onTap: () {
+                                        print("ok");
+                                      },
                                     ),
-                                    SizedBox(
-                                      height: 10,
-                                    )
-                                  ],
+                                    type: MaterialType.transparency,
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    clipBehavior: Clip.antiAlias,
+                                  ),
                                 ),
                               ),
                               Positioned(
                                 top: 0,
-                                right: 0,
+                                right: 10,
                                 child:
                                     deals[index].seen == false ? _buildUnReadLabel() : Container(),
                               )
