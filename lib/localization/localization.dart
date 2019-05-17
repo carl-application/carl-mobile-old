@@ -95,6 +95,12 @@ class Localization {
   String get goodDealsTitle => _getValue(GoodDealsTitle);
 
   String get loginPageTitle => _getValue(LoginPageTitle);
+
+  String get loginPageEmailHintText => _getValue(LoginPageEmailHintText);
+
+  String get loginPagePasswordHintText => _getValue(LoginPagePasswordHintText);
+
+  String get loginPageBadCredentialsErrorText => _getValue(LoginPageBadCredentialsErrorText);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

@@ -26,11 +26,13 @@ class CarlTextField extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 12.0),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(12.0)),
-          border: Border.all(color: Colors.white)),
+        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        color: Color.fromRGBO(255, 255, 255, .2)
+      ),
       child: TextField(
         onSubmitted: (text) => onSubmitted(text),
         focusNode: focusNode,
+        textAlign: TextAlign.center,
         controller: controller,
         textInputAction: textInputAction,
         style: textStyle ?? TextStyle(color: Colors.white, fontSize: 20),

@@ -32,11 +32,14 @@ class LoginPage extends StatelessWidget {
     Navigator.pop(context);
   }
 
-  Widget _renderErrorByState(LoginState loginState) {
+  Widget _renderErrorByState(LoginState loginState, BuildContext context) {
     var widget = Container();
     if (loginState is LoginCredentialsFailure) {
       widget = Container(
-        child: Text("Bad credentials"),
+        child: Text(
+          Localization.of(context).loginPageBadCredentialsErrorText,
+          style: CarlTheme.of(context).errorTextStyle,
+        ),
       );
     } else if (loginState is LoginFailure) {
       Container(
@@ -89,9 +92,12 @@ class LoginPage extends StatelessWidget {
                             )
                           ],
                         ),
+                        SizedBox(
+                          height: 20,
+                        ),
                         Text(
                           Localization.of(context).loginPageTitle,
-                          style: CarlTheme.of(context).white30Label,
+                          style: CarlTheme.of(context).whiteBoldBigLabel,
                         )
                       ],
                     ),
@@ -102,7 +108,7 @@ class LoginPage extends StatelessWidget {
                         height: 40,
                       ),
                       CarlTextField(
-                        hintText: "Email",
+                        hintText: Localization.of(context).loginPageEmailHintText,
                         controller: _usernameController,
                         textInputAction: TextInputAction.next,
                         focusNode: _userNameFocusNode,
@@ -115,7 +121,7 @@ class LoginPage extends StatelessWidget {
                         height: 20,
                       ),
                       CarlTextField(
-                        hintText: "Password",
+                        hintText: Localization.of(context).loginPagePasswordHintText,
                         obscureText: true,
                         controller: _passwordController,
                         textInputAction: TextInputAction.done,
@@ -133,8 +139,9 @@ class LoginPage extends StatelessWidget {
                           return Column(
                             children: <Widget>[
                               CarlButton(
-                                text: "Valider",
-                                width: MediaQuery.of(context).size.width * 0.8,
+                                text: Localization.of(context).validate.toUpperCase(),
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                height: 30,
                                 onPressed: () {
                                   _login();
                                 },
@@ -144,7 +151,7 @@ class LoginPage extends StatelessWidget {
                               SizedBox(
                                 height: 20,
                               ),
-                              _renderErrorByState(loginState)
+                              _renderErrorByState(loginState, context)
                             ],
                           );
                         },

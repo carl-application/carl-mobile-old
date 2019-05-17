@@ -43,7 +43,10 @@ const String WelcomePageTitle = 'welcome_page_title',
     NetworkErrorTitle = "networkErrorTitle",
     NetworkErrorDescription = "networkErrorDescription",
     GoodDealsTitle = "goodDealsTitle",
-    LoginPageTitle = "loginPageTitle";
+    LoginPageTitle = "loginPageTitle",
+    LoginPageEmailHintText = "loginPageEmailHintText",
+    LoginPagePasswordHintText = "loginPagePasswordHintText",
+    LoginPageBadCredentialsErrorText = "loginPageBadCredentialsErrorText";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -95,6 +98,9 @@ final fr = {
       "Il semble que vous ne soyez pas connecté à internet. Récupération du contenu impossible pour le moment.",
   GoodDealsTitle: "Bons plans",
   LoginPageTitle: "Vous avez déjà un compte Carl ?",
+  LoginPageEmailHintText: "Email",
+  LoginPagePasswordHintText: "Mot de passe",
+  LoginPageBadCredentialsErrorText: "Email ou mot de passe incorrect",
 };
 
 final en = {
@@ -146,4 +152,7 @@ final en = {
       "It appears that you are no connected to internet. Retrieving of content unvailable for the moment.",
   GoodDealsTitle: "Good Deals",
   LoginPageTitle: "Do you already have a Carl account ?",
+  LoginPageEmailHintText: "Mail",
+  LoginPagePasswordHintText: "Password",
+  LoginPageBadCredentialsErrorText: "Bad Credentials",
 };
