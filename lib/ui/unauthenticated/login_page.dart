@@ -53,6 +53,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _loginBloc = BlocProvider.of<LoginBloc>(context);
+    _loginBloc.dispatch(LoginInitializeEvent());
     return Material(
       child: Container(
         decoration: BoxDecoration(gradient: CarlTheme.of(context).mainGradient),
