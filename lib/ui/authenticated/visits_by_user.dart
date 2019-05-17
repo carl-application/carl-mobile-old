@@ -1,8 +1,6 @@
 import 'package:carl/blocs/visits/visits_bloc.dart';
 import 'package:carl/blocs/visits/visits_event.dart';
 import 'package:carl/blocs/visits/visits_state.dart';
-import 'package:carl/data/providers/user_api_provider.dart';
-import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/models/business/visit.dart';
@@ -33,7 +31,7 @@ class _VisitsByUserState extends State<VisitsByUser> {
 
   @override
   void dispose() {
-    _visitsBloc.dispose();
+    _visitsBloc?.dispose();
     super.dispose();
   }
 
@@ -96,7 +94,7 @@ class VisitItem extends StatelessWidget {
         height: 80,
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(15.0), color: Colors.black12),
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,30 +103,37 @@ class VisitItem extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Text(
+                      "${Localization.of(context).getWeekDays[visit.date.weekday - 1][0].toUpperCase()}${Localization.of(context).getWeekDays[visit.date.weekday - 1].substring(1)}",
+                      style: CarlTheme.of(context).blackMediumBoldLabel,
+                    ),
+                    SizedBox(
+                      width: 5,
+                    ),
+                    Text(
                       visit.date.day.toString(),
-                      style: CarlTheme.of(context).blackMediumLabel,
+                      style: CarlTheme.of(context).blackMediumBoldLabel,
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
                       Localization.of(context).getMonths[visit.date.month - 1],
-                      style: CarlTheme.of(context).blackMediumLabel,
+                      style: CarlTheme.of(context).blackMediumBoldLabel,
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
                       visit.date.year.toString(),
-                      style: CarlTheme.of(context).blackMediumLabel,
+                      style: CarlTheme.of(context).blackMediumBoldLabel,
                     ),
                   ],
                 ),
               ),
               Expanded(
                   child: Text(
-                "${Localization.of(context).at} ${visit.date.hour.toString()} h ${visit.date.minute.toString()} min ${visit.date.second.toString()} sec",
-                style: CarlTheme.of(context).blackMediumLabel,
+                "${visit.date.hour.toString().padLeft(2, '0')}h${visit.date.minute.toString().padLeft(2, '0')}",
+                style: CarlTheme.of(context).black12MediumLabel,
               ))
             ],
           ),

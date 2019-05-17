@@ -32,7 +32,14 @@ const String WelcomePageTitle = 'welcome_page_title',
     VisitsHistoricTitle = "visitsHistoricTitle",
     At = "at",
     EmptyGoodDealsTitle = "emptyGoodDealsTitle",
-    EmptyGoodDealsDescription = "emptyGoodDealsDescription";
+    EmptyGoodDealsDescription = "emptyGoodDealsDescription",
+    Monday = "monday",
+    Tuesday = "tuesday",
+    Wednesday = "wednesday",
+    Thursday = "thursday",
+    Friday = "friday",
+    Saturday = "saturfay",
+    Sunday = "sunday";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -72,6 +79,13 @@ final fr = {
   EmptyGoodDealsTitle: "Aucun bon plan",
   EmptyGoodDealsDescription:
       "Ici se trouveront les futurs bons plans partagés par les professionnels !",
+  Monday: "lundi",
+  Tuesday: "mardi",
+  Wednesday: "mercredu",
+  Thursday: "jeudi",
+  Friday: "vendredi",
+  Saturday: "samedi",
+  Sunday: "dimanche",
 };
 
 final en = {
@@ -110,6 +124,12 @@ final en = {
   VisitsHistoricTitle: "Visits historic",
   At: "At",
   EmptyGoodDealsTitle: "No Good Deals",
-  EmptyGoodDealsDescription:
-  "Here will be the future good deals provided by pros !",
+  EmptyGoodDealsDescription: "Here will be the future good deals provided by pros !",
+  Monday: "monday",
+  Tuesday: "tuesday",
+  Wednesday: "wednesday",
+  Thursday: "thursday",
+  Friday: "friday",
+  Saturday: "saturday",
+  Sunday: "sunday",
 };

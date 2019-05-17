@@ -58,6 +58,16 @@ class Localization {
         _getValue(December),
       ];
 
+  List<String> get getWeekDays => [
+        _getValue(Monday),
+        _getValue(Tuesday),
+        _getValue(Wednesday),
+        _getValue(Thursday),
+        _getValue(Friday),
+        _getValue(Saturday),
+        _getValue(Sunday),
+      ];
+
   String get validate => _getValue(Validate);
 
   String get add => _getValue(Add);

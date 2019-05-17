@@ -81,6 +81,8 @@ class CarlTheme extends InheritedWidget {
 
   get blackTitle => TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold);
 
+  get black12MediumLabel => TextStyle(color: Colors.black54, fontSize: 18);
+
   get greyMediumLabel => TextStyle(color: Colors.grey, fontSize: 18);
 
   get greyLittleLabel => TextStyle(color: Colors.grey, fontSize: 16);

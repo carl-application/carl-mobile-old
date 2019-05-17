@@ -122,9 +122,7 @@ class CardsPage extends StatelessWidget {
           ));
         }
         return Stack(
-          children: <Widget>[
-            ...stackChildren
-          ],
+          children: <Widget>[...stackChildren],
         );
       },
     );
