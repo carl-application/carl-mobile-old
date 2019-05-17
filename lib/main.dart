@@ -136,7 +136,6 @@ class _AppState extends State<App> {
                       ],
                       initialRoute: '/',
                       routes: {
-                        LoginPage.routeName: (context) => LoginPage(),
                         NfcScanPage.routeName: (context) => NfcScanPage(),
                       },
                       onGenerateRoute: (RouteSettings routeSettings) {
@@ -152,6 +151,11 @@ class _AppState extends State<App> {
                           case GoodDealsListPage.routeName:
                             return VerticalSlideTransition(
                               widget: GoodDealsListPage(),
+                            );
+                            break;
+                          case LoginPage.routeName:
+                            return VerticalSlideTransition(
+                              widget: LoginPage(),
                             );
                             break;
                           case GoodDealDetailPage.routeName:

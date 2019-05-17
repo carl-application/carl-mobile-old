@@ -42,7 +42,8 @@ const String WelcomePageTitle = 'welcome_page_title',
     Sunday = "sunday",
     NetworkErrorTitle = "networkErrorTitle",
     NetworkErrorDescription = "networkErrorDescription",
-    GoodDealsTitle = "goodDealsTitle";
+    GoodDealsTitle = "goodDealsTitle",
+    LoginPageTitle = "loginPageTitle";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -93,6 +94,7 @@ final fr = {
   NetworkErrorDescription:
       "Il semble que vous ne soyez pas connecté à internet. Récupération du contenu impossible pour le moment.",
   GoodDealsTitle: "Bons plans",
+  LoginPageTitle: "Vous avez déjà un compte Carl ?",
 };
 
 final en = {
@@ -143,4 +145,5 @@ final en = {
   NetworkErrorDescription:
       "It appears that you are no connected to internet. Retrieving of content unvailable for the moment.",
   GoodDealsTitle: "Good Deals",
+  LoginPageTitle: "Do you already have a Carl account ?",
 };

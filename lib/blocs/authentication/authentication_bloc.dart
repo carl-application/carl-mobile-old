@@ -16,7 +16,14 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
   @override
   Stream<AuthenticationState> mapEventToState(AuthenticationEvent event) async* {
     if (event is AppStarted) {
+      var beginningProcessusDate = DateTime.now();
       final bool hasToken = await _userRepository.hasToken();
+      var endingProcessusDate = DateTime.now();
+
+      if (endingProcessusDate.second - beginningProcessusDate.second <= 4) {
+        await Future.delayed(
+            Duration(seconds: 4 - (endingProcessusDate.second - beginningProcessusDate.second)));
+      }
 
       if (hasToken) {
         try {

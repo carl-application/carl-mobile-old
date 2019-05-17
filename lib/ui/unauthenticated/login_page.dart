@@ -1,33 +1,23 @@
 import 'package:carl/blocs/login/login_bloc.dart';
 import 'package:carl/blocs/login/login_event.dart';
 import 'package:carl/blocs/login/login_state.dart';
+import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/carl_textfield.dart';
+import 'package:carl/ui/shared/clickable_text.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   static const routeName = "/loginPage";
 
-  @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final FocusNode _userNameFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
-
   LoginBloc _loginBloc;
-
-  @override
-  initState() {
-    super.initState();
-    _loginBloc = BlocProvider.of<LoginBloc>(context);
-  }
 
   _login() {
     print("Logging with credentitals :");
@@ -59,6 +49,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    _loginBloc = BlocProvider.of<LoginBloc>(context);
     return Material(
       child: Container(
         decoration: BoxDecoration(gradient: CarlTheme.of(context).mainGradient),
@@ -74,30 +65,34 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        IconButton(
-                          onPressed: () => Navigator.pop(context),
-                          icon: Icon(
-                            Icons.arrow_back,
-                            size: 25,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Center(
-                          child: Hero(
-                            tag: "loginCarlFace",
-                            child: Container(
-                              height: 100,
-                              width: 100,
-                              child: Image.asset(
-                                "assets/ic_carl.png",
-                                fit: BoxFit.contain,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Center(
+                              child: Hero(
+                                tag: "loginCarlFace",
+                                child: Container(
+                                  height: 80,
+                                  width: 80,
+                                  child: Image.asset(
+                                    "assets/ic_carl.png",
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
+                            ClickableText(
+                              text: "annuler",
+                              textStyle: CarlTheme.of(context).whiteBoldBigLabel,
+                              clickedColor: CarlTheme.of(context).primaryColor,
+                              onClick: () => _navigateBack(context),
+                            )
+                          ],
                         ),
+                        Text(
+                          Localization.of(context).loginPageTitle,
+                          style: CarlTheme.of(context).white30Label,
+                        )
                       ],
                     ),
                   ),

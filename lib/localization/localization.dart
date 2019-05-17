@@ -93,6 +93,8 @@ class Localization {
   String get networkErrorDescription => _getValue(NetworkErrorDescription);
 
   String get goodDealsTitle => _getValue(GoodDealsTitle);
+
+  String get loginPageTitle => _getValue(LoginPageTitle);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

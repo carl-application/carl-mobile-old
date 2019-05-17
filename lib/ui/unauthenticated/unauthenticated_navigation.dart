@@ -9,26 +9,13 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
-class UnauthenticatedNavigation extends StatefulWidget {
-  @override
-  UnauthenticatedNavigationState createState() => UnauthenticatedNavigationState();
-}
-
-class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
-  SwiperController _controller;
+class UnauthenticatedNavigation extends StatelessWidget {
+  SwiperController _controller = SwiperController();
   final totalSteps = 2;
   UserRegistrationBloc _registrationBloc;
   var _currentPage = 0;
   var _userName = "";
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _controller = SwiperController();
-    final _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
-    _registrationBloc =
-        UserRegistrationBloc(RepositoryDealer.of(context).userRepository, _authenticationBloc);
-  }
+  AuthenticationBloc _authenticationBloc;
 
   void navigateTo(int pageNumber) {
     print("Actual page is $_currentPage");
@@ -41,6 +28,9 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
+    _registrationBloc =
+        UserRegistrationBloc(RepositoryDealer.of(context).userRepository, _authenticationBloc);
     return Directionality(
         textDirection: TextDirection.ltr,
         child: BlocProvider<UserRegistrationBloc>(
@@ -87,11 +77,5 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
             ],
           ),
         ));
-  }
-
-  @override
-  void dispose() {
-    _registrationBloc.dispose();
-    super.dispose();
   }
 }

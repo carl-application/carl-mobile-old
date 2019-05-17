@@ -5,42 +5,26 @@ import 'package:carl/ui/unauthenticated/onboarding_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class OnBoardingUsernamePage extends StatefulWidget {
+class OnBoardingUsernamePage extends StatelessWidget {
   OnBoardingUsernamePage({@required this.onUserNameSubmitted, this.onBackPressed, this.userName});
 
   final void Function(String) onUserNameSubmitted;
   final VoidCallback onBackPressed;
   final String userName;
 
-  @override
-  OnBoardingUsernamePageState createState() {
-    return OnBoardingUsernamePageState();
-  }
-}
-
-class OnBoardingUsernamePageState extends State<OnBoardingUsernamePage> {
   final _usernameController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    _usernameController.text = widget.userName;
-  }
-
-  @override
-  void dispose() {
-    _usernameController.dispose();
-    super.dispose();
-  }
-
   void navigateToNext(String userName) {
-    widget.onUserNameSubmitted(userName);
+    if (onUserNameSubmitted != null) {
+      onUserNameSubmitted(userName);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    _usernameController.text = userName;
     return WillPopScope(
-      onWillPop: widget.onBackPressed,
+      onWillPop: onBackPressed,
       child: Material(
         child: Container(
           decoration: BoxDecoration(gradient: CarlTheme.of(context).mainGradient),
@@ -97,7 +81,7 @@ class OnBoardingUsernamePageState extends State<OnBoardingUsernamePage> {
                     topEnable: true,
                     bottomEnable: _usernameController.text.isNotEmpty,
                     onTopCLicked: () {
-                      widget.onBackPressed();
+                      onBackPressed();
                     },
                     onDownClicked: () {
                       navigateToNext(_usernameController.text);
