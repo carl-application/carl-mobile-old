@@ -4,7 +4,7 @@ import 'package:carl/blocs/visits/visits_state.dart';
 import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/models/business/visit.dart';
-import 'package:carl/ui/shared/error_server.dart';
+import 'package:carl/ui/shared/error_api_call.dart';
 import 'package:carl/ui/shared/loader.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,9 @@ class _VisitsByUserState extends State<VisitsByUser> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _visitsBloc = VisitsBloc(RepositoryDealer.of(context).userRepository);
+    _visitsBloc = VisitsBloc(RepositoryDealer
+        .of(context)
+        .userRepository);
     _visitsBloc.dispatch(RetrieveVisitsEvent(widget.businessId, 10));
   }
 
@@ -38,7 +40,10 @@ class _VisitsByUserState extends State<VisitsByUser> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * .5,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height * .5,
       child: BlocBuilder<VisitsEvent, VisitsState>(
         bloc: _visitsBloc,
         builder: (BuildContext context, VisitsState state) {
@@ -54,8 +59,12 @@ class _VisitsByUserState extends State<VisitsByUser> {
                     flex: 1,
                     child: Center(
                       child: Text(
-                        Localization.of(context).visitsHistoricTitle,
-                        style: CarlTheme.of(context).blackMediumBoldLabel,
+                        Localization
+                            .of(context)
+                            .visitsHistoricTitle,
+                        style: CarlTheme
+                            .of(context)
+                            .blackMediumBoldLabel,
                       ),
                     ),
                   ),
@@ -72,9 +81,24 @@ class _VisitsByUserState extends State<VisitsByUser> {
                 ],
               ),
             );
-          } else {
-            return ErrorServer();
-          }
+          } else if (state is VisitsLoadingError) {
+            return ErrorApiCall(
+              errorTitle: state.isNetworkError
+                  ? Localization
+                  .of(context)
+                  .networkErrorTitle
+                  : Localization
+                  .of(context)
+                  .errorServerTitle,
+              errorDescription: state.isNetworkError
+                  ? Localization
+                  .of(context)
+                  .networkErrorDescription
+                  : Localization
+                  .of(context)
+                  .errorServerDescription,
+            );
+        }
         },
       ),
     );
@@ -103,38 +127,55 @@ class VisitItem extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      "${Localization.of(context).getWeekDays[visit.date.weekday - 1][0].toUpperCase()}${Localization.of(context).getWeekDays[visit.date.weekday - 1].substring(1)}",
-                      style: CarlTheme.of(context).blackMediumBoldLabel,
+                      "${Localization
+                          .of(context)
+                          .getWeekDays[visit.date.weekday - 1][0].toUpperCase()}${Localization
+                          .of(context)
+                          .getWeekDays[visit.date.weekday - 1].substring(1)}",
+                      style: CarlTheme
+                          .of(context)
+                          .blackMediumBoldLabel,
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
                       visit.date.day.toString(),
-                      style: CarlTheme.of(context).blackMediumBoldLabel,
+                      style: CarlTheme
+                          .of(context)
+                          .blackMediumBoldLabel,
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
-                      Localization.of(context).getMonths[visit.date.month - 1],
-                      style: CarlTheme.of(context).blackMediumBoldLabel,
+                      Localization
+                          .of(context)
+                          .getMonths[visit.date.month - 1],
+                      style: CarlTheme
+                          .of(context)
+                          .blackMediumBoldLabel,
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
                       visit.date.year.toString(),
-                      style: CarlTheme.of(context).blackMediumBoldLabel,
+                      style: CarlTheme
+                          .of(context)
+                          .blackMediumBoldLabel,
                     ),
                   ],
                 ),
               ),
               Expanded(
                   child: Text(
-                "${visit.date.hour.toString().padLeft(2, '0')}h${visit.date.minute.toString().padLeft(2, '0')}",
-                style: CarlTheme.of(context).black12MediumLabel,
-              ))
+                    "${visit.date.hour.toString().padLeft(2, '0')}h${visit.date.minute.toString()
+                        .padLeft(2, '0')}",
+                    style: CarlTheme
+                        .of(context)
+                        .black12MediumLabel,
+                  ))
             ],
           ),
         ),

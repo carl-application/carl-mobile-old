@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:carl/blocs/visits/visits_event.dart';
 import 'package:carl/blocs/visits/visits_state.dart';
@@ -22,7 +24,7 @@ class VisitsBloc extends Bloc<VisitsEvent, VisitsState> {
         yield VisitsLoadingSuccess(visits: visits);
       } catch (error) {
         print("visits loading error $error");
-        yield VisitsLoadingError();
+        yield VisitsLoadingError(isNetworkError: error is SocketException);
       }
     }
   }

@@ -2,7 +2,9 @@ import 'package:carl/blocs/good_deals/good_deals_bloc.dart';
 import 'package:carl/blocs/good_deals/good_deals_event.dart';
 import 'package:carl/blocs/good_deals/good_deals_state.dart';
 import 'package:carl/data/repository_dealer.dart';
+import 'package:carl/localization/localization.dart';
 import 'package:carl/models/good_deal.dart';
+import 'package:carl/ui/shared/error_api_call.dart';
 import 'package:carl/ui/shared/loader.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +54,7 @@ class GoodDealsListPage extends StatelessWidget {
               children: <Widget>[
                 Center(
                   child: Text(
-                    "Bons plans",
+                    Localization.of(context).goodDealsTitle,
                     style: CarlTheme.of(context).blackTitle,
                   ),
                 ),
@@ -65,7 +67,26 @@ class GoodDealsListPage extends StatelessWidget {
                     builder: (BuildContext context, GoodDealsState state) {
                       if (state is GoodDealsLoading) {
                         return Center(child: Loader());
-                      } else if (state is GoodDealsLoadingSuccess) {
+                      } else if (state is GoodDealsLoadingError){
+                        return Center(
+                            child:  ErrorApiCall(
+                              errorTitle: state.isNetworkError
+                                  ? Localization
+                                  .of(context)
+                                  .networkErrorTitle
+                                  : Localization
+                                  .of(context)
+                                  .errorServerTitle,
+                              errorDescription: state.isNetworkError
+                                  ? Localization
+                                  .of(context)
+                                  .networkErrorDescription
+                                  : Localization
+                                  .of(context)
+                                  .errorServerDescription,
+                            )
+                        );
+                      }else if (state is GoodDealsLoadingSuccess) {
                         final deals = state.goodDeals;
                         if (deals.isEmpty) {
                           return EmptyGoodDeals();

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 
@@ -25,7 +27,7 @@ class GoodDealsBloc extends Bloc<GoodDealsEvent, GoodDealsState> {
         yield GoodDealsLoadingSuccess(goodDeals: unreadGoodDeals);
       } catch (error) {
         print("cards loading error $error");
-        yield GoodDealsLoadingError();
+        yield GoodDealsLoadingError(isNetworkError: error is SocketException);
       }
     }
   }

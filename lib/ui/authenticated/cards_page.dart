@@ -11,7 +11,7 @@ import 'package:carl/ui/authenticated/cards_swiper.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/nfc_scan_page.dart';
 import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
-import 'package:carl/ui/shared/error_server.dart';
+import 'package:carl/ui/shared/error_api_call.dart';
 import 'package:carl/ui/shared/loader.dart';
 import 'package:carl/ui/shared/rounded_icon.dart';
 import 'package:carl/ui/theme.dart';
@@ -54,8 +54,11 @@ class CardsPage extends StatelessWidget {
             cards: state.cards,
             blackListed: state.blackListedBusinesses,
           );
-        } else {
-          return ErrorServer();
+        } else if (state is CardsLoadingError){
+          return ErrorApiCall(
+            errorTitle: state.isNetworkError ? Localization.of(context).networkErrorTitle : Localization.of(context).errorServerTitle,
+            errorDescription: state.isNetworkError ? Localization.of(context).networkErrorDescription : Localization.of(context).errorServerDescription,
+          );
         }
       },
     );

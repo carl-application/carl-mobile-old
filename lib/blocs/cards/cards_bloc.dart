@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:carl/blocs/cards/cards_event.dart';
 import 'package:carl/blocs/cards/cards_state.dart';
@@ -37,7 +39,7 @@ class CardsBloc extends Bloc<CardsEvent, CardsState> {
         yield CardsLoadingSuccess(cards: cards, blackListedBusinesses: blackListedBusinesses);
       } catch (error) {
         print("cards loading error $error");
-        yield CardsLoadingError();
+        yield CardsLoadingError(isNetworkError: error is SocketException);
       }
     }
   }

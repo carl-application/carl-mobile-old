@@ -6,8 +6,6 @@ import 'package:carl/blocs/card_detail/card_detail_state.dart';
 import 'package:carl/blocs/toggle_blacklist/toggle_blacklist_bloc.dart';
 import 'package:carl/blocs/toggle_blacklist/toggle_blacklist_event.dart';
 import 'package:carl/blocs/toggle_blacklist/toggle_blacklist_state.dart';
-import 'package:carl/data/providers/user_api_provider.dart';
-import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
@@ -16,6 +14,7 @@ import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
 import 'package:carl/ui/authenticated/nfc_scan_page.dart';
 import 'package:carl/ui/authenticated/visits_by_user.dart';
 import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
+import 'package:carl/ui/shared/error_api_call.dart';
 import 'package:carl/ui/shared/loader.dart';
 import 'package:carl/ui/shared/rounded_icon.dart';
 import 'package:carl/ui/theme.dart';
@@ -129,6 +128,17 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                     if (state is CardByIdLoading) {
                       return Center(
                         child: Loader(),
+                      );
+                    } else if (state is CardByIdLoadingError) {
+                      return Center(
+                        child: ErrorApiCall(
+                          errorTitle: state.isNetworkError
+                              ? Localization.of(context).networkErrorTitle
+                              : Localization.of(context).errorServerTitle,
+                          errorDescription: state.isNetworkError
+                              ? Localization.of(context).networkErrorTitle
+                              : Localization.of(context).errorServerTitle,
+                        ),
                       );
                     } else if (state is CardByIdLoadingSuccess) {
                       final cardHeight = MediaQuery.of(context).size.height * .2;

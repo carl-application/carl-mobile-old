@@ -20,6 +20,10 @@ class GoodDealsLoadingSuccess extends GoodDealsState {
 }
 
 class GoodDealsLoadingError extends GoodDealsState {
+  final bool isNetworkError;
+
+  GoodDealsLoadingError({this.isNetworkError});
+
   @override
-  String toString() => 'GoodDealsLoadingError';
+  String toString() => 'GoodDealsLoadingError { isNetworkError: $isNetworkError }';
 }

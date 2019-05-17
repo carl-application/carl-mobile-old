@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 
@@ -26,7 +28,7 @@ class CardDetailBloc extends Bloc<CardDetailEvent, CardDetailState> {
             card: card, isBlackListed: isBlackListedResponse.isBlackListed);
       } catch (error) {
         print("card by id loading error $error");
-        yield CardByIdLoadingError();
+        yield CardByIdLoadingError(isNetworkError: error is SocketException);
       }
     }
   }

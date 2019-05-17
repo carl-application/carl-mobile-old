@@ -39,7 +39,10 @@ const String WelcomePageTitle = 'welcome_page_title',
     Thursday = "thursday",
     Friday = "friday",
     Saturday = "saturfay",
-    Sunday = "sunday";
+    Sunday = "sunday",
+    NetworkErrorTitle = "networkErrorTitle",
+    NetworkErrorDescription = "networkErrorDescription",
+    GoodDealsTitle = "goodDealsTitle";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -86,6 +89,10 @@ final fr = {
   Friday: "vendredi",
   Saturday: "samedi",
   Sunday: "dimanche",
+  NetworkErrorTitle: "Aucun réseau",
+  NetworkErrorDescription:
+      "Il semble que vous ne soyez pas connecté à internet. Récupération du contenu impossible pour le moment.",
+  GoodDealsTitle: "Bons plans",
 };
 
 final en = {
@@ -132,4 +139,8 @@ final en = {
   Friday: "friday",
   Saturday: "saturday",
   Sunday: "sunday",
+  NetworkErrorTitle: "No Internet",
+  NetworkErrorDescription:
+      "It appears that you are no connected to internet. Retrieving of content unvailable for the moment.",
+  GoodDealsTitle: "Good Deals",
 };

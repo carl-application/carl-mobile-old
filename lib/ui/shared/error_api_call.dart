@@ -1,8 +1,12 @@
-import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 
-class ErrorServer extends StatelessWidget {
+class ErrorApiCall extends StatelessWidget {
+  final String errorTitle;
+  final String errorDescription;
+
+  const ErrorApiCall({Key key, this.errorTitle, this.errorDescription}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,14 +32,14 @@ class ErrorServer extends StatelessWidget {
               height: 30,
             ),
             Text(
-              Localization.of(context).errorServerTitle,
+              errorTitle,
               style: CarlTheme.of(context).blackTitle,
             ),
             SizedBox(
               height: 30,
             ),
             Text(
-              Localization.of(context).errorServerDescription,
+              errorDescription,
               style: CarlTheme.of(context).blackMediumLabel,
               textAlign: TextAlign.center,
             ),

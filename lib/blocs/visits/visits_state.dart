@@ -20,6 +20,10 @@ class VisitsLoadingSuccess extends VisitsState {
 }
 
 class VisitsLoadingError extends VisitsState {
+  final bool isNetworkError;
+
+  VisitsLoadingError({this.isNetworkError});
+
   @override
-  String toString() => 'VisitsLoadingError';
+  String toString() => 'VisitsLoadingError { isNetworkError: $isNetworkError}';
 }

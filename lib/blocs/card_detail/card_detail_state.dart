@@ -21,6 +21,10 @@ class CardByIdLoadingSuccess extends CardDetailState {
 }
 
 class CardByIdLoadingError extends CardDetailState {
+  final bool isNetworkError;
+
+  CardByIdLoadingError({this.isNetworkError});
+
   @override
-  String toString() => 'CardByIdLoadingError';
+  String toString() => 'CardByIdLoadingError { isNetworkError: $isNetworkError }';
 }
