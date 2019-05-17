@@ -3,6 +3,7 @@ import 'package:carl/blocs/visits/visits_event.dart';
 import 'package:carl/blocs/visits/visits_state.dart';
 import 'package:carl/data/providers/user_api_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/models/business/visit.dart';
 import 'package:carl/ui/shared/error_server.dart';
@@ -24,9 +25,9 @@ class _VisitsByUserState extends State<VisitsByUser> {
   VisitsBloc _visitsBloc;
 
   @override
-  void initState() {
-    super.initState();
-    _visitsBloc = VisitsBloc(UserRepository(userProvider: UserApiProvider()));
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _visitsBloc = VisitsBloc(RepositoryDealer.of(context).userRepository);
     _visitsBloc.dispatch(RetrieveVisitsEvent(widget.businessId, 10));
   }
 

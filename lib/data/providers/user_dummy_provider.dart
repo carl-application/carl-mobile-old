@@ -184,4 +184,10 @@ class UserDummyProvider implements UserProvider {
     return deals;
   }
 
+  Future<GoodDeal> retrievedGoodDealDetail(int id) async {
+    await Future.delayed(Duration(seconds: 1));
+
+    return GoodDeal(
+        0, DateTime.now(), "titre", "short description", "description", false, "chez toto");
+  }
 }

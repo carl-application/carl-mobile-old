@@ -35,6 +35,7 @@ const API_GET_IMAGE_BY_ID = "$API_BASE_URL/images";
 const API_GET_UNREAD_NOTIFICATIONS_COUNT = "$API_BASE_URL/user/notifications/unread/count";
 const API_GET_UNREAD_NOTIFICATIONS = "$API_BASE_URL/user/notifications/unread";
 const API_GET_READ_NOTIFICATIONS = "$API_BASE_URL/user/notifications";
+const API_GET_NOTIFICATION_DETAIL = "$API_BASE_URL/user/notifications";
 
 const PREFERENCES_ACCESS_TOKEN_KEY = "preferencesAccessTokenKey";
 const PREFERENCES_REFRESH_TOKEN_KEY = "preferencesRefreshTokenKey";
@@ -393,5 +394,29 @@ class UserApiProvider implements UserProvider {
 
     deals.addAll((jsonBody as List).map((e) => GoodDeal.fromJson(e)).toList());
     return deals;
+  }
+
+  Future<GoodDeal> retrievedGoodDealDetail(int id) async {
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+
+    final response = await http.get(
+      "$API_GET_NOTIFICATION_DETAIL/$id",
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      print("Error getting notification detail : ${response.statusCode}");
+      print("Response ${response}");
+      throw ServerException();
+    }
+
+    final jsonBody = json.decode(response.body.toString());
+
+    print("jsonBody is = $jsonBody");
+
+    return GoodDeal.fromJson(jsonBody);
   }
 }

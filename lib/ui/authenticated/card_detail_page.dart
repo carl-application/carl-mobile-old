@@ -8,6 +8,7 @@ import 'package:carl/blocs/toggle_blacklist/toggle_blacklist_event.dart';
 import 'package:carl/blocs/toggle_blacklist/toggle_blacklist_state.dart';
 import 'package:carl/data/providers/user_api_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
 import 'package:carl/models/navigation_arguments/card_detail_back_arguments.dart';
@@ -44,10 +45,10 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
   bool _isBlackListed = false;
 
   @override
-  void initState() {
-    super.initState();
-    _cardDetailBloc = CardDetailBloc(UserRepository(userProvider: UserApiProvider()));
-    _toggleBlacklistBloc = ToggleBlacklistBloc(UserRepository(userProvider: UserApiProvider()));
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _cardDetailBloc = CardDetailBloc(RepositoryDealer.of(context).userRepository);
+    _toggleBlacklistBloc = ToggleBlacklistBloc(RepositoryDealer.of(context).userRepository);
     _cardDetailBloc.dispatch(RetrieveCardByIdEvent(cardId: widget._cardId));
   }
 

@@ -1,6 +1,6 @@
 import 'package:carl/blocs/authentication/authentication_bloc.dart';
 import 'package:carl/blocs/user_registration/user_registration_bloc.dart';
-import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/ui/unauthenticated/onboarding_sex_birthday_page.dart';
 import 'package:carl/ui/unauthenticated/onboarding_username_page.dart';
 import 'package:carl/ui/unauthenticated/welcome_page.dart';
@@ -10,10 +10,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
 class UnauthenticatedNavigation extends StatefulWidget {
-  UnauthenticatedNavigation({@required this.userRepository});
-
-  final UserRepository userRepository;
-
   @override
   UnauthenticatedNavigationState createState() => UnauthenticatedNavigationState();
 }
@@ -26,11 +22,12 @@ class UnauthenticatedNavigationState extends State<UnauthenticatedNavigation> {
   var _userName = "";
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     _controller = SwiperController();
     final _authenticationBloc = BlocProvider.of<AuthenticationBloc>(context);
-    _registrationBloc = UserRegistrationBloc(widget.userRepository, _authenticationBloc);
+    _registrationBloc =
+        UserRegistrationBloc(RepositoryDealer.of(context).userRepository, _authenticationBloc);
   }
 
   void navigateTo(int pageNumber) {

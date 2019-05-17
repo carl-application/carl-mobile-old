@@ -84,4 +84,8 @@ class UserRepository {
   Future<List<GoodDeal>> retrieveReadGoodDeals() {
     return userProvider.retrieveReadGoodDeals();
   }
+
+  Future<GoodDeal> retrieveGoodDealDetail(int id) {
+    return userProvider.retrievedGoodDealDetail(id);
+  }
 }

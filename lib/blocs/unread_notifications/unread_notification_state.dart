@@ -38,6 +38,13 @@ class OnNewUnreadNotificationsState extends UnreadNotificationsState {
   String toString() => 'OnNewUnreadNotificationsState { count: $count }';
 }
 
+class OnRemovedUnreadNotificationsState extends UnreadNotificationsState {
+  OnRemovedUnreadNotificationsState();
+
+  @override
+  String toString() => 'OnRemovedUnreadNotificationsState}';
+}
+
 class RetrieveUnreadNotificationsError extends UnreadNotificationsState {
   @override
   String toString() => 'RetrieveUnreadNotificationsError';

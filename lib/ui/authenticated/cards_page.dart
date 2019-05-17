@@ -4,8 +4,7 @@ import 'package:carl/blocs/cards/cards_state.dart';
 import 'package:carl/blocs/unread_notifications/unread_notification_event.dart';
 import 'package:carl/blocs/unread_notifications/unread_notification_state.dart';
 import 'package:carl/blocs/unread_notifications/unread_notifications_bloc.dart';
-import 'package:carl/data/providers/user_api_provider.dart';
-import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
 import 'package:carl/ui/authenticated/cards_swiper.dart';
@@ -23,33 +22,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'empty_cards.dart';
 
-class CardsPage extends StatefulWidget {
-  @override
-  _CardsPageState createState() => _CardsPageState();
-}
-
-class _CardsPageState extends State<CardsPage> {
+class CardsPage extends StatelessWidget {
+  int _unreadNotificationsCount = 0;
   CardsBloc _cardsBloc;
   UnreadNotificationsBloc _unreadNotificationsBloc;
-  int _unreadNotificationsCount = 0;
-
-  @override
-  initState() {
-    super.initState();
-    _cardsBloc = CardsBloc(UserRepository(userProvider: UserApiProvider()));
-    _unreadNotificationsBloc = BlocProvider.of<UnreadNotificationsBloc>(context);
-    _cardsBloc.dispatch(RetrieveCardsEvent());
-    _unreadNotificationsBloc.dispatch(RetrieveUnreadNotificationsCountEvent());
-  }
-
-  @override
-  dispose() {
-    _cardsBloc.dispose();
-    super.dispose();
-  }
 
   _navigateToScan(BuildContext context) {
     Navigator.of(context).pushNamed(NfcScanPage.routeName, arguments: CallSource.home);
+  }
+
+  _navigateToGoodDeals(BuildContext context) async {
+    final nbSeenDeals = await Navigator.pushNamed(context, GoodDealsListPage.routeName) as int;
+    if (nbSeenDeals > 0) {
+      _unreadNotificationsBloc.dispatch(RetrieveUnreadNotificationsCountEvent());
+    }
   }
 
   Widget _renderBody(context) {
@@ -86,55 +72,58 @@ class _CardsPageState extends State<CardsPage> {
         } else if (state is RefreshUnreadNotificationsSuccess) {
           _unreadNotificationsCount = state.unreadNotificationsCount;
         }
-        return Stack(
-          children: <Widget>[
-            Material(
-              shape: CircleBorder(),
-              elevation: 5,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 5, left: 5),
-                child: Container(
-                  decoration: BoxDecoration(
-                      gradient: CarlTheme.of(context).orangeGradient, shape: BoxShape.circle),
-                  child: Material(
-                    color: Colors.transparent,
-                    shape: CircleBorder(),
-                    clipBehavior: Clip.antiAlias,
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(GoodDealsListPage.routeName);
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Image.asset(
-                          "assets/ic_idea.png",
-                          height: MediaQuery.of(context).size.width * .06,
-                          width: MediaQuery.of(context).size.width * .06,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
+        final stackChildren = List<Widget>();
+        stackChildren.add(Material(
+          shape: CircleBorder(),
+          elevation: 5,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 5, left: 5),
+            child: Container(
+              decoration: BoxDecoration(
+                  gradient: CarlTheme.of(context).orangeGradient, shape: BoxShape.circle),
+              child: Material(
+                color: Colors.transparent,
+                shape: CircleBorder(),
+                clipBehavior: Clip.antiAlias,
+                child: InkWell(
+                  onTap: () {
+                    _navigateToGoodDeals(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.asset(
+                      "assets/ic_idea.png",
+                      height: MediaQuery.of(context).size.width * .06,
+                      width: MediaQuery.of(context).size.width * .06,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
               ),
             ),
-            _unreadNotificationsCount > 0
-                ? Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Container(
-                      height: MediaQuery.of(context).size.width * .05,
-                      width: MediaQuery.of(context).size.width * .05,
-                      decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                      child: Center(
-                        child: Text(
-                          "$_unreadNotificationsCount",
-                          style: TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      ),
-                    ),
-                  )
-                : Container(),
+          ),
+        ));
+
+        if (_unreadNotificationsCount > 0) {
+          stackChildren.add(Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              height: MediaQuery.of(context).size.width * .05,
+              width: MediaQuery.of(context).size.width * .05,
+              decoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+              child: Center(
+                child: Text(
+                  "$_unreadNotificationsCount",
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
+              ),
+            ),
+          ));
+        }
+        return Stack(
+          children: <Widget>[
+            ...stackChildren
           ],
         );
       },
@@ -143,6 +132,10 @@ class _CardsPageState extends State<CardsPage> {
 
   @override
   Widget build(BuildContext context) {
+    _cardsBloc = CardsBloc(RepositoryDealer.of(context).userRepository);
+    _unreadNotificationsBloc = BlocProvider.of<UnreadNotificationsBloc>(context);
+    _cardsBloc.dispatch(RetrieveCardsEvent());
+    _unreadNotificationsBloc.dispatch(RetrieveUnreadNotificationsCountEvent());
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Scaffold(
       body: Container(

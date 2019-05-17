@@ -30,6 +30,8 @@ class UnreadNotificationsBloc extends Bloc<UnreadNotificationsEvent, UnreadNotif
       final unreadNotifications = await _userRepository.retrieveUnreadNotificationsCount();
       yield RefreshUnreadNotificationsSuccess(
           unreadNotificationsCount: unreadNotifications.unreadNotificationsCount);
+    } else if (event is RemoveOneUnreadNotificationsEvent) {
+      yield OnRemovedUnreadNotificationsState();
     }
   }
 }

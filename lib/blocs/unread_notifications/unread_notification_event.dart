@@ -22,3 +22,10 @@ class AddNewUnreadNotificationsEvent extends UnreadNotificationsEvent {
   @override
   String toString() => 'AddNewUnreadNotificationsEvent { count: $count}';
 }
+
+class RemoveOneUnreadNotificationsEvent extends UnreadNotificationsEvent {
+  RemoveOneUnreadNotificationsEvent();
+
+  @override
+  String toString() => 'RemoveOneUnreadNotificationsEvent}';
+}

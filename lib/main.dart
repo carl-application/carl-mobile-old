@@ -6,9 +6,11 @@ import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/blocs/authentication/authentication_state.dart';
 import 'package:carl/data/providers/user_api_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/authenticated/cards_page.dart';
+import 'package:carl/ui/authenticated/good_deal_detail_page.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/nfc_scan_page.dart';
 import 'package:carl/ui/shared/VerticalSlideTransition.dart';
@@ -106,9 +108,7 @@ class _AppState extends State<App> {
     } else if (state is AuthenticationLoading) {
       return Container(color: CarlTheme.of(context).background);
     }
-    return UnauthenticatedNavigation(
-      userRepository: userRepository,
-    );
+    return UnauthenticatedNavigation();
   }
 
   @override
@@ -120,43 +120,56 @@ class _AppState extends State<App> {
         bloc: _loginBloc,
         child: BlocProvider<UnreadNotificationsBloc>(
           bloc: _unreadNotificationsBloc,
-          child: CarlTheme(
-            child: BlocBuilder<AuthenticationEvent, AuthenticationState>(
-                bloc: _authenticationBloc,
-                builder: (BuildContext context, AuthenticationState state) {
-                  return MaterialApp(
-                    localizationsDelegates: [
-                      const LocalizationDelegate(),
-                    ],
-                    supportedLocales: [
-                      const Locale('en', ''),
-                      const Locale('es', ''),
-                    ],
-                    initialRoute: '/',
-                    routes: {
-                      LoginPage.routeName: (context) => LoginPage(),
-                      NfcScanPage.routeName: (context) => NfcScanPage(),
-                    },
-                    onGenerateRoute: (RouteSettings routeSettings) {
-                      final dynamicArguments = routeSettings.arguments;
-                      switch (routeSettings.name) {
-                        case CardDetailPage.routeName:
-                          if (dynamicArguments is CardDetailArguments) {
+          child: RepositoryDealer(
+            userRepository: userRepository,
+            child: CarlTheme(
+              child: BlocBuilder<AuthenticationEvent, AuthenticationState>(
+                  bloc: _authenticationBloc,
+                  builder: (BuildContext context, AuthenticationState state) {
+                    return MaterialApp(
+                      localizationsDelegates: [
+                        const LocalizationDelegate(),
+                      ],
+                      supportedLocales: [
+                        const Locale('en', ''),
+                        const Locale('es', ''),
+                      ],
+                      initialRoute: '/',
+                      routes: {
+                        LoginPage.routeName: (context) => LoginPage(),
+                        NfcScanPage.routeName: (context) => NfcScanPage(),
+                      },
+                      onGenerateRoute: (RouteSettings routeSettings) {
+                        final dynamicArguments = routeSettings.arguments;
+                        switch (routeSettings.name) {
+                          case CardDetailPage.routeName:
+                            if (dynamicArguments is CardDetailArguments) {
+                              return VerticalSlideTransition(
+                                widget: CardDetailPage(dynamicArguments),
+                              );
+                            }
+                            break;
+                          case GoodDealsListPage.routeName:
                             return VerticalSlideTransition(
-                              widget: CardDetailPage(dynamicArguments),
+                              widget: GoodDealsListPage(),
                             );
-                          }
-                          break;
-                        case GoodDealsListPage.routeName:
-                          return VerticalSlideTransition(
-                            widget: GoodDealsListPage(),
-                          );
-                          break;
-                      }
-                    },
-                    home: _selectHomeByState(state, context),
-                  );
-                }),
+                            break;
+                          case GoodDealDetailPage.routeName:
+                            if (dynamicArguments is int) {
+                              return new MaterialPageRoute(
+                                settings: routeSettings,
+                                builder: (BuildContext context) => GoodDealDetailPage(
+                                      id: dynamicArguments,
+                                    ),
+                              );
+                            }
+                            break;
+                        }
+                      },
+                      home: _selectHomeByState(state, context),
+                    );
+                  }),
+            ),
           ),
         ),
       ),

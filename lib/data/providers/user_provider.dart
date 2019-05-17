@@ -45,4 +45,6 @@ abstract class UserProvider {
   Future<List<GoodDeal>> retrieveUnreadGoodDeals();
 
   Future<List<GoodDeal>> retrieveReadGoodDeals();
+
+  Future<GoodDeal> retrievedGoodDealDetail(int id);
 }

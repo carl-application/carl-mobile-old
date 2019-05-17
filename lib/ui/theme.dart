@@ -92,6 +92,8 @@ class CarlTheme extends InheritedWidget {
 
   get whiteBigLabel => TextStyle(color: Colors.white, fontSize: 18);
 
+  get blueTitle => TextStyle(color: accentColor, fontSize: 24, fontWeight: FontWeight.bold);
+
   get blueBigLabel => TextStyle(color: accentColor, fontSize: 18);
 
   get blueSmallLabel => TextStyle(color: accentColor, fontSize: 15);
