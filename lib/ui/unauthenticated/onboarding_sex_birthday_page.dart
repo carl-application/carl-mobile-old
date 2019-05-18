@@ -9,14 +9,23 @@ import 'package:carl/ui/unauthenticated/date_chooser.dart';
 import 'package:carl/ui/unauthenticated/onboarding_header.dart';
 import 'package:carl/ui/unauthenticated/toggle_chooser.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnBoardingSexBirthdayPage extends StatefulWidget {
-  OnBoardingSexBirthdayPage({@required this.onBackPressed, @required this.pseudo});
+  OnBoardingSexBirthdayPage(
+      {@required this.onBackPressed,
+      @required this.onEmailAlreadyUsedError,
+      @required this.pseudo,
+      @required this.email,
+      @required this.password});
 
   final VoidCallback onBackPressed;
+  final VoidCallback onEmailAlreadyUsedError;
   final String pseudo;
+  final String email;
+  final String password;
 
   @override
   OnBoardingSexBirthdayPageState createState() {
@@ -43,6 +52,16 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
     super.dispose();
   }
 
+  _login() {
+    _registrationBloc.dispatch(RegisterUserEvent(
+        registrationModel: RegistrationModel(
+            pseudo: widget.pseudo,
+            userName: widget.email,
+            password: widget.password,
+            sex: _toggleController.choice.toLowerCase(),
+            birthdayDate: _dateController.date.toIso8601String())));
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -64,7 +83,7 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
                         height: 30,
                       ),
                       OnBoardingHeader(
-                          title: Localization.of(context).onBoardingSexAndAgeTitle, position: 2),
+                          title: Localization.of(context).onBoardingSexAndAgeTitle, position: 4),
                       SizedBox(
                         height: 40,
                       ),
@@ -104,28 +123,17 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
                         bloc: _registrationBloc,
                         builder: (BuildContext context, UserRegistrationState state) {
                           final isLoading = state is RegistrationLoading ? true : false;
+                          if (state is RegistrationFailed) {
+                            if (state.isEmailAlreadyInDatabase) {
+                              SchedulerBinding.instance.addPostFrameCallback((_) => widget.onEmailAlreadyUsedError());
+                            }
+                          }
                           return CarlButton(
                             isLoading: isLoading,
                             textStyle: CarlTheme.of(context).bigButtonLabelStyle,
                             width: MediaQuery.of(context).size.width * 0.8,
-                            text: state is RegistrationFailed
-                                ? state.error.toString()
-                                : Localization.of(context).validate.toUpperCase(),
-                            onPressed: () {
-                              print("Pseudo = ${widget.pseudo}");
-                              print("Sex choice = ${_toggleController.choice}");
-                              print("Birthday = ${_dateController.date.toIso8601String()}");
-                              final fakePassword = "totoro";
-                              final fakeUsername = "${widget.pseudo}@gmail.com";
-
-                              _registrationBloc.dispatch(RegisterUserEvent(
-                                  registrationModel: RegistrationModel(
-                                      pseudo: widget.pseudo,
-                                      userName: fakeUsername,
-                                      password: fakePassword,
-                                      sex: _toggleController.choice.toLowerCase(),
-                                      birthdayDate: _dateController.date.toIso8601String())));
-                            },
+                            text: Localization.of(context).validate.toUpperCase(),
+                            onPressed: () => _login(),
                           );
                         },
                       )

@@ -6,6 +6,7 @@ import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/blocs/user_registration/user_registration_event.dart';
 import 'package:carl/blocs/user_registration/user_registration_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/models/exceptions/email_already_exist_exception.dart';
 
 class UserRegistrationBloc extends Bloc<UserRegistrationEvent, UserRegistrationState> {
   UserRegistrationBloc(this._userRepository, this._authenticationBloc);
@@ -28,7 +29,7 @@ class UserRegistrationBloc extends Bloc<UserRegistrationEvent, UserRegistrationS
 
         _authenticationBloc.dispatch(LoggedIn(tokens: tokens));
       } catch (error) {
-        yield RegistrationFailed(error);
+        yield RegistrationFailed(isEmailAlreadyInDatabase: error is EmailAlreadyExistException);
       }
     }
   }

@@ -5,6 +5,7 @@ class CarlTextField extends StatelessWidget {
   CarlTextField(
       {@required this.hintText,
       @required this.controller,
+      this.keyboardType: TextInputType.emailAddress,
       this.obscureText = false,
       this.textStyle,
       this.hintStyle,
@@ -14,6 +15,7 @@ class CarlTextField extends StatelessWidget {
 
   final String hintText;
   final bool obscureText;
+  final TextInputType keyboardType;
   final TextEditingController controller;
   final TextInputAction textInputAction;
   final Function(String) onSubmitted;
@@ -26,9 +28,8 @@ class CarlTextField extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 12.0),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        color: Color.fromRGBO(255, 255, 255, .2)
-      ),
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          color: Color.fromRGBO(255, 255, 255, .2)),
       child: TextField(
         onSubmitted: (text) => onSubmitted(text),
         focusNode: focusNode,

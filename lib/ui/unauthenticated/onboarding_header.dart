@@ -28,7 +28,7 @@ class OnBoardingHeader extends StatelessWidget {
             ),
             OnBoardingPositionCounter(
               position: position,
-              total: 2,
+              total: 4,
             )
           ],
         ),

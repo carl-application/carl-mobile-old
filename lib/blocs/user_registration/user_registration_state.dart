@@ -20,10 +20,10 @@ class RegistrationSucceed extends UserRegistrationState {
 }
 
 class RegistrationFailed extends UserRegistrationState {
-  final Exception error;
+  final bool isEmailAlreadyInDatabase;
 
-  RegistrationFailed(this.error);
+  RegistrationFailed({this.isEmailAlreadyInDatabase});
 
   @override
-  String toString() => 'RegistrationFailed { error: $error}';
+  String toString() => 'RegistrationFailed { isEmailAlreadyInDatabase: $isEmailAlreadyInDatabase}';
 }

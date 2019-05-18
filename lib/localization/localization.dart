@@ -31,6 +31,18 @@ class Localization {
 
   String get onBoardingUsernameLabel => _getValue(OnBoardingUserNameLabel);
 
+  String get onBoardingEmailTitle => _getValue(OnBoardingEmailTitle);
+
+  String get onBoardingEmailHint => _getValue(OnBoardingEmailHint);
+
+  String get onBoardingEmailLabel => _getValue(OnBoardingEmailLabel);
+
+  String get onBoardingPasswordTitle => _getValue(OnBoardingPasswordTitle);
+
+  String get onBoardingPasswordHint => _getValue(OnBoardingPasswordHint);
+
+  String get onBoardingPasswordLabel => _getValue(OnBoardingPasswordLabel);
+
   String get onBoardingSexAndAgeTitle => _getValue(OnBoardingSexAndAgeTitle);
 
   String get yourSexLabel => _getValue(YourSex);
@@ -101,6 +113,8 @@ class Localization {
   String get loginPagePasswordHintText => _getValue(LoginPagePasswordHintText);
 
   String get loginPageBadCredentialsErrorText => _getValue(LoginPageBadCredentialsErrorText);
+
+  String get emailAlreadyExistErrorMessage => _getValue(EmailAlreadyExistErrorMessage);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

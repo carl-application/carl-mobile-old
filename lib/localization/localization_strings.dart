@@ -5,6 +5,12 @@ const String WelcomePageTitle = 'welcome_page_title',
     OnBoardingUserNameTitle = 'on_boarding_username_title',
     OnBoardingUserNameHint = 'on_boarding_username_hint',
     OnBoardingUserNameLabel = 'on_boarding_username_label',
+    OnBoardingEmailTitle = 'on_boarding_email_title',
+    OnBoardingEmailHint = 'on_boarding_email_hint',
+    OnBoardingEmailLabel = "on_boarding_email_label",
+    OnBoardingPasswordTitle = 'on_boarding_password_title',
+    OnBoardingPasswordHint = 'on_boarding_password_hint',
+    OnBoardingPasswordLabel = "on_boarding_password_label",
     OnBoardingSexAndAgeTitle = 'on_boarding_sex_and_age_title',
     YourSex = "your_sex",
     Man = "man",
@@ -46,7 +52,8 @@ const String WelcomePageTitle = 'welcome_page_title',
     LoginPageTitle = "loginPageTitle",
     LoginPageEmailHintText = "loginPageEmailHintText",
     LoginPagePasswordHintText = "loginPagePasswordHintText",
-    LoginPageBadCredentialsErrorText = "loginPageBadCredentialsErrorText";
+    LoginPageBadCredentialsErrorText = "loginPageBadCredentialsErrorText",
+    EmailAlreadyExistErrorMessage = "emailAlreadyExistErrorMessage";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -56,6 +63,10 @@ final fr = {
   OnBoardingUserNameTitle: "Heureux de te rencontrer,\ncomment tes amis t'appellent ?",
   OnBoardingUserNameHint: "Ils m'appellent...",
   OnBoardingUserNameLabel: "Votre prénom",
+  OnBoardingEmailTitle:
+      "Afin de t'identifier, j'ai aussi besoin de ton email. Il ne sera communiqué à aucun pro ;)",
+  OnBoardingEmailHint: 'Voici mon email',
+  OnBoardingEmailLabel: "Email",
   OnBoardingSexAndAgeTitle:
       "Avec Carl, ces informations ne seront jamais reliées à votre identité !\nVous serez, aux yeux des commerçants, un utilisateur anonyme.",
   YourSex: "Votre sexe",
@@ -101,6 +112,11 @@ final fr = {
   LoginPageEmailHintText: "Email",
   LoginPagePasswordHintText: "Mot de passe",
   LoginPageBadCredentialsErrorText: "Email ou mot de passe incorrect",
+  OnBoardingPasswordTitle: 'Un petit mot de passe pour plus de sécutité !',
+  OnBoardingPasswordHint: 'Mon mon de passe super compliqué',
+  OnBoardingPasswordLabel: "Mot de passe",
+  EmailAlreadyExistErrorMessage: "Cet email existe déjà sur l'application",
+
 };
 
 final en = {
@@ -155,4 +171,12 @@ final en = {
   LoginPageEmailHintText: "Mail",
   LoginPagePasswordHintText: "Password",
   LoginPageBadCredentialsErrorText: "Bad Credentials",
+  OnBoardingEmailTitle:
+      "In order to identify you, I also need your mail. It will never be communicated to professionals ;)",
+  OnBoardingEmailHint: 'Here is my mail',
+  OnBoardingEmailLabel: "Mail",
+  OnBoardingPasswordTitle: 'A little password for more securitry !',
+  OnBoardingPasswordHint: 'My awesomly non-hackable password',
+  OnBoardingPasswordLabel: "Password",
+  EmailAlreadyExistErrorMessage: "Email already exists on this application",
 };

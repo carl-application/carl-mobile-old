@@ -109,6 +109,7 @@ class LoginPage extends StatelessWidget {
                         height: 40,
                       ),
                       CarlTextField(
+                        keyboardType: TextInputType.emailAddress,
                         hintText: Localization.of(context).loginPageEmailHintText,
                         controller: _usernameController,
                         textInputAction: TextInputAction.next,
