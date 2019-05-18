@@ -10,6 +10,7 @@ import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
 import 'package:carl/ui/authenticated/cards_swiper.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/nfc_scan_page.dart';
+import 'package:carl/ui/authenticated/settings_page.dart';
 import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
 import 'package:carl/ui/shared/loader.dart';
@@ -29,6 +30,10 @@ class CardsPage extends StatelessWidget {
 
   _navigateToScan(BuildContext context) {
     Navigator.of(context).pushNamed(NfcScanPage.routeName, arguments: CallSource.home);
+  }
+
+  _navigateToSettings(BuildContext context) {
+    Navigator.of(context).pushNamed(SettingsPage.routeName);
   }
 
   _navigateToGoodDeals(BuildContext context) async {
@@ -154,6 +159,7 @@ class CardsPage extends StatelessWidget {
                   children: <Widget>[
                     RoundedIcon(
                       assetIcon: "assets/ic_settings.png",
+                      onClick: () => _navigateToSettings(context),
                     ),
                     RoundedIcon(
                       assetIcon: "assets/ic_search.png",

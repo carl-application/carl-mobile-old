@@ -115,6 +115,10 @@ class Localization {
   String get loginPageBadCredentialsErrorText => _getValue(LoginPageBadCredentialsErrorText);
 
   String get emailAlreadyExistErrorMessage => _getValue(EmailAlreadyExistErrorMessage);
+
+  String get settingsTitle => _getValue(SettingsTitle);
+
+  String get settingsLogoutLabel=> _getValue(SettingsLogoutLabel);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

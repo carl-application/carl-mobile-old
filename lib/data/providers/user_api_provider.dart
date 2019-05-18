@@ -67,8 +67,14 @@ class UserApiProvider implements UserProvider {
   }
 
   @override
-  Future<void> deleteToken() {
-    return null;
+  Future<void> deleteToken() async {
+    final preferences = await SharedPreferences.getInstance();
+    preferences.remove(PREFERENCES_ACCESS_TOKEN_KEY);
+    preferences.remove(PREFERENCES_EXPIRES_IN_KEY);
+    preferences.remove(PREFERENCES_TOKEN_UPDATED_DATE_KEY);
+    preferences.remove(PREFERENCES_REFRESH_TOKEN_KEY);
+
+    return true;
   }
 
   @override

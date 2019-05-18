@@ -13,6 +13,7 @@ import 'package:carl/ui/authenticated/cards_page.dart';
 import 'package:carl/ui/authenticated/good_deal_detail_page.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/nfc_scan_page.dart';
+import 'package:carl/ui/authenticated/settings_page.dart';
 import 'package:carl/ui/shared/VerticalSlideTransition.dart';
 import 'package:carl/ui/shared/splash_screen_page.dart';
 import 'package:carl/ui/theme.dart';
@@ -156,6 +157,11 @@ class _AppState extends State<App> {
                           case LoginPage.routeName:
                             return VerticalSlideTransition(
                               widget: LoginPage(),
+                            );
+                            break;
+                          case SettingsPage.routeName:
+                            return VerticalSlideTransition(
+                              widget: SettingsPage(),
                             );
                             break;
                           case GoodDealDetailPage.routeName:

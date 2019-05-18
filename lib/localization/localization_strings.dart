@@ -53,7 +53,9 @@ const String WelcomePageTitle = 'welcome_page_title',
     LoginPageEmailHintText = "loginPageEmailHintText",
     LoginPagePasswordHintText = "loginPagePasswordHintText",
     LoginPageBadCredentialsErrorText = "loginPageBadCredentialsErrorText",
-    EmailAlreadyExistErrorMessage = "emailAlreadyExistErrorMessage";
+    EmailAlreadyExistErrorMessage = "emailAlreadyExistErrorMessage",
+    SettingsTitle = "settingsTitle",
+    SettingsLogoutLabel = "settingsLogoutLabel";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -116,7 +118,8 @@ final fr = {
   OnBoardingPasswordHint: 'Mon mon de passe super compliqué',
   OnBoardingPasswordLabel: "Mot de passe",
   EmailAlreadyExistErrorMessage: "Cet email existe déjà sur l'application",
-
+  SettingsTitle: "Paramètres",
+  SettingsLogoutLabel: "Me déconnecter",
 };
 
 final en = {
@@ -179,4 +182,6 @@ final en = {
   OnBoardingPasswordHint: 'My awesomly non-hackable password',
   OnBoardingPasswordLabel: "Password",
   EmailAlreadyExistErrorMessage: "Email already exists on this application",
+  SettingsTitle: "Settings",
+  SettingsLogoutLabel: "Log out",
 };
