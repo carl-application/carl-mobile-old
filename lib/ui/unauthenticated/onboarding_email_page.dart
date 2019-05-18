@@ -64,6 +64,9 @@ class OnBoardingEmailPage extends StatelessWidget {
                               email = text;
                               navigateToNext(text);
                             },
+                            onChanged: (text) {
+                              email = text;
+                            },
                             controller: _emailController,
                             style: CarlTheme.of(context).whiteMediumLabel,
                             decoration: InputDecoration(

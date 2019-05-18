@@ -1,5 +1,6 @@
 import 'package:carl/blocs/authentication/authentication_bloc.dart';
 import 'package:carl/blocs/user_registration/user_registration_bloc.dart';
+import 'package:carl/blocs/user_registration/user_registration_event.dart';
 import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/ui/unauthenticated/onboarding_email_page.dart';
 import 'package:carl/ui/unauthenticated/onboarding_sex_birthday_page.dart';

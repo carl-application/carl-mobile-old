@@ -46,12 +46,6 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
     _registrationBloc = BlocProvider.of<UserRegistrationBloc>(context);
   }
 
-  @override
-  void dispose() {
-    _registrationBloc.dispose();
-    super.dispose();
-  }
-
   _login() {
     _registrationBloc.dispatch(RegisterUserEvent(
         registrationModel: RegistrationModel(

@@ -64,6 +64,9 @@ class OnBoardingPasswordPage extends StatelessWidget {
                               password = text;
                               navigateToNext(text);
                             },
+                            onChanged: (text) {
+                              password = text;
+                            },
                             controller: _passwordController,
                             style: CarlTheme.of(context).whiteMediumLabel,
                             decoration: InputDecoration(

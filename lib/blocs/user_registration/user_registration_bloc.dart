@@ -13,6 +13,9 @@ class UserRegistrationBloc extends Bloc<UserRegistrationEvent, UserRegistrationS
 
   final UserRepository _userRepository;
   final AuthenticationBloc _authenticationBloc;
+  bool _isEmailAlreadyUsed = false;
+
+  get isEmailAlreadyUsed => _isEmailAlreadyUsed;
 
   @override
   UserRegistrationState get initialState => RegistrationNotStarted();
