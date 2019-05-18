@@ -22,10 +22,10 @@ class SettingsPage extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return ConfirmationDialog(
-            title: "Déconnexion",
-            description: "Etes-vous sûr de vouloir vous déconnecter ?",
-            yesButtonText: "Valider",
-            noButtonText: "Annuler",
+            title: Localization.of(context).logOutConfirmationTitle,
+            description: Localization.of(context).logOutConfirmationDescription,
+            yesButtonText: Localization.of(context).validate,
+            noButtonText: Localization.of(context).cancel,
             onYesClicked: () => _logOut(context),
             onNoClicked: () => Navigator.of(context).pop(),
           );
@@ -89,7 +89,7 @@ class SettingsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
       Card(
-        elevation: 5,
+        elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),

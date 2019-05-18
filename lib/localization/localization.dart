@@ -118,7 +118,13 @@ class Localization {
 
   String get settingsTitle => _getValue(SettingsTitle);
 
-  String get settingsLogoutLabel=> _getValue(SettingsLogoutLabel);
+  String get settingsLogoutLabel => _getValue(SettingsLogoutLabel);
+
+  String get logOutConfirmationTitle => _getValue(LogOutConfirmationTitle);
+
+  String get logOutConfirmationDescription => _getValue(LogOutConfirmationDescription);
+
+  String get cancel => _getValue(Cancel);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

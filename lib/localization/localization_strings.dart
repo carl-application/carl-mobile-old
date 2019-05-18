@@ -55,7 +55,10 @@ const String WelcomePageTitle = 'welcome_page_title',
     LoginPageBadCredentialsErrorText = "loginPageBadCredentialsErrorText",
     EmailAlreadyExistErrorMessage = "emailAlreadyExistErrorMessage",
     SettingsTitle = "settingsTitle",
-    SettingsLogoutLabel = "settingsLogoutLabel";
+    SettingsLogoutLabel = "settingsLogoutLabel",
+    LogOutConfirmationTitle = "logOutConfirmationTitle",
+    LogOutConfirmationDescription = "logOutConfirmationDescription",
+    Cancel = "cancel";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -120,6 +123,9 @@ final fr = {
   EmailAlreadyExistErrorMessage: "Cet email existe déjà sur l'application",
   SettingsTitle: "Paramètres",
   SettingsLogoutLabel: "Me déconnecter",
+  LogOutConfirmationTitle: "Déconnexion",
+  LogOutConfirmationDescription: "Etes-vous certain de vouloir vous déconnecter ?",
+  Cancel: "Annuler",
 };
 
 final en = {
@@ -184,4 +190,7 @@ final en = {
   EmailAlreadyExistErrorMessage: "Email already exists on this application",
   SettingsTitle: "Settings",
   SettingsLogoutLabel: "Log out",
+  LogOutConfirmationTitle: "Log out",
+  LogOutConfirmationDescription: "Are you sure you want to quit ?",
+  Cancel: "Cancel",
 };
