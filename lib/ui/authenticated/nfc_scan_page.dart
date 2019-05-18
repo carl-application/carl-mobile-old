@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 //import 'package:flutter_nfc_reader/flutter_nfc_reader.dart';
 
 class NfcScanPage extends StatelessWidget {
+  static const String routeName = "/scanPage";
   @override
   Widget build(BuildContext context) {
     return null;
