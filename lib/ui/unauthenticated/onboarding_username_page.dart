@@ -10,7 +10,7 @@ class OnBoardingUsernamePage extends StatelessWidget {
 
   final void Function(String) onUserNameSubmitted;
   final VoidCallback onBackPressed;
-  final String userName;
+  String userName;
 
   final _usernameController = TextEditingController();
 
@@ -56,6 +56,7 @@ class OnBoardingUsernamePage extends StatelessWidget {
                           width: 200,
                           child: TextField(
                             onSubmitted: (text) {
+                              userName = text;
                               navigateToNext(text);
                             },
                             controller: _usernameController,

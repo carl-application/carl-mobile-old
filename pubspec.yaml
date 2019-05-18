@@ -21,7 +21,6 @@ dependencies:
   bloc: ^0.11.2
   http: 0.12.0
   equatable: 0.1.6
-  flutter_swiper: 1.1.5
   shared_preferences: ^0.5.2
   image_ink_well: ^0.1.0
   flutter_launcher_icons: ^0.7.0

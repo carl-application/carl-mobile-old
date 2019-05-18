@@ -7,10 +7,9 @@ import 'package:carl/ui/unauthenticated/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 
 class UnauthenticatedNavigation extends StatelessWidget {
-  SwiperController _controller = SwiperController();
+  PageController _controller = PageController();
   final totalSteps = 2;
   UserRegistrationBloc _registrationBloc;
   var _currentPage = 0;
@@ -22,7 +21,7 @@ class UnauthenticatedNavigation extends StatelessWidget {
     print("Need to navigate to $pageNumber");
     if (pageNumber >= 0 && pageNumber <= totalSteps) {
       _currentPage = pageNumber;
-      _controller.move(pageNumber, animation: true);
+      _controller.animateToPage(pageNumber, duration: Duration(seconds: 2), curve: Curves.linear);
     }
   }
 
@@ -37,11 +36,11 @@ class UnauthenticatedNavigation extends StatelessWidget {
           bloc: _registrationBloc,
           child: Stack(
             children: <Widget>[
-              Swiper(
+              PageView.builder(
                 scrollDirection: Axis.vertical,
                 controller: _controller,
-                duration: 2000,
-                physics: NeverScrollableScrollPhysics(),
+                //duration: 3000,
+                //physics: NeverScrollableScrollPhysics(),
                 itemCount: 3,
                 itemBuilder: (BuildContext context, int index) {
                   switch (index) {
@@ -59,7 +58,7 @@ class UnauthenticatedNavigation extends StatelessWidget {
                         },
                         onUserNameSubmitted: (userName) {
                           _userName = userName;
-                          Future.delayed(Duration(milliseconds: 500), () {
+                          Future.delayed(Duration(milliseconds: 300), () {
                             navigateTo(2);
                           });
                         },
