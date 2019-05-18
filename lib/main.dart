@@ -137,7 +137,6 @@ class _AppState extends State<App> {
                       ],
                       initialRoute: '/',
                       routes: {
-                        NfcScanPage.routeName: (context) => NfcScanPage(),
                       },
                       onGenerateRoute: (RouteSettings routeSettings) {
                         final dynamicArguments = routeSettings.arguments;
@@ -162,6 +161,11 @@ class _AppState extends State<App> {
                           case SettingsPage.routeName:
                             return VerticalSlideTransition(
                               widget: SettingsPage(),
+                            );
+                            break;
+                          case NfcScanPage.routeName:
+                            return VerticalSlideTransition(
+                              widget: NfcScanPage(),
                             );
                             break;
                           case GoodDealDetailPage.routeName:

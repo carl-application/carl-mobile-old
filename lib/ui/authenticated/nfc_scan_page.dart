@@ -1,4 +1,5 @@
 import 'package:carl/localization/localization.dart';
+import 'package:carl/ui/shared/loader.dart';
 import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
 import 'package:flutter/material.dart';
 import 'package:image_ink_well/image_ink_well.dart';
@@ -24,11 +25,24 @@ class _NfcScanPageState extends State<NfcScanPage> {
 
   _init() async {
     cameras = await availableCameras();
+    // Fake delay to let the page load smoothly
+    await Future.delayed(Duration(seconds: 2));
     controller = new QRReaderController(cameras[0], ResolutionPreset.medium, [CodeFormat.qr],
         (dynamic value) {
-      print(value); // the result!
-      // ... do something
-      // wait 3 seconds then start scanning again.
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Dialog(
+                elevation: 0.0,
+                backgroundColor: Colors.transparent,
+                child: Container(
+                  color: Colors.white,
+                  height: 200,
+                  width: 200,
+                  child:
+                      Center(child: Text(value, style: CarlTheme.of(context).blackMediumBoldLabel)),
+                ));
+          });
       new Future.delayed(const Duration(seconds: 3), controller.startScanning);
     });
     controller.initialize().then((_) {
@@ -49,9 +63,22 @@ class _NfcScanPageState extends State<NfcScanPage> {
   @override
   Widget build(BuildContext context) {
     final scannerSize = MediaQuery.of(context).size.width * .8;
+
+    var centerWidget = Container(
+      height: scannerSize,
+      width: scannerSize,
+      decoration: BoxDecoration(border: Border.all(color: Colors.transparent, width: 10)),
+      child: QRReaderPreview(controller),
+    );
     if (controller == null || !controller.value.isInitialized) {
-      return Container(
-        color: CarlTheme.of(context).background,
+      centerWidget = Container(
+        height: scannerSize,
+        width: scannerSize,
+        decoration: BoxDecoration(
+            color: Colors.transparent, border: Border.all(color: Colors.transparent, width: 10)),
+        child: Center(
+          child: Loader(),
+        ),
       );
     }
     return Scaffold(
@@ -76,23 +103,14 @@ class _NfcScanPageState extends State<NfcScanPage> {
                   child: Center(
                     child: Stack(
                       children: <Widget>[
-                        Container(
-                          height: scannerSize,
-                          width: scannerSize,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.transparent,
-                              width: 10
-                            )
-                          ),
-                          child: QRReaderPreview(controller),
-                        ),
+                        centerWidget,
                         Container(
                           height: scannerSize,
                           width: scannerSize,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
-                              border: Border.all(color: CarlTheme.of(context).scannerBlackBorder, width: 15)),
+                              border: Border.all(
+                                  color: CarlTheme.of(context).scannerBlackBorder, width: 15)),
                         ),
                       ],
                     ),
