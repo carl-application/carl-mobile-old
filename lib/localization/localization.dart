@@ -98,7 +98,7 @@ class Localization {
 
   String get emptyGoodDealsTitle => _getValue(EmptyGoodDealsTitle);
 
-  String get emptyGoodDealsDescription => _getValue(EmptyCardsDescription);
+  String get emptyGoodDealsDescription => _getValue(EmptyGoodDealsDescription);
 
   String get networkErrorTitle => _getValue(NetworkErrorTitle);
 
