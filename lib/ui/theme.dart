@@ -30,6 +30,8 @@ class CarlTheme extends InheritedWidget {
 
   get background => Color.fromRGBO(248, 249, 251, 1);
 
+  get scannerBlackBorder => Color.fromRGBO(74, 74, 74, 1);
+
   get mainGradient => LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,

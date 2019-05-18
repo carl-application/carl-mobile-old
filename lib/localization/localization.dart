@@ -125,6 +125,8 @@ class Localization {
   String get logOutConfirmationDescription => _getValue(LogOutConfirmationDescription);
 
   String get cancel => _getValue(Cancel);
+
+  String get scanPageTitle => _getValue(ScanPageTitle);
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

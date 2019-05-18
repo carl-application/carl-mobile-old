@@ -58,7 +58,8 @@ const String WelcomePageTitle = 'welcome_page_title',
     SettingsLogoutLabel = "settingsLogoutLabel",
     LogOutConfirmationTitle = "logOutConfirmationTitle",
     LogOutConfirmationDescription = "logOutConfirmationDescription",
-    Cancel = "cancel";
+    Cancel = "cancel",
+    ScanPageTitle = "scanPageTitle";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -126,6 +127,7 @@ final fr = {
   LogOutConfirmationTitle: "Déconnexion",
   LogOutConfirmationDescription: "Etes-vous certain de vouloir vous déconnecter ?",
   Cancel: "Annuler",
+  ScanPageTitle: "Valider votre visite en scannant le QR-code...",
 };
 
 final en = {
@@ -193,4 +195,6 @@ final en = {
   LogOutConfirmationTitle: "Log out",
   LogOutConfirmationDescription: "Are you sure you want to quit ?",
   Cancel: "Cancel",
+  ScanPageTitle: "Validate your visit by scanning the QR-code...",
+
 };
