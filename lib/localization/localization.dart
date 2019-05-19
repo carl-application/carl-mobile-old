@@ -127,6 +127,10 @@ class Localization {
   String get cancel => _getValue(Cancel);
 
   String get scanPageTitle => _getValue(ScanPageTitle);
+
+  String get activate => _getValue(Activate);
+
+
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {

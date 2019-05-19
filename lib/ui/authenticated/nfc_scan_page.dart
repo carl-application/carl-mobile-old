@@ -1,4 +1,5 @@
 import 'package:carl/localization/localization.dart';
+import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/loader.dart';
 import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class NfcScanPage extends StatefulWidget {
 class _NfcScanPageState extends State<NfcScanPage> {
   List<CameraDescription> cameras;
   QRReaderController controller;
+  bool hasPermissionsBeenDenied = false;
 
   @override
   void initState() {
@@ -25,32 +27,31 @@ class _NfcScanPageState extends State<NfcScanPage> {
 
   _init() async {
     cameras = await availableCameras();
-    // Fake delay to let the page load smoothly
-    await Future.delayed(Duration(seconds: 2));
+
     controller = new QRReaderController(cameras[0], ResolutionPreset.medium, [CodeFormat.qr],
         (dynamic value) {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return Dialog(
-                elevation: 0.0,
-                backgroundColor: Colors.transparent,
-                child: Container(
-                  color: Colors.white,
-                  height: 200,
-                  width: 200,
-                  child:
-                      Center(child: Text(value, style: CarlTheme.of(context).blackMediumBoldLabel)),
-                ));
-          });
+      _detectingQrCode(value);
       new Future.delayed(const Duration(seconds: 3), controller.startScanning);
     });
+    // Fake delay to let the page load smoothly
+    await Future.delayed(Duration(seconds: 2));
+    _initializeReader();
+  }
+
+  _initializeReader() {
     controller.initialize().then((_) {
       if (!mounted) {
         return;
       }
-      setState(() {});
+      setState(() {
+        hasPermissionsBeenDenied = false;
+      });
       controller.startScanning();
+    }).catchError((error) {
+      print("permission denied : $error");
+      setState(() {
+        hasPermissionsBeenDenied = true;
+      });
     });
   }
 
@@ -58,6 +59,45 @@ class _NfcScanPageState extends State<NfcScanPage> {
   void dispose() {
     controller?.dispose();
     super.dispose();
+  }
+
+  Widget _renderPermissionAskButton() {
+    return hasPermissionsBeenDenied
+        ? Column(
+            children: <Widget>[
+              SizedBox(
+                height: 15,
+              ),
+              CarlButton(
+                text: Localization.of(context).activate,
+                onPressed: () {
+                  setState(() {
+                    hasPermissionsBeenDenied = true;
+                  });
+                  _initializeReader();
+                },
+                width: MediaQuery.of(context).size.width * .2,
+              ),
+            ],
+          )
+        : SizedBox();
+  }
+
+  void _detectingQrCode(String value) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+              elevation: 0.0,
+              backgroundColor: Colors.transparent,
+              child: Container(
+                color: Colors.white,
+                height: 200,
+                width: 200,
+                child:
+                    Center(child: Text(value, style: CarlTheme.of(context).blackMediumBoldLabel)),
+              ));
+        });
   }
 
   @override
@@ -77,7 +117,12 @@ class _NfcScanPageState extends State<NfcScanPage> {
         decoration: BoxDecoration(
             color: Colors.transparent, border: Border.all(color: Colors.transparent, width: 10)),
         child: Center(
-          child: Loader(),
+          child: this.hasPermissionsBeenDenied
+              ? Text(
+                  "Camera is Needed to scan code",
+                  style: CarlTheme.of(context).blackMediumLabel,
+                )
+              : Loader(),
         ),
       );
     }
@@ -100,20 +145,24 @@ class _NfcScanPageState extends State<NfcScanPage> {
                 ),
                 Expanded(
                   flex: 4,
-                  child: Center(
-                    child: Stack(
-                      children: <Widget>[
-                        centerWidget,
-                        Container(
-                          height: scannerSize,
-                          width: scannerSize,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              border: Border.all(
-                                  color: CarlTheme.of(context).scannerBlackBorder, width: 15)),
-                        ),
-                      ],
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Stack(
+                        children: <Widget>[
+                          centerWidget,
+                          Container(
+                            height: scannerSize,
+                            width: scannerSize,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                border: Border.all(
+                                    color: CarlTheme.of(context).scannerBlackBorder, width: 15)),
+                          ),
+                        ],
+                      ),
+                      _renderPermissionAskButton()
+                    ],
                   ),
                 ),
                 Expanded(
