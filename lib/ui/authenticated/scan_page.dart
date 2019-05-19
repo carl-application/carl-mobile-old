@@ -351,7 +351,7 @@ class _ScanPageState extends State<ScanPage> {
                     child: Container(
                       height: 50,
                       child: CircleImageInkWell(
-                        onPressed: () => _detectingQrCode("533a6f1f-4d9b-4804-902a-3cd31abb14bf"),
+                        onPressed: () => Navigator.of(context).pop(),
                         size: 50,
                         image: AssetImage('assets/ic_close.png'),
                         splashColor: Colors.black26,
