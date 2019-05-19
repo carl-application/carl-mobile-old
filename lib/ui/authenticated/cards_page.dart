@@ -9,7 +9,7 @@ import 'package:carl/localization/localization.dart';
 import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
 import 'package:carl/ui/authenticated/cards_swiper.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
-import 'package:carl/ui/authenticated/nfc_scan_page.dart';
+import 'package:carl/ui/authenticated/scan_page.dart';
 import 'package:carl/ui/authenticated/settings_page.dart';
 import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
@@ -20,8 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'empty_cards.dart';
+import 'empty_element.dart';
 
 class CardsPage extends StatelessWidget {
   int _unreadNotificationsCount = 0;
@@ -29,7 +28,7 @@ class CardsPage extends StatelessWidget {
   UnreadNotificationsBloc _unreadNotificationsBloc;
 
   _navigateToScan(BuildContext context) {
-    Navigator.of(context).pushNamed(NfcScanPage.routeName, arguments: CallSource.home);
+    Navigator.of(context).pushNamed(ScanPage.routeName, arguments: CallSource.home);
   }
 
   _navigateToSettings(BuildContext context) {
@@ -53,7 +52,11 @@ class CardsPage extends StatelessWidget {
           );
         } else if (state is CardsLoadingSuccess) {
           if (state.cards.isEmpty) {
-            return EmptyCards();
+            return EmptyElement(
+              assetImageUrl: "assets/empty_cards.png",
+              title: Localization.of(context).emptyCardsTitle,
+              description: Localization.of(context).emptyCardsDescription,
+            );
           }
           return CardsSwiper(
             cards: state.cards,

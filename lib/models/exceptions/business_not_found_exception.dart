@@ -1,0 +1,1 @@
+class BusinessNotFoundException implements Exception {}

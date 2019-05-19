@@ -12,9 +12,9 @@ import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/authenticated/cards_page.dart';
 import 'package:carl/ui/authenticated/good_deal_detail_page.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
-import 'package:carl/ui/authenticated/nfc_scan_page.dart';
+import 'package:carl/ui/authenticated/scan_page.dart';
 import 'package:carl/ui/authenticated/settings_page.dart';
-import 'package:carl/ui/shared/VerticalSlideTransition.dart';
+import 'package:carl/ui/shared/vertical_slide_transition.dart';
 import 'package:carl/ui/shared/splash_screen_page.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:carl/ui/unauthenticated/login_page.dart';
@@ -27,6 +27,7 @@ import 'blocs/login/login_bloc.dart';
 import 'blocs/unread_notifications/unread_notification_event.dart';
 import 'blocs/unread_notifications/unread_notifications_bloc.dart';
 import 'models/navigation_arguments/card_detail_arguments.dart';
+import 'models/navigation_arguments/scan_nfc_arguments.dart';
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -136,8 +137,7 @@ class _AppState extends State<App> {
                         const Locale('es', ''),
                       ],
                       initialRoute: '/',
-                      routes: {
-                      },
+                      routes: {},
                       onGenerateRoute: (RouteSettings routeSettings) {
                         final dynamicArguments = routeSettings.arguments;
                         switch (routeSettings.name) {
@@ -163,10 +163,14 @@ class _AppState extends State<App> {
                               widget: SettingsPage(),
                             );
                             break;
-                          case NfcScanPage.routeName:
-                            return VerticalSlideTransition(
-                              widget: NfcScanPage(),
-                            );
+                          case ScanPage.routeName:
+                            if (dynamicArguments is CallSource) {
+                              return VerticalSlideTransition(
+                                widget: ScanPage(
+                                  source: dynamicArguments,
+                                ),
+                              );
+                            }
                             break;
                           case GoodDealDetailPage.routeName:
                             if (dynamicArguments is int) {

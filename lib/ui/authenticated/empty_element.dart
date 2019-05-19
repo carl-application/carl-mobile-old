@@ -1,15 +1,16 @@
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 
-class ErrorApiCall extends StatelessWidget {
-  final String errorTitle;
-  final String errorDescription;
+class EmptyElement extends StatelessWidget {
+  final String assetImageUrl;
+  final String title;
+  final String description;
 
-  const ErrorApiCall({Key key, this.errorTitle, this.errorDescription}) : super(key: key);
+  const EmptyElement({Key key, this.assetImageUrl, this.title, this.description}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final imageSize = MediaQuery.of(context).size.width * .2;
+    final imageSize = MediaQuery.of(context).size.width * .3;
     return Scaffold(
       body: Center(
         child: Column(
@@ -20,9 +21,9 @@ class ErrorApiCall extends StatelessWidget {
               decoration:
                   BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(1000.0)),
               child: Padding(
-                padding: const EdgeInsets.all(40.0),
+                padding: const EdgeInsets.all(20.0),
                 child: Image.asset(
-                  "assets/carl_face.png",
+                  assetImageUrl,
                   fit: BoxFit.contain,
                   width: imageSize,
                   height: imageSize,
@@ -33,14 +34,14 @@ class ErrorApiCall extends StatelessWidget {
               height: 15,
             ),
             Text(
-              errorTitle,
+              title,
               style: CarlTheme.of(context).blackTitle,
             ),
             SizedBox(
               height: 15,
             ),
             Text(
-              errorDescription,
+              description,
               style: CarlTheme.of(context).blackMediumLabel,
               textAlign: TextAlign.center,
             ),

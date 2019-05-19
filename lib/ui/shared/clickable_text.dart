@@ -44,6 +44,9 @@ class _ClickableTextState extends State<ClickableText> {
           widget.onClick();
         }
       },
+      onLongPressEnd: (detail){
+        _toggleSelected();
+      },
       child: Text(widget.text,
           textAlign: widget.textAlign,
           textDirection: widget.textDirection,

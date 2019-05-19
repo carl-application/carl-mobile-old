@@ -11,7 +11,7 @@ import 'package:carl/localization/localization.dart';
 import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
 import 'package:carl/models/navigation_arguments/card_detail_back_arguments.dart';
 import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
-import 'package:carl/ui/authenticated/nfc_scan_page.dart';
+import 'package:carl/ui/authenticated/scan_page.dart';
 import 'package:carl/ui/authenticated/visits_by_user.dart';
 import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
@@ -59,7 +59,7 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
   }
 
   _navigateToScan(BuildContext context) {
-    Navigator.of(context).pushNamed(NfcScanPage.routeName, arguments: CallSource.detail);
+    Navigator.of(context).pushNamed(ScanPage.routeName, arguments: CallSource.detail);
   }
 
   _navigateBack(BuildContext context) {
@@ -144,7 +144,10 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                       final cardHeight = MediaQuery.of(context).size.height * .2;
                       final percentIndicatorSize = MediaQuery.of(context).size.width * .25;
                       final card = state.card.business;
-                      final userProgression = state.card.userVisitsCount;
+                      final userProgression =
+                          state.card.userVisitsCount % card.total == 0
+                          ? card.total
+                          : state.card.userVisitsCount % card.total;
                       _isBlackListed = state.isBlackListed;
                       return SingleChildScrollView(
                         scrollDirection: Axis.vertical,
@@ -257,7 +260,7 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                       }),
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 20,
                                 ),
                                 Column(
                                   children: <Widget>[
@@ -326,31 +329,17 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 15,
                                 ),
                               ],
                             ),
                             Container(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  CarlBlueGradientButton(
-                                    text: Localization.of(context).add,
-                                    onPressed: () => _navigateToScan(context),
-                                    width: MediaQuery.of(context).size.width * .5,
-                                    textStyle: CarlTheme.of(context).whiteMediumLabel,
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  CircleImageInkWell(
-                                    onPressed: () => _navigateBack(context),
-                                    size: 40,
-                                    image: AssetImage('assets/ic_close.png'),
-                                    splashColor: Colors.black26,
-                                  )
-                                ],
-                              ),
+                              child: CircleImageInkWell(
+                                onPressed: () => _navigateBack(context),
+                                size: 40,
+                                image: AssetImage('assets/ic_close.png'),
+                                splashColor: Colors.black26,
+                              )
                             )
                           ],
                         ),

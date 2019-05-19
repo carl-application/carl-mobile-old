@@ -9,6 +9,7 @@ import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/good_deal.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/IsBlackListedResponse.dart';
+import 'package:carl/models/responses/scan_visit_response.dart';
 import 'package:carl/models/responses/tokens_response.dart';
 import 'package:carl/models/responses/unread_notifications_count_response.dart';
 import 'package:meta/meta.dart';
@@ -87,5 +88,9 @@ class UserRepository {
 
   Future<GoodDeal> retrieveGoodDealDetail(int id) {
     return userProvider.retrievedGoodDealDetail(id);
+  }
+
+  Future<ScanVisitResponse> scanVisit(String businessKey) {
+    return userProvider.scanVisit(businessKey);
   }
 }

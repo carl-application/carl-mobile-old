@@ -28,7 +28,7 @@ class _VisitsByUserState extends State<VisitsByUser> {
     _visitsBloc = VisitsBloc(RepositoryDealer
         .of(context)
         .userRepository);
-    _visitsBloc.dispatch(RetrieveVisitsEvent(widget.businessId, 10));
+    _visitsBloc.dispatch(RetrieveVisitsEvent(widget.businessId, 20));
   }
 
   @override

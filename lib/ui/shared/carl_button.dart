@@ -9,6 +9,7 @@ class CarlButton extends StatelessWidget {
       this.width,
       this.height = 20,
       this.color = Colors.white,
+      this.elevation = 10,
       this.textStyle});
 
   final String text;
@@ -18,6 +19,7 @@ class CarlButton extends StatelessWidget {
   final double height;
   final Color color;
   final TextStyle textStyle;
+  final double elevation;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class CarlButton extends StatelessWidget {
       disabledColor: Colors.white,
       colorBrightness: Theme.of(context).brightness,
       color: color,
-      elevation: 10,
+      elevation: elevation,
       padding: EdgeInsets.only(top: 15, right: 30, bottom: 15, left: 30),
       shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
       child: Container(

@@ -2,6 +2,7 @@ import 'package:carl/blocs/authentication/authentication_bloc.dart';
 import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/shared/carl_button.dart';
+import 'package:carl/ui/shared/clickable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_ink_well/image_ink_well.dart';
@@ -168,6 +169,7 @@ class ConfirmationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dialogSize = MediaQuery.of(context).size.width * .7;
     return Dialog(
       elevation: 0.0,
       backgroundColor: Colors.transparent,
@@ -176,8 +178,8 @@ class ConfirmationDialog extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(20.0),
           ),
-          height: 250,
-          width: MediaQuery.of(context).size.width * .4,
+          height: dialogSize,
+          width: dialogSize,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -208,25 +210,33 @@ class ConfirmationDialog extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      CarlButton(
-                        text: noButtonText,
-                        onPressed: () => onNoClicked(),
-                      ),
-                      CarlButton(
-                        text: yesButtonText,
-                        textStyle: CarlTheme.of(context).white30Label,
-                        color: Colors.green,
-                        onPressed: () => onYesClicked(),
-                      )
-                    ],
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        CarlButton(
+                          text: yesButtonText,
+                          width: MediaQuery.of(context).size.width * .25,
+                          textStyle: CarlTheme.of(context).whiteBigLabel,
+                          color: CarlTheme.of(context).primaryColor,
+                          onPressed: () => onYesClicked(),
+                          elevation: 1,
+                        ),
+
+                        ClickableText(
+                          text: Localization.of(context).cancel,
+                          textStyle: CarlTheme.of(context).blackMediumLabel,
+                          clickedColor: Colors.white,
+                          onClick: () => Navigator.of(context).pop(),
+                        )
+
+                      ],
+                    ),
                   ),
                 ),
               )

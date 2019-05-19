@@ -9,11 +9,13 @@ import 'package:carl/models/business/business_card_detail.dart';
 import 'package:carl/models/business/business_image.dart';
 import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/exceptions/bad_credentials_exception.dart';
+import 'package:carl/models/exceptions/business_not_found_exception.dart';
 import 'package:carl/models/exceptions/email_already_exist_exception.dart';
 import 'package:carl/models/exceptions/server_exception.dart';
 import 'package:carl/models/good_deal.dart';
 import 'package:carl/models/registration_model.dart';
 import 'package:carl/models/responses/IsBlackListedResponse.dart';
+import 'package:carl/models/responses/scan_visit_response.dart';
 import 'package:carl/models/responses/tokens_response.dart';
 import 'package:carl/models/responses/unread_notifications_count_response.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +38,7 @@ const API_GET_UNREAD_NOTIFICATIONS_COUNT = "$API_BASE_URL/user/notifications/unr
 const API_GET_UNREAD_NOTIFICATIONS = "$API_BASE_URL/user/notifications/unread";
 const API_GET_READ_NOTIFICATIONS = "$API_BASE_URL/user/notifications";
 const API_GET_NOTIFICATION_DETAIL = "$API_BASE_URL/user/notifications";
+const API_SCAN_VISIT = "$API_BASE_URL/user/visits/scan";
 
 const PREFERENCES_ACCESS_TOKEN_KEY = "preferencesAccessTokenKey";
 const PREFERENCES_REFRESH_TOKEN_KEY = "preferencesRefreshTokenKey";
@@ -424,5 +427,35 @@ class UserApiProvider implements UserProvider {
     print("jsonBody is = $jsonBody");
 
     return GoodDeal.fromJson(jsonBody);
+  }
+
+  Future<ScanVisitResponse> scanVisit(String businessKey) async {
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+
+    final response = await http.post(
+      "$API_SCAN_VISIT/$businessKey",
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if (response.statusCode == 404) {
+      print("No business found : ${response.statusCode}");
+      print("Response ${response}");
+      throw BusinessNotFoundException();
+    }
+
+    if (response.statusCode != 200) {
+      print("Error scanning visit : ${response.statusCode}");
+      print("Response ${response}");
+      throw ServerException();
+    }
+
+    final jsonBody = json.decode(response.body.toString());
+
+    print("jsonBody is = $jsonBody");
+
+    return ScanVisitResponse.fromJson(jsonBody);
   }
 }

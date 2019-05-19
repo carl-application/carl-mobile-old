@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_ink_well/image_ink_well.dart';
 
-import 'empty_good_deals.dart';
+import 'empty_element.dart';
 import 'good_deal_detail_page.dart';
 
 class GoodDealsListPage extends StatelessWidget {
@@ -65,29 +65,24 @@ class GoodDealsListPage extends StatelessWidget {
                   builder: (BuildContext context, GoodDealsState state) {
                     if (state is GoodDealsLoading) {
                       return Center(child: Loader());
-                    } else if (state is GoodDealsLoadingError){
+                    } else if (state is GoodDealsLoadingError) {
                       return Center(
-                          child:  ErrorApiCall(
-                            errorTitle: state.isNetworkError
-                                ? Localization
-                                .of(context)
-                                .networkErrorTitle
-                                : Localization
-                                .of(context)
-                                .errorServerTitle,
-                            errorDescription: state.isNetworkError
-                                ? Localization
-                                .of(context)
-                                .networkErrorDescription
-                                : Localization
-                                .of(context)
-                                .errorServerDescription,
-                          )
-                      );
-                    }else if (state is GoodDealsLoadingSuccess) {
+                          child: ErrorApiCall(
+                        errorTitle: state.isNetworkError
+                            ? Localization.of(context).networkErrorTitle
+                            : Localization.of(context).errorServerTitle,
+                        errorDescription: state.isNetworkError
+                            ? Localization.of(context).networkErrorDescription
+                            : Localization.of(context).errorServerDescription,
+                      ));
+                    } else if (state is GoodDealsLoadingSuccess) {
                       final deals = state.goodDeals;
                       if (deals.isEmpty) {
-                        return EmptyGoodDeals();
+                        return EmptyElement(
+                          assetImageUrl: "assets/ic_idea.png",
+                          title: Localization.of(context).emptyGoodDealsTitle,
+                          description: Localization.of(context).emptyGoodDealsDescription,
+                        );
                       }
                       return AnimatedList(
                         initialItemCount: deals.length,
@@ -130,14 +125,12 @@ class GoodDealsListPage extends StatelessWidget {
                                                     ),
                                                     Text(
                                                       deals[index].title,
-                                                      style:
-                                                          CarlTheme.of(context).blackMediumLabel,
+                                                      style: CarlTheme.of(context).blackMediumLabel,
                                                       overflow: TextOverflow.ellipsis,
                                                     ),
                                                     Text(
                                                       deals[index].shortDescription,
-                                                      style:
-                                                          CarlTheme.of(context).greyMediumLabel,
+                                                      style: CarlTheme.of(context).greyMediumLabel,
                                                       overflow: TextOverflow.ellipsis,
                                                     ),
                                                   ],

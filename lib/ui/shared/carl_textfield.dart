@@ -35,6 +35,7 @@ class CarlTextField extends StatelessWidget {
         focusNode: focusNode,
         textAlign: TextAlign.center,
         controller: controller,
+        keyboardType: keyboardType,
         textInputAction: textInputAction,
         style: textStyle ?? TextStyle(color: Colors.white, fontSize: 20),
         textDirection: TextDirection.ltr,
