@@ -71,7 +71,7 @@ class _AppState extends State<App> {
   }
 
   void firebaseCloudMessagingListeners() {
-    if (Platform.isIOS) iOS_Permission();
+    if (Platform.isIOS) askiOSPermission();
 
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
@@ -91,7 +91,7 @@ class _AppState extends State<App> {
     );
   }
 
-  void iOS_Permission() {
+  void askiOSPermission() {
     _firebaseMessaging.requestNotificationPermissions(
         IosNotificationSettings(sound: true, badge: true, alert: true));
     _firebaseMessaging.onIosSettingsRegistered.listen((IosNotificationSettings settings) {
