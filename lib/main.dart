@@ -14,8 +14,8 @@ import 'package:carl/ui/authenticated/good_deal_detail_page.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/scan_page.dart';
 import 'package:carl/ui/authenticated/settings_page.dart';
-import 'package:carl/ui/shared/vertical_slide_transition.dart';
 import 'package:carl/ui/shared/splash_screen_page.dart';
+import 'package:carl/ui/shared/vertical_slide_transition.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:carl/ui/unauthenticated/login_page.dart';
 import 'package:carl/ui/unauthenticated/unauthenticated_navigation.dart';
@@ -67,10 +67,10 @@ class _AppState extends State<App> {
     _loginBloc = LoginBloc(userRepository, _authenticationBloc);
     _unreadNotificationsBloc = UnreadNotificationsBloc(userRepository);
     _authenticationBloc.dispatch(AppStarted());
-    firebaseCloudMessaging_Listeners();
+    firebaseCloudMessagingListeners();
   }
 
-  void firebaseCloudMessaging_Listeners() {
+  void firebaseCloudMessagingListeners() {
     if (Platform.isIOS) iOS_Permission();
 
     _firebaseMessaging.configure(
@@ -79,10 +79,14 @@ class _AppState extends State<App> {
         _unreadNotificationsBloc.dispatch(AddNewUnreadNotificationsEvent(1));
       },
       onResume: (Map<String, dynamic> message) async {
-        print('on resume $message');
+        print('onResume $message');
+        _unreadNotificationsBloc.dispatch(AddNewUnreadNotificationsEvent(1));
+        //_openNotificationWhenReceived(message['data']['notificationId'] as int);
       },
       onLaunch: (Map<String, dynamic> message) async {
-        print('on launch $message');
+        print('onLaunch $message');
+        _unreadNotificationsBloc.dispatch(AddNewUnreadNotificationsEvent(1));
+        //_openNotificationWhenReceived(message['data']['notificationId'] as int);
       },
     );
   }
