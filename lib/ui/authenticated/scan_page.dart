@@ -117,7 +117,7 @@ class _ScanPageState extends State<ScanPage> {
 
   void _detectingQrCode(String value) {
     _scannerBloc.dispatch(ScanVisitEvent(businessKey: value));
-    final double percentIndicatorSize = MediaQuery.of(context).size.width * .2;
+    final double percentIndicatorSize = MediaQuery.of(context).size.width * .3;
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -320,6 +320,7 @@ class _ScanPageState extends State<ScanPage> {
                     child: Text(
                       Localization.of(context).scanPageTitle,
                       style: CarlTheme.of(context).blackMediumBoldLabel,
+                      textAlign: TextAlign.center,
                     ),
                   ),
                 ),

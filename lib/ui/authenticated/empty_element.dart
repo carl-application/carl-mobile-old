@@ -36,6 +36,7 @@ class EmptyElement extends StatelessWidget {
             Text(
               title,
               style: CarlTheme.of(context).blackTitle,
+              textAlign: TextAlign.center,
             ),
             SizedBox(
               height: 15,
