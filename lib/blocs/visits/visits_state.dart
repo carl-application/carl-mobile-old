@@ -1,8 +1,8 @@
 import 'package:carl/models/business/visit.dart';
 import 'package:equatable/equatable.dart';
 
-abstract class VisitsState extends Equatable {
-  VisitsState([List props = const []]) : super(props);
+abstract class VisitsState {
+  VisitsState([List props = const []]);
 }
 
 class VisitsLoading extends VisitsState {
@@ -17,6 +17,16 @@ class VisitsLoadingSuccess extends VisitsState {
 
   @override
   String toString() => 'VisitsLoadingSuccess { visits = $visits }';
+}
+
+class LoadMoreSuccessState extends VisitsState {
+  LoadMoreSuccessState({this.visits, this.hasReachedMax});
+
+  final List<Visit> visits;
+  final bool hasReachedMax;
+
+  @override
+  String toString() => 'LoadMoreSuccessState { visits: $visits, hasReachedMax: $hasReachedMax }';
 }
 
 class VisitsLoadingError extends VisitsState {

@@ -26,6 +26,16 @@ class VisitsBloc extends Bloc<VisitsEvent, VisitsState> {
         print("visits loading error $error");
         yield VisitsLoadingError(isNetworkError: error is SocketException);
       }
+    } else if (event is LoadMoreVisitsEvent) {
+      try {
+        final visits = await _userRepository.retrieveVisits(event.businessId, event.fetchLimit,
+            lastFetchedDate: event.lastFetchedDate);
+
+        yield LoadMoreSuccessState(visits: visits, hasReachedMax: visits.length < event.fetchLimit);
+      } catch (error) {
+        print("visits load more error $error");
+        yield VisitsLoadingError(isNetworkError: error is SocketException);
+      }
     }
   }
 }

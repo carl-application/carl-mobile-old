@@ -32,7 +32,7 @@ class ScanPage extends StatefulWidget {
 
 class _ScanPageState extends State<ScanPage> {
   List<CameraDescription> cameras;
-  QRReaderController controller;
+  QRReaderController readerController;
   bool hasPermissionsBeenDenied = false;
   ScannerBloc _scannerBloc;
 
@@ -53,25 +53,26 @@ class _ScanPageState extends State<ScanPage> {
   _init() async {
     cameras = await availableCameras();
 
-    controller = new QRReaderController(cameras[0], ResolutionPreset.medium, [CodeFormat.qr],
+    readerController = new QRReaderController(cameras[0], ResolutionPreset.medium, [CodeFormat.qr],
         (dynamic value) {
       _detectingQrCode(value);
-      new Future.delayed(const Duration(seconds: 3), controller.startScanning);
     });
     // Fake delay to let the page load smoothly
     await Future.delayed(Duration(seconds: 2));
+
+    readerController.startScanning();
     _initializeReader();
   }
 
   _initializeReader() {
-    controller.initialize().then((_) {
+    readerController.initialize().then((_) {
       if (!mounted) {
         return;
       }
       setState(() {
         hasPermissionsBeenDenied = false;
       });
-      controller.startScanning();
+      readerController.startScanning();
     }).catchError((error) {
       print("permission denied : $error");
       setState(() {
@@ -83,7 +84,7 @@ class _ScanPageState extends State<ScanPage> {
   @override
   void dispose() {
     _scannerBloc?.dispose();
-    controller?.dispose();
+    readerController?.dispose();
     super.dispose();
   }
 
@@ -120,6 +121,7 @@ class _ScanPageState extends State<ScanPage> {
     final double percentIndicatorSize = MediaQuery.of(context).size.width * .3;
     showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (BuildContext context) {
           return Dialog(
               elevation: 0.0,
@@ -245,7 +247,10 @@ class _ScanPageState extends State<ScanPage> {
                                     text: "ok",
                                     clickedColor: Colors.white,
                                     textStyle: CarlTheme.of(context).black12MediumLabel,
-                                    onClick: () => Navigator.of(context).pop(),
+                                    onClick: () {
+                                      Navigator.of(context).pop();
+                                      readerController.startScanning();
+                                    },
                                   )
                                 ],
                               ),
@@ -288,9 +293,9 @@ class _ScanPageState extends State<ScanPage> {
       height: scannerSize,
       width: scannerSize,
       decoration: BoxDecoration(border: Border.all(color: Colors.transparent, width: 10)),
-      child: QRReaderPreview(controller),
+      child: QRReaderPreview(readerController),
     );
-    if (controller == null || !controller.value.isInitialized) {
+    if (readerController == null || !readerController.value.isInitialized) {
       centerWidget = Container(
         height: scannerSize,
         width: scannerSize,

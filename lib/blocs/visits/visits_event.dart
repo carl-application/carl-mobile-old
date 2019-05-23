@@ -14,3 +14,14 @@ class RetrieveVisitsEvent extends VisitsEvent {
   @override
   String toString() => 'RetrieveVisitsEvent';
 }
+
+class LoadMoreVisitsEvent extends VisitsEvent {
+  final int businessId;
+  final int fetchLimit;
+  final DateTime lastFetchedDate;
+
+  LoadMoreVisitsEvent(this.businessId, this.fetchLimit, {this.lastFetchedDate});
+
+  @override
+  String toString() => 'RefreshVisitsEvent';
+}
