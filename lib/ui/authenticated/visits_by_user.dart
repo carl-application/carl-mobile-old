@@ -1,10 +1,8 @@
 import 'package:carl/blocs/visits/visits_bloc.dart';
 import 'package:carl/blocs/visits/visits_event.dart';
 import 'package:carl/blocs/visits/visits_state.dart';
-import 'package:carl/data/providers/user_api_provider.dart';
 import 'package:carl/data/providers/user_dummy_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
-import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/models/business/visit.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
@@ -15,31 +13,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 const int VISITS_PER_PAGE = 10;
 
-class VisitsByUser extends StatefulWidget {
+class VisitsByUser extends StatelessWidget {
   final int businessId;
-
-  VisitsByUser({Key key, this.businessId}) : super(key: key);
-
-  @override
-  _VisitsByUserState createState() => _VisitsByUserState();
-}
-
-class _VisitsByUserState extends State<VisitsByUser> {
   VisitsBloc _visitsBloc;
   List<Visit> _visits;
   bool _hasReachedMax = false;
 
-  get businessId => widget.businessId;
-
-  _VisitsByUserState() {
-    _visitsBloc = VisitsBloc(UserRepository(userProvider: UserDummyProvider()));
-  }
-
-  @override
-  void dispose() {
-    _visitsBloc.dispose();
-    super.dispose();
-  }
+  VisitsByUser({Key key, this.businessId}) : super(key: key);
 
   _renderList(BuildContext context) {
     return Padding(
@@ -62,7 +42,7 @@ class _VisitsByUserState extends State<VisitsByUser> {
                 itemBuilder: (BuildContext context, int index) {
                   if (index == _visits.length) {
                     if (_visits.length % VISITS_PER_PAGE == 0) {
-                      _visitsBloc.dispatch(LoadMoreVisitsEvent(widget.businessId, VISITS_PER_PAGE,
+                      _visitsBloc.dispatch(LoadMoreVisitsEvent(businessId, VISITS_PER_PAGE,
                           lastFetchedDate: _visits[index - 1].date));
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -89,6 +69,7 @@ class _VisitsByUserState extends State<VisitsByUser> {
 
   @override
   Widget build(BuildContext context) {
+    _visitsBloc = VisitsBloc(UserRepository(userProvider: UserDummyProvider()));
     _visitsBloc.dispatch(RetrieveVisitsEvent(businessId, VISITS_PER_PAGE));
     return Container(
       height: MediaQuery.of(context).size.height * .5,
