@@ -160,6 +160,14 @@ class CardScrollWidget extends StatelessWidget {
 
           List<Widget> cardList = new List();
 
+          var fakePaddingLeft = 0.0;
+          if (cards.length == 2) {
+            fakePaddingLeft = width * .1;
+          } else if (cards.length == 1) {
+            fakePaddingLeft = width * .125;
+          }
+
+
           for (var index = 0; index < cards.length; index++) {
             var delta = index - currentPage;
             bool isOnRight = delta > 0;
@@ -167,7 +175,7 @@ class CardScrollWidget extends StatelessWidget {
                 .where((blackListed) => blackListed.blackListedBusiness.id == cards[index].id)
                 .isNotEmpty;
 
-            var start = padding +
+            var start = padding - fakePaddingLeft +
                 max(primaryCardLeft - horizontalInset * -delta * (isOnRight ? 15 : 1), 0.0);
 
             var cardItem = Positioned.directional(

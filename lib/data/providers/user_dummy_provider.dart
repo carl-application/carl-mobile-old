@@ -62,15 +62,7 @@ class UserDummyProvider implements UserProvider {
         [Tag(0, "pain")],
         10,
         "Un menu midi offert pour 10 achetés"));
-    list.add(BusinessCard(
-        4,
-        "Pizza Victoria",
-        "80 rue de la tagliatelle",
-        BusinessImage(0, "https://picsum.photos/id/204/200"),
-        BusinessImage(0, "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"),
-        [Tag(0, "pizza")],
-        5,
-        "La pizza maxi offerte pour l'achat de 5 pizzas, c'est vraiment une affaire à pas louper moi je vous le dis wallah je fais un message super loooooooooooooooong !"));
+
   }
 
   @override

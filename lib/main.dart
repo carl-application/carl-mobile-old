@@ -27,6 +27,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/login/login_bloc.dart';
 import 'blocs/unread_notifications/unread_notification_event.dart';
 import 'blocs/unread_notifications/unread_notifications_bloc.dart';
+import 'data/providers/user_dummy_provider.dart';
 import 'models/navigation_arguments/card_detail_arguments.dart';
 import 'models/navigation_arguments/scan_nfc_arguments.dart';
 
@@ -39,7 +40,7 @@ class SimpleBlocDelegate extends BlocDelegate {
 
 void main() {
   BlocSupervisor().delegate = SimpleBlocDelegate();
-  runApp(App(UserRepository(userProvider: UserApiProvider())));
+  runApp(App(UserRepository(userProvider: UserDummyProvider())));
 }
 
 class App extends StatefulWidget {
