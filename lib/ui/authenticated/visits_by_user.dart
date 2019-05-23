@@ -3,6 +3,7 @@ import 'package:carl/blocs/visits/visits_event.dart';
 import 'package:carl/blocs/visits/visits_state.dart';
 import 'package:carl/data/providers/user_dummy_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
+import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/models/business/visit.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
@@ -43,7 +44,7 @@ class VisitsByUser extends StatelessWidget {
                   if (index == _visits.length) {
                     if (_visits.length % VISITS_PER_PAGE == 0) {
                       _visitsBloc.dispatch(LoadMoreVisitsEvent(businessId, VISITS_PER_PAGE,
-                          lastFetchedDate: _visits[index - 1].date));
+                            lastFetchedDate: _visits[index - 1].date));
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
@@ -69,7 +70,7 @@ class VisitsByUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _visitsBloc = VisitsBloc(UserRepository(userProvider: UserDummyProvider()));
+    _visitsBloc = VisitsBloc(RepositoryDealer.of(context).userRepository);
     _visitsBloc.dispatch(RetrieveVisitsEvent(businessId, VISITS_PER_PAGE));
     return Container(
       height: MediaQuery.of(context).size.height * .5,
@@ -123,28 +124,28 @@ class VisitItem extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      "${Localization.of(context).getWeekDays[visit.date.weekday - 1][0].toUpperCase()}${Localization.of(context).getWeekDays[visit.date.weekday - 1].substring(1)}",
+                      "${Localization.of(context).getWeekDays[visit.localDate.weekday - 1][0].toUpperCase()}${Localization.of(context).getWeekDays[visit.localDate.weekday - 1].substring(1)}",
                       style: CarlTheme.of(context).blackMediumBoldLabel,
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
-                      visit.date.day.toString(),
+                      visit.localDate.day.toString(),
                       style: CarlTheme.of(context).blackMediumBoldLabel,
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
-                      Localization.of(context).getMonths[visit.date.month - 1],
+                      Localization.of(context).getMonths[visit.localDate.month - 1],
                       style: CarlTheme.of(context).blackMediumBoldLabel,
                     ),
                     SizedBox(
                       width: 5,
                     ),
                     Text(
-                      visit.date.year.toString(),
+                      visit.localDate.year.toString(),
                       style: CarlTheme.of(context).blackMediumBoldLabel,
                     ),
                   ],
@@ -152,7 +153,7 @@ class VisitItem extends StatelessWidget {
               ),
               Expanded(
                   child: Text(
-                "${visit.date.hour.toString().padLeft(2, '0')}h${visit.date.minute.toString().padLeft(2, '0')}",
+                "${visit.localDate.hour.toString().padLeft(2, '0')}h${visit.localDate.minute.toString().padLeft(2, '0')}",
                 style: CarlTheme.of(context).black12MediumLabel,
               ))
             ],

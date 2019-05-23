@@ -10,6 +10,7 @@ import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
 import 'package:carl/ui/authenticated/cards_swiper.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/scan_page.dart';
+import 'package:carl/ui/authenticated/search_page.dart';
 import 'package:carl/ui/authenticated/settings_page.dart';
 import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
@@ -20,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'empty_element.dart';
 
 class CardsPage extends StatelessWidget {
@@ -33,6 +35,10 @@ class CardsPage extends StatelessWidget {
 
   _navigateToSettings(BuildContext context) {
     Navigator.of(context).pushNamed(SettingsPage.routeName);
+  }
+
+  _navigateToSearchPage(BuildContext context) {
+    Navigator.of(context).pushNamed(SearchPage.routeName);
   }
 
   _navigateToGoodDeals(BuildContext context) async {
@@ -62,10 +68,14 @@ class CardsPage extends StatelessWidget {
             cards: state.cards,
             blackListed: state.blackListedBusinesses,
           );
-        } else if (state is CardsLoadingError){
+        } else if (state is CardsLoadingError) {
           return ErrorApiCall(
-            errorTitle: state.isNetworkError ? Localization.of(context).networkErrorTitle : Localization.of(context).errorServerTitle,
-            errorDescription: state.isNetworkError ? Localization.of(context).networkErrorDescription : Localization.of(context).errorServerDescription,
+            errorTitle: state.isNetworkError
+                ? Localization.of(context).networkErrorTitle
+                : Localization.of(context).errorServerTitle,
+            errorDescription: state.isNetworkError
+                ? Localization.of(context).networkErrorDescription
+                : Localization.of(context).errorServerDescription,
           );
         }
       },
@@ -166,6 +176,7 @@ class CardsPage extends StatelessWidget {
                     ),
                     RoundedIcon(
                       assetIcon: "assets/ic_search.png",
+                      onClick: () => _navigateToSearchPage(context),
                     )
                   ],
                 ),

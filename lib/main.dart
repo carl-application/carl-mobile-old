@@ -13,6 +13,7 @@ import 'package:carl/ui/authenticated/cards_page.dart';
 import 'package:carl/ui/authenticated/good_deal_detail_page.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/scan_page.dart';
+import 'package:carl/ui/authenticated/search_page.dart';
 import 'package:carl/ui/authenticated/settings_page.dart';
 import 'package:carl/ui/shared/splash_screen_page.dart';
 import 'package:carl/ui/shared/vertical_slide_transition.dart';
@@ -26,7 +27,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/login/login_bloc.dart';
 import 'blocs/unread_notifications/unread_notification_event.dart';
 import 'blocs/unread_notifications/unread_notifications_bloc.dart';
-import 'data/providers/user_dummy_provider.dart';
 import 'models/navigation_arguments/card_detail_arguments.dart';
 import 'models/navigation_arguments/scan_nfc_arguments.dart';
 
@@ -39,7 +39,7 @@ class SimpleBlocDelegate extends BlocDelegate {
 
 void main() {
   BlocSupervisor().delegate = SimpleBlocDelegate();
-  runApp(App(UserRepository(userProvider: UserDummyProvider())));
+  runApp(App(UserRepository(userProvider: UserApiProvider())));
 }
 
 class App extends StatefulWidget {
@@ -168,6 +168,12 @@ class _AppState extends State<App> {
                               widget: SettingsPage(),
                             );
                             break;
+                          /*case SearchPage.routeName:
+                            return VerticalSlideTransition(
+                              widget: SearchPage(),
+                            );
+                            break;
+                            */
                           case ScanPage.routeName:
                             if (dynamicArguments is CallSource) {
                               return VerticalSlideTransition(

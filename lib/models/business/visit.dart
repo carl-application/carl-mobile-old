@@ -3,7 +3,9 @@ class Visit {
   final DateTime _date;
   final int businessId;
 
-  get date => _date.toLocal();
+  get localDate => _date.toLocal();
+
+  get date => _date;
 
   Visit(this.id, this._date, {this.businessId});
 
