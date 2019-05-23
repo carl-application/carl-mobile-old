@@ -40,7 +40,7 @@ class SimpleBlocDelegate extends BlocDelegate {
 
 void main() {
   BlocSupervisor().delegate = SimpleBlocDelegate();
-  runApp(App(UserRepository(userProvider: UserDummyProvider())));
+  runApp(App(UserRepository(userProvider: UserApiProvider())));
 }
 
 class App extends StatefulWidget {
