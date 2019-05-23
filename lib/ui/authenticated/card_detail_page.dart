@@ -104,7 +104,10 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
       _isBlackListed = state.isBlackListed;
       return _buildIcon(state.isBlackListed);
     } else if (state is ToggleBlackListLoading) {
-      return Container(height: 40, width: 40, child: CircularProgressIndicator());
+      return Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Container(height: 20, width: 20, child: CircularProgressIndicator()),
+      );
     } else {
       return Container();
     }
