@@ -200,7 +200,7 @@ class ConfirmationDialog extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 2,
                 child: Container(
                   padding: EdgeInsets.all(10),
                   child: Text(
