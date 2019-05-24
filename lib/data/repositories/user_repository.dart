@@ -93,4 +93,8 @@ class UserRepository {
   Future<ScanVisitResponse> scanVisit(String businessKey) {
     return userProvider.scanVisit(businessKey);
   }
+
+  Future<List<BusinessCard>> searchBusinessesByName(String name) {
+    return userProvider.searchBusinessesByName(name);
+  }
 }

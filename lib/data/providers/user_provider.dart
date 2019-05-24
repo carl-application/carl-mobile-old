@@ -50,4 +50,6 @@ abstract class UserProvider {
   Future<GoodDeal> retrievedGoodDealDetail(int id);
 
   Future<ScanVisitResponse> scanVisit(String businessKey);
+
+  Future<List<BusinessCard>> searchBusinessesByName(String name);
 }

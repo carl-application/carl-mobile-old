@@ -7,10 +7,10 @@ import 'package:carl/blocs/unread_notifications/unread_notifications_bloc.dart';
 import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
+import 'package:carl/ui/authenticated/business_search_delegate.dart';
 import 'package:carl/ui/authenticated/cards_swiper.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/scan_page.dart';
-import 'package:carl/ui/authenticated/search_page.dart';
 import 'package:carl/ui/authenticated/settings_page.dart';
 import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
@@ -38,7 +38,7 @@ class CardsPage extends StatelessWidget {
   }
 
   _navigateToSearchPage(BuildContext context) {
-    Navigator.of(context).pushNamed(SearchPage.routeName);
+    showSearch(context: context, delegate: BusinessSearchDelegate());
   }
 
   _navigateToGoodDeals(BuildContext context) async {

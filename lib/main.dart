@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:carl/blocs/authentication/authentication_bloc.dart';
 import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/blocs/authentication/authentication_state.dart';
-import 'package:carl/data/providers/user_api_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
@@ -13,7 +12,6 @@ import 'package:carl/ui/authenticated/cards_page.dart';
 import 'package:carl/ui/authenticated/good_deal_detail_page.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/scan_page.dart';
-import 'package:carl/ui/authenticated/search_page.dart';
 import 'package:carl/ui/authenticated/settings_page.dart';
 import 'package:carl/ui/shared/splash_screen_page.dart';
 import 'package:carl/ui/shared/vertical_slide_transition.dart';
@@ -25,9 +23,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'blocs/login/login_bloc.dart';
+import 'blocs/search_businesses/search_businesses_bloc.dart';
 import 'blocs/unread_notifications/unread_notification_event.dart';
 import 'blocs/unread_notifications/unread_notifications_bloc.dart';
-import 'data/providers/user_dummy_provider.dart';
+import 'data/providers/user_api_provider.dart';
 import 'models/navigation_arguments/card_detail_arguments.dart';
 import 'models/navigation_arguments/scan_nfc_arguments.dart';
 
@@ -59,6 +58,7 @@ class _AppState extends State<App> {
   LoginBloc _loginBloc;
   FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
   UnreadNotificationsBloc _unreadNotificationsBloc;
+  SearchBusinessesBloc _searchBusinessesBloc;
 
   UserRepository get userRepository => widget._userRepository;
 
@@ -68,6 +68,7 @@ class _AppState extends State<App> {
     _authenticationBloc = AuthenticationBloc(userRepository, firebaseMessaging: _firebaseMessaging);
     _loginBloc = LoginBloc(userRepository, _authenticationBloc);
     _unreadNotificationsBloc = UnreadNotificationsBloc(userRepository);
+    _searchBusinessesBloc = SearchBusinessesBloc(userRepository);
     _authenticationBloc.dispatch(AppStarted());
     firebaseCloudMessagingListeners();
   }
@@ -103,8 +104,9 @@ class _AppState extends State<App> {
 
   @override
   void dispose() {
-    _authenticationBloc.dispose();
-    _loginBloc.dispose();
+    _authenticationBloc?.dispose();
+    _loginBloc?.dispose();
+    _searchBusinessesBloc?.dispose();
     super.dispose();
   }
 
@@ -128,77 +130,74 @@ class _AppState extends State<App> {
         bloc: _loginBloc,
         child: BlocProvider<UnreadNotificationsBloc>(
           bloc: _unreadNotificationsBloc,
-          child: RepositoryDealer(
-            userRepository: userRepository,
-            child: CarlTheme(
-              child: BlocBuilder<AuthenticationEvent, AuthenticationState>(
-                  bloc: _authenticationBloc,
-                  builder: (BuildContext context, AuthenticationState state) {
-                    return MaterialApp(
-                      localizationsDelegates: [
-                        const LocalizationDelegate(),
-                      ],
-                      supportedLocales: [
-                        const Locale('en', ''),
-                        const Locale('es', ''),
-                      ],
-                      initialRoute: '/',
-                      routes: {},
-                      onGenerateRoute: (RouteSettings routeSettings) {
-                        final dynamicArguments = routeSettings.arguments;
-                        switch (routeSettings.name) {
-                          case CardDetailPage.routeName:
-                            if (dynamicArguments is CardDetailArguments) {
+          child: BlocProvider<SearchBusinessesBloc>(
+            bloc: _searchBusinessesBloc,
+            child: RepositoryDealer(
+              userRepository: userRepository,
+              child: CarlTheme(
+                child: BlocBuilder<AuthenticationEvent, AuthenticationState>(
+                    bloc: _authenticationBloc,
+                    builder: (BuildContext context, AuthenticationState state) {
+                      return MaterialApp(
+                        localizationsDelegates: [
+                          const LocalizationDelegate(),
+                        ],
+                        supportedLocales: [
+                          const Locale('en', ''),
+                          const Locale('es', ''),
+                        ],
+                        initialRoute: '/',
+                        routes: {},
+                        onGenerateRoute: (RouteSettings routeSettings) {
+                          final dynamicArguments = routeSettings.arguments;
+                          switch (routeSettings.name) {
+                            case CardDetailPage.routeName:
+                              if (dynamicArguments is CardDetailArguments) {
+                                return VerticalSlideTransition(
+                                  widget: CardDetailPage(dynamicArguments),
+                                );
+                              }
+                              break;
+                            case GoodDealsListPage.routeName:
                               return VerticalSlideTransition(
-                                widget: CardDetailPage(dynamicArguments),
+                                widget: GoodDealsListPage(),
                               );
-                            }
-                            break;
-                          case GoodDealsListPage.routeName:
-                            return VerticalSlideTransition(
-                              widget: GoodDealsListPage(),
-                            );
-                            break;
-                          case LoginPage.routeName:
-                            return VerticalSlideTransition(
-                              widget: LoginPage(),
-                            );
-                            break;
-                          case SettingsPage.routeName:
-                            return VerticalSlideTransition(
-                              widget: SettingsPage(),
-                            );
-                            break;
-                          /*case SearchPage.routeName:
-                            return VerticalSlideTransition(
-                              widget: SearchPage(),
-                            );
-                            break;
-                            */
-                          case ScanPage.routeName:
-                            if (dynamicArguments is CallSource) {
+                              break;
+                            case LoginPage.routeName:
                               return VerticalSlideTransition(
-                                widget: ScanPage(
-                                  source: dynamicArguments,
-                                ),
+                                widget: LoginPage(),
                               );
-                            }
-                            break;
-                          case GoodDealDetailPage.routeName:
-                            if (dynamicArguments is int) {
-                              return new MaterialPageRoute(
-                                settings: routeSettings,
-                                builder: (BuildContext context) => GoodDealDetailPage(
-                                      id: dynamicArguments,
-                                    ),
+                              break;
+                            case SettingsPage.routeName:
+                              return VerticalSlideTransition(
+                                widget: SettingsPage(),
                               );
-                            }
-                            break;
-                        }
-                      },
-                      home: _selectHomeByState(state, context),
-                    );
-                  }),
+                              break;
+                            case ScanPage.routeName:
+                              if (dynamicArguments is CallSource) {
+                                return VerticalSlideTransition(
+                                  widget: ScanPage(
+                                    source: dynamicArguments,
+                                  ),
+                                );
+                              }
+                              break;
+                            case GoodDealDetailPage.routeName:
+                              if (dynamicArguments is int) {
+                                return new MaterialPageRoute(
+                                  settings: routeSettings,
+                                  builder: (BuildContext context) => GoodDealDetailPage(
+                                        id: dynamicArguments,
+                                      ),
+                                );
+                              }
+                              break;
+                          }
+                        },
+                        home: _selectHomeByState(state, context),
+                      );
+                    }),
+              ),
             ),
           ),
         ),

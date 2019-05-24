@@ -62,7 +62,6 @@ class UserDummyProvider implements UserProvider {
         [Tag(0, "pain")],
         10,
         "Un menu midi offert pour 10 achetés"));
-
   }
 
   @override
@@ -132,12 +131,12 @@ class UserDummyProvider implements UserProvider {
       {DateTime lastFetchedDate}) async {
     await Future.delayed(Duration(seconds: 1));
     final List<Visit> list = List();
-     var inititial = lastFetchedDate;
-    if(lastFetchedDate == null) {
+    var inititial = lastFetchedDate;
+    if (lastFetchedDate == null) {
       inititial = DateTime.now();
     }
 
-    for(var i = 0; i < fetchLimit; i++) {
+    for (var i = 0; i < fetchLimit; i++) {
       list.add(Visit(i, inititial.subtract(Duration(days: i + 1))));
     }
 
@@ -188,7 +187,8 @@ class UserDummyProvider implements UserProvider {
   Future<GoodDeal> retrievedGoodDealDetail(int id) async {
     await Future.delayed(Duration(seconds: 1));
 
-    return GoodDeal(0, DateTime.now(), "titre", "short description", "description", false, "chez toto");
+    return GoodDeal(
+        0, DateTime.now(), "titre", "short description", "description", false, "chez toto");
   }
 
   Future<ScanVisitResponse> scanVisit(String businessKey) async {
@@ -197,4 +197,11 @@ class UserDummyProvider implements UserProvider {
     throw BusinessNotFoundException();
   }
 
+  Future<List<BusinessCard>> searchBusinessesByName(String name) async {
+    await Future.delayed(Duration(seconds: 1));
+    return list
+        .where(
+            (businessCard) => businessCard.businessName.toLowerCase().contains(name.toLowerCase()))
+        .toList();
+  }
 }

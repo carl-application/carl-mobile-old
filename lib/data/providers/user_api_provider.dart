@@ -39,6 +39,7 @@ const API_GET_UNREAD_NOTIFICATIONS = "$API_BASE_URL/user/notifications/unread";
 const API_GET_READ_NOTIFICATIONS = "$API_BASE_URL/user/notifications";
 const API_GET_NOTIFICATION_DETAIL = "$API_BASE_URL/user/notifications";
 const API_SCAN_VISIT = "$API_BASE_URL/user/visits/scan";
+const API_SEARCH_BUSINESS_BY_NAME = "$API_BASE_URL/search/business";
 
 const PREFERENCES_ACCESS_TOKEN_KEY = "preferencesAccessTokenKey";
 const PREFERENCES_REFRESH_TOKEN_KEY = "preferencesRefreshTokenKey";
@@ -457,5 +458,29 @@ class UserApiProvider implements UserProvider {
     print("jsonBody is = $jsonBody");
 
     return ScanVisitResponse.fromJson(jsonBody);
+  }
+
+  Future<List<BusinessCard>> searchBusinessesByName(String name) async {
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+    final List<BusinessCard> cards = [];
+    final response = await http.get(
+      "$API_SEARCH_BUSINESS_BY_NAME/$name",
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      print("Error searching business by name : ${response.statusCode}");
+      print("Response ${response}");
+      throw ServerException();
+    }
+    final jsonBody = json.decode(response.body.toString());
+
+    print("jsonBody is = $jsonBody");
+
+    cards.addAll((jsonBody as List).map((e) => BusinessCard.fromJson(e)).toList());
+    return cards;
   }
 }

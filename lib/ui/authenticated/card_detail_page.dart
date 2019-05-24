@@ -12,8 +12,8 @@ import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
 import 'package:carl/models/navigation_arguments/card_detail_back_arguments.dart';
 import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
 import 'package:carl/ui/authenticated/scan_page.dart';
+import 'package:carl/ui/authenticated/tag_item.dart';
 import 'package:carl/ui/authenticated/visits_by_user.dart';
-import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
 import 'package:carl/ui/shared/loader.dart';
 import 'package:carl/ui/shared/rounded_icon.dart';
@@ -147,8 +147,7 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                       final cardHeight = MediaQuery.of(context).size.height * .2;
                       final percentIndicatorSize = MediaQuery.of(context).size.width * .25;
                       final card = state.card.business;
-                      final userProgression =
-                          state.card.userVisitsCount % card.total == 0
+                      final userProgression = state.card.userVisitsCount % card.total == 0
                           ? card.total
                           : state.card.userVisitsCount % card.total;
                       _isBlackListed = state.isBlackListed;
@@ -240,20 +239,10 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                       itemBuilder: (BuildContext context, int index) {
                                         return Row(
                                           children: <Widget>[
-                                            ClipRRect(
-                                              borderRadius: BorderRadius.circular(15.0),
-                                              child: Container(
-                                                color: tagsColors[index % tagsColors.length],
-                                                child: Center(
-                                                    child: Padding(
-                                                  padding: const EdgeInsets.symmetric(
-                                                      horizontal: 15.0, vertical: 5.0),
-                                                  child: Text(
-                                                    card.tags[index].name,
-                                                    style: CarlTheme.of(context).whiteMediumLabel,
-                                                  ),
-                                                )),
-                                              ),
+                                            TagItem(
+                                              color: tagsColors[index % tagsColors.length],
+                                              name: card.tags[index].name,
+                                              textStyle: CarlTheme.of(context).whiteMediumLabel,
                                             ),
                                             SizedBox(
                                               width: 10,
@@ -337,13 +326,12 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                               ],
                             ),
                             Container(
-                              child: CircleImageInkWell(
-                                onPressed: () => _navigateBack(context),
-                                size: 40,
-                                image: AssetImage('assets/ic_close.png'),
-                                splashColor: Colors.black26,
-                              )
-                            )
+                                child: CircleImageInkWell(
+                              onPressed: () => _navigateBack(context),
+                              size: 40,
+                              image: AssetImage('assets/ic_close.png'),
+                              splashColor: Colors.black26,
+                            ))
                           ],
                         ),
                       );
