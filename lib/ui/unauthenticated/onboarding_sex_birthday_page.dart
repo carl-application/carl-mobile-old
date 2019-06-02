@@ -87,7 +87,7 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
                       ),
                       ToggleChooser(
                         choices: [
-                          Localization.of(context).nc,
+                          Localization.of(context).np,
                           Localization.of(context).man,
                           Localization.of(context).woman
                         ],

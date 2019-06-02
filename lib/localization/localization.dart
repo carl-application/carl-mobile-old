@@ -51,7 +51,7 @@ class Localization {
 
   String get woman => _getValue(Woman);
 
-  String get nc => _getValue(NC);
+  String get np => _getValue(NP);
 
   String get getBirthdayLabel => _getValue(GetBirthdayLabel);
 
