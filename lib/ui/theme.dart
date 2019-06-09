@@ -100,6 +100,12 @@ class CarlTheme extends InheritedWidget {
 
   get blueTitle => TextStyle(color: accentColor, fontSize: 24, fontWeight: FontWeight.bold);
 
+  get notificationDetailBusinessName => TextStyle(color: Color.fromRGBO(10,37,73, 1), fontSize: 24, fontWeight: FontWeight.bold);
+
+  get notificationDetailDescription => TextStyle(color: Color.fromRGBO(10,37,73, .5), fontSize: 16);
+  
+  get notificationDetailTitle => TextStyle(color: Color.fromRGBO(10,37,73, .8), fontSize: 20);
+
   get blueBigLabel => TextStyle(color: accentColor, fontSize: 18);
 
   get blueSmallLabel => TextStyle(color: accentColor, fontSize: 15);

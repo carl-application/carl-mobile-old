@@ -9,7 +9,7 @@ import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/authenticated/cards_page.dart';
-import 'package:carl/ui/authenticated/good_deal_detail_page.dart';
+import 'package:carl/ui/authenticated/good_deal_detail_dialog.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/scan_page.dart';
 import 'package:carl/ui/authenticated/settings_page.dart';
@@ -179,16 +179,6 @@ class _AppState extends State<App> {
                                   widget: ScanPage(
                                     source: dynamicArguments,
                                   ),
-                                );
-                              }
-                              break;
-                            case GoodDealDetailPage.routeName:
-                              if (dynamicArguments is int) {
-                                return new MaterialPageRoute(
-                                  settings: routeSettings,
-                                  builder: (BuildContext context) => GoodDealDetailPage(
-                                        id: dynamicArguments,
-                                      ),
                                 );
                               }
                               break;

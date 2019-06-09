@@ -60,7 +60,8 @@ const String WelcomePageTitle = 'welcome_page_title',
     LogOutConfirmationDescription = "logOutConfirmationDescription",
     Cancel = "cancel",
     ScanPageTitle = "scanPageTitle",
-    Activate = "activate";
+    Activate = "activate",
+    New = "new";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -130,6 +131,7 @@ final fr = {
   Cancel: "Annuler",
   ScanPageTitle: "Valider votre visite en scannant le QR-code...",
   Activate: "Activer",
+  New: "Nouveau !"
 };
 
 final en = {
@@ -199,5 +201,5 @@ final en = {
   Cancel: "Cancel",
   ScanPageTitle: "Validate your visit by scanning the QR-code...",
   Activate: "Activate",
-
+  New: "New !"
 };

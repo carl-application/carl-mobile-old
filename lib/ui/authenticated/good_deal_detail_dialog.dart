@@ -10,18 +10,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class GoodDealDetailPage extends StatefulWidget {
-  static const routeName = "/goodDealDetailPage";
+class GoodDealDetailDialog extends StatefulWidget {
 
   final int id;
 
-  const GoodDealDetailPage({Key key, this.id}) : super(key: key);
+  const GoodDealDetailDialog({Key key, this.id}) : super(key: key);
 
   @override
-  _GoodDealDetailPageState createState() => _GoodDealDetailPageState();
+  _GoodDealDetailDialogState createState() => _GoodDealDetailDialogState();
 }
 
-class _GoodDealDetailPageState extends State<GoodDealDetailPage> {
+class _GoodDealDetailDialogState extends State<GoodDealDetailDialog> {
   GoodDealDetailBloc _goodDealDetailBloc;
 
   @override
@@ -43,6 +42,76 @@ class _GoodDealDetailPageState extends State<GoodDealDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      elevation: 0.0,
+      child: Container(
+        height: MediaQuery.of(context).size.height * .5,
+        width: MediaQuery.of(context).size.width * .8,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20.0)
+        ),
+        child: BlocBuilder<GoodDealDetailEvent, GoodDealDetailState>(
+            bloc: _goodDealDetailBloc,
+            builder: (BuildContext context, GoodDealDetailState state) {
+              if (state is GoodDealByIdLoading) {
+                return Center(
+                  child: Loader(),
+                );
+              } else if (state is GoodDealByIdLoadingSuccess) {
+                SchedulerBinding.instance.addPostFrameCallback((_) =>
+                    BlocProvider.of<UnreadNotificationsBloc>(context)
+                        .dispatch(RemoveOneUnreadNotificationsEvent()));
+                final goodDeal = state.goodDeal;
+                return Padding(
+                  padding: EdgeInsets.all(20),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        new Container(
+                            width: 60.0,
+                            height: 60.0,
+                            decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: new DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: new NetworkImage(goodDeal.logo)
+                                )
+                            )),
+                        SizedBox(height: 20,),
+                        Text(
+                          goodDeal.businessName,
+                          style: CarlTheme.of(context).notificationDetailBusinessName,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Text(
+                          goodDeal.title,
+                          style: CarlTheme.of(context).notificationDetailTitle,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          goodDeal.description,
+                          style: CarlTheme.of(context).notificationDetailDescription,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              } else if (state is GoodDealByIdLoadingError) {
+                return Center(
+                  child: Text("error on api call"),
+                );
+              }
+            }),
+      ),
+    );
     return WillPopScope(
       onWillPop: () => _navigateBack(context),
       child: Scaffold(

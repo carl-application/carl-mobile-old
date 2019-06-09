@@ -130,6 +130,7 @@ class Localization {
 
   String get activate => _getValue(Activate);
 
+  String get newNotificationLabel => _getValue(New);
 
 }
 

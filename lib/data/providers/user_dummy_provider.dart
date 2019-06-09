@@ -188,7 +188,7 @@ class UserDummyProvider implements UserProvider {
     await Future.delayed(Duration(seconds: 1));
 
     return GoodDeal(
-        0, DateTime.now(), "titre", "short description", "description", false, "chez toto");
+        0, DateTime.now(), "titre", "short description", "description", false, "chez toto", "");
   }
 
   Future<ScanVisitResponse> scanVisit(String businessKey) async {
