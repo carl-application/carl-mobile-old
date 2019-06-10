@@ -9,7 +9,6 @@ import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/authenticated/card_detail_page.dart';
 import 'package:carl/ui/authenticated/cards_page.dart';
-import 'package:carl/ui/authenticated/good_deal_detail_dialog.dart';
 import 'package:carl/ui/authenticated/good_deals_list_page.dart';
 import 'package:carl/ui/authenticated/scan_page.dart';
 import 'package:carl/ui/authenticated/settings_page.dart';
@@ -21,7 +20,7 @@ import 'package:carl/ui/unauthenticated/unauthenticated_navigation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter/services.dart';
 import 'blocs/login/login_bloc.dart';
 import 'blocs/search_businesses/search_businesses_bloc.dart';
 import 'blocs/unread_notifications/unread_notification_event.dart';
@@ -123,6 +122,9 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
     _unreadNotificationsBloc.dispatch(RefreshUnreadNotificationsCountEvent());
     return BlocProvider<AuthenticationBloc>(
       bloc: _authenticationBloc,

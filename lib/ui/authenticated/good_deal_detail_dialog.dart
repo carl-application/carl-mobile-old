@@ -42,11 +42,12 @@ class _GoodDealDetailDialogState extends State<GoodDealDetailDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final logoSize = MediaQuery.of(context).size.width * .2;
     return Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
       child: Container(
-        height: MediaQuery.of(context).size.height * .5,
+        height: MediaQuery.of(context).size.height * .7,
         width: MediaQuery.of(context).size.width * .8,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -72,8 +73,8 @@ class _GoodDealDetailDialogState extends State<GoodDealDetailDialog> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         new Container(
-                            width: 60.0,
-                            height: 60.0,
+                            width: logoSize,
+                            height: logoSize,
                             decoration: new BoxDecoration(
                                 shape: BoxShape.circle,
                                 image: new DecorationImage(

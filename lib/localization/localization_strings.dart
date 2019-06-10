@@ -61,7 +61,8 @@ const String WelcomePageTitle = 'welcome_page_title',
     Cancel = "cancel",
     ScanPageTitle = "scanPageTitle",
     Activate = "activate",
-    New = "new";
+    New = "new",
+    EmptyVisits = "emptyVisits";
 
 final fr = {
   WelcomePageTitle: "Hello, moi c'est CARL !",
@@ -131,7 +132,8 @@ final fr = {
   Cancel: "Annuler",
   ScanPageTitle: "Valider votre visite en scannant le QR-code...",
   Activate: "Activer",
-  New: "Nouveau !"
+  New: "Nouveau !",
+  EmptyVisits: "Aucune visites"
 };
 
 final en = {
@@ -201,5 +203,6 @@ final en = {
   Cancel: "Cancel",
   ScanPageTitle: "Validate your visit by scanning the QR-code...",
   Activate: "Activate",
-  New: "New !"
+  New: "New !",
+  EmptyVisits: "No visits"
 };

@@ -12,6 +12,8 @@ import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'empty_element.dart';
+
 const int VISITS_PER_PAGE = 10;
 
 class VisitsByUser extends StatelessWidget {
@@ -81,6 +83,13 @@ class VisitsByUser extends StatelessWidget {
             return Center(child: Loader());
           } else if (state is VisitsLoadingSuccess) {
             _visits = state.visits;
+            if (_visits.isEmpty) {
+              return EmptyElement(
+                assetImageUrl: "assets/empty_cards.png",
+                title: Localization.of(context).emptyVisitsLabel,
+                description: "",
+              );
+            }
             return _renderList(context);
           } else if (state is LoadMoreSuccessState) {
             _visits.addAll(state.visits);

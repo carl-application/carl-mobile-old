@@ -116,10 +116,10 @@ class _ScanPageState extends State<ScanPage> {
         : SizedBox();
   }
 
-  void _detectingQrCode(String value) {
+  void _detectingQrCode(String value) async {
     _scannerBloc.dispatch(ScanVisitEvent(businessKey: value));
     final double percentIndicatorSize = MediaQuery.of(context).size.width * .3;
-    showDialog(
+    await showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
@@ -249,7 +249,6 @@ class _ScanPageState extends State<ScanPage> {
                                     textStyle: CarlTheme.of(context).black12MediumLabel,
                                     onClick: () {
                                       Navigator.of(context).pop();
-                                      readerController.startScanning();
                                     },
                                   )
                                 ],
@@ -283,6 +282,7 @@ class _ScanPageState extends State<ScanPage> {
                     ),
                   )));
         });
+    readerController.startScanning();
   }
 
   @override

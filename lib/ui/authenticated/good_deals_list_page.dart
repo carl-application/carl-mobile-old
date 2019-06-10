@@ -158,7 +158,7 @@ class GoodDealsListPage extends StatelessWidget {
                                                           overflow: TextOverflow.ellipsis,
                                                         ),
                                                         Text(
-                                                          deals[index].shortDescription,
+                                                          deals[index].description,
                                                           style: CarlTheme
                                                               .of(context)
                                                               .greyMediumLabel,

@@ -147,7 +147,8 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                       final cardHeight = MediaQuery.of(context).size.height * .2;
                       final percentIndicatorSize = MediaQuery.of(context).size.width * .25;
                       final card = state.card.business;
-                      final userProgression = state.card.userVisitsCount % card.total == 0
+                      final userProgression =
+                      state.card.userVisitsCount % card.total == 0 && state.card.userVisitsCount > 0
                           ? card.total
                           : state.card.userVisitsCount % card.total;
                       _isBlackListed = state.isBlackListed;

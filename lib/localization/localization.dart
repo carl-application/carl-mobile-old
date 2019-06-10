@@ -132,6 +132,8 @@ class Localization {
 
   String get newNotificationLabel => _getValue(New);
 
+  String get emptyVisitsLabel => _getValue(EmptyVisits);
+
 }
 
 class LocalizationDelegate extends LocalizationsDelegate<Localization> {
