@@ -23,6 +23,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_ink_well/image_ink_well.dart';
 
+import '../../constants.dart';
 import 'card_percent_indicator_painter.dart';
 
 class CardDetailPage extends StatefulWidget {
@@ -190,7 +191,7 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                           children: <Widget>[
                                             FadeInImage(
                                               fit: BoxFit.cover,
-                                              placeholder: AssetImage('assets/carl_face.png'),
+                                              placeholder: AssetImage(Constants.IMAGE_PLACEHOLDER_URL),
                                               image: NetworkImage(card.image.url),
                                             ),
                                             Center(

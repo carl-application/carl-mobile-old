@@ -9,6 +9,8 @@ import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../constants.dart';
+
 class CardsSwiper extends StatefulWidget {
   final List<BusinessCard> cards;
   final List<BlackListed> blackListed;
@@ -232,7 +234,7 @@ class CardItem extends StatelessWidget {
             children: <Widget>[
               FadeInImage(
                 fit: BoxFit.cover,
-                placeholder: AssetImage('assets/carl_logo.png'),
+                placeholder: AssetImage(Constants.IMAGE_PLACEHOLDER_URL),
                 image: NetworkImage(card.image.url),
               ),
               Container(

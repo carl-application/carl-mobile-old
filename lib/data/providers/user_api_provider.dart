@@ -325,7 +325,7 @@ class UserApiProvider implements UserProvider {
 
   @override
   Future<BusinessImage> getImageById(int id) async {
-    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+    final tokenizedHeader = await Api.getBasicAuthorizationHeader();
 
     final response = await http.get(
       "$API_GET_IMAGE_BY_ID/$id",
