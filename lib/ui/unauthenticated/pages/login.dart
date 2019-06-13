@@ -1,7 +1,7 @@
 import 'package:carl/blocs/login/login_bloc.dart';
 import 'package:carl/blocs/login/login_event.dart';
 import 'package:carl/blocs/login/login_state.dart';
-import 'package:carl/localization/localization.dart';
+import 'package:carl/translations.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/carl_textfield.dart';
 import 'package:carl/ui/shared/clickable_text.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatelessWidget {
+class Login extends StatelessWidget {
   static const routeName = "/loginPage";
 
   final _usernameController = TextEditingController();
@@ -37,7 +37,7 @@ class LoginPage extends StatelessWidget {
     if (loginState is LoginCredentialsFailure) {
       widget = Container(
         child: Text(
-          Localization.of(context).loginPageBadCredentialsErrorText,
+          Translations.of(context).text("login_page_bad_credentials_error_text"),
           style: CarlTheme.of(context).errorTextStyle,
         ),
       );
@@ -73,15 +73,12 @@ class LoginPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Center(
-                              child: Hero(
-                                tag: "loginCarlFace",
-                                child: Container(
-                                  height: 80,
-                                  width: 80,
-                                  child: Image.asset(
-                                    "assets/ic_carl.png",
-                                    fit: BoxFit.contain,
-                                  ),
+                              child: Container(
+                                height: 80,
+                                width: 80,
+                                child: Image.asset(
+                                  "assets/ic_carl.png",
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ),
@@ -97,7 +94,7 @@ class LoginPage extends StatelessWidget {
                           height: 20,
                         ),
                         Text(
-                          Localization.of(context).loginPageTitle,
+                          Translations.of(context).text("login_page_title"),
                           style: CarlTheme.of(context).whiteBoldBigLabel,
                         )
                       ],
@@ -110,7 +107,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       CarlTextField(
                         keyboardType: TextInputType.emailAddress,
-                        hintText: Localization.of(context).loginPageEmailHintText,
+                        hintText: Translations.of(context).text("login_page_email_hint_text"),
                         controller: _usernameController,
                         textInputAction: TextInputAction.next,
                         focusNode: _userNameFocusNode,
@@ -123,7 +120,7 @@ class LoginPage extends StatelessWidget {
                         height: 20,
                       ),
                       CarlTextField(
-                        hintText: Localization.of(context).loginPagePasswordHintText,
+                        hintText: Translations.of(context).text("login_page_password_hint_text"),
                         obscureText: true,
                         controller: _passwordController,
                         textInputAction: TextInputAction.done,
@@ -141,7 +138,7 @@ class LoginPage extends StatelessWidget {
                           return Column(
                             children: <Widget>[
                               CarlButton(
-                                text: Localization.of(context).validate.toUpperCase(),
+                                text: Translations.of(context).text("validate").toUpperCase(),
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 height: 30,
                                 onPressed: () {

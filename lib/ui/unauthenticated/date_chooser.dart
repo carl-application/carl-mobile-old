@@ -1,7 +1,8 @@
-import 'package:carl/localization/localization.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+import '../../translations.dart';
 
 class DateController {
   DateTime date = new DateTime.now();
@@ -87,11 +88,11 @@ class _DateChooserState extends State<DateChooser> {
               });
             }),
         generateSelector(
-            initialValue: "${Localization.of(context).getMonths[this.widget.date.month - 1]}",
-            values: Localization.of(context).getMonths,
+            initialValue: "${Translations.of(context).array("months")[this.widget.date.month - 1]}",
+            values: Translations.of(context).array("months"),
             flex: 2,
             onNewValue: (newValue) {
-              final index = Localization.of(context).getMonths.indexOf(newValue);
+              final index = Translations.of(context).array("months").indexOf(newValue);
               setState(() {
                 final newDate = DateTime(widget.date.year, index + 1, widget.date.day);
                 this.widget.date = newDate;

@@ -2,35 +2,35 @@ import 'package:carl/blocs/scanner/scanner_bloc.dart';
 import 'package:carl/blocs/scanner/scanner_event.dart';
 import 'package:carl/blocs/scanner/scanner_state.dart';
 import 'package:carl/data/repository_dealer.dart';
-import 'package:carl/localization/localization.dart';
 import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
 import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
+import 'package:carl/translations.dart';
+import 'package:carl/ui/authenticated/card_percent_indicator_painter.dart';
+import 'package:carl/ui/authenticated/empty_element.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/clickable_text.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
 import 'package:carl/ui/shared/loader.dart';
+import 'package:carl/ui/theme.dart';
 import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_ink_well/image_ink_well.dart';
 
-import '../theme.dart';
-import 'card_detail_page.dart';
-import 'card_percent_indicator_painter.dart';
-import 'empty_element.dart';
+import 'package:carl/ui/authenticated/pages/card_detail.dart';
 
-class ScanPage extends StatefulWidget {
+class Scan extends StatefulWidget {
   static const String routeName = "/scanPage";
 
   final CallSource source;
 
-  const ScanPage({Key key, this.source}) : super(key: key);
+  const Scan({Key key, this.source}) : super(key: key);
 
   @override
-  _ScanPageState createState() => _ScanPageState();
+  _ScanState createState() => _ScanState();
 }
 
-class _ScanPageState extends State<ScanPage> {
+class _ScanState extends State<Scan> {
   List<CameraDescription> cameras;
   QRReaderController readerController;
   bool hasPermissionsBeenDenied = false;
@@ -39,7 +39,7 @@ class _ScanPageState extends State<ScanPage> {
   _navigateToCardDetail(BuildContext context, int businessId) {
     Navigator.of(context).pop();
     if (widget.source == CallSource.home) {
-      Navigator.of(context).pushReplacementNamed(CardDetailPage.routeName,
+      Navigator.of(context).pushReplacementNamed(CardDetail.routeName,
           arguments: CardDetailArguments(businessId));
     }
   }
@@ -102,7 +102,7 @@ class _ScanPageState extends State<ScanPage> {
                 height: 15,
               ),
               CarlButton(
-                text: Localization.of(context).activate,
+                text: Translations.of(context).text("activate"),
                 onPressed: () {
                   setState(() {
                     hasPermissionsBeenDenied = true;
@@ -266,11 +266,11 @@ class _ScanPageState extends State<ScanPage> {
                           } else {
                             errorWidget = ErrorApiCall(
                               errorTitle: state.isNetworkError
-                                  ? Localization.of(context).networkErrorTitle
-                                  : Localization.of(context).errorServerTitle,
+                                  ? Translations.of(context).text("network_error_title")
+                                  : Translations.of(context).text("error_server_title"),
                               errorDescription: state.isNetworkError
-                                  ? Localization.of(context).networkErrorDescription
-                                  : Localization.of(context).errorServerDescription,
+                                  ? Translations.of(context).text("network_error_description")
+                                  : Translations.of(context).text("error_server_description"),
                             );
                           }
 
@@ -323,7 +323,7 @@ class _ScanPageState extends State<ScanPage> {
                   flex: 1,
                   child: Center(
                     child: Text(
-                      Localization.of(context).scanPageTitle,
+                      Translations.of(context).text("scan_page_title"),
                       style: CarlTheme.of(context).blackMediumBoldLabel,
                       textAlign: TextAlign.center,
                     ),

@@ -2,7 +2,7 @@ import 'package:carl/blocs/search_businesses/search_businesses_bloc.dart';
 import 'package:carl/blocs/search_businesses/search_businesses_event.dart';
 import 'package:carl/blocs/search_businesses/search_businesses_state.dart';
 import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
-import 'package:carl/ui/authenticated/card_detail_page.dart';
+import 'package:carl/ui/authenticated/pages/card_detail.dart';
 import 'package:carl/ui/authenticated/tag_item.dart';
 import 'package:carl/ui/shared/loader.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +56,7 @@ class BusinessSearchDelegate extends SearchDelegate<String> {
 
                 return ListTile(
                   onTap: () {
-                    Navigator.pushNamed(context, CardDetailPage.routeName,
+                    Navigator.pushNamed(context, CardDetail.routeName,
                         arguments: CardDetailArguments(results[index].id));
                   },
                   leading: Container(

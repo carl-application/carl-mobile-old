@@ -6,12 +6,11 @@ import 'package:carl/blocs/card_detail/card_detail_state.dart';
 import 'package:carl/blocs/toggle_blacklist/toggle_blacklist_bloc.dart';
 import 'package:carl/blocs/toggle_blacklist/toggle_blacklist_event.dart';
 import 'package:carl/blocs/toggle_blacklist/toggle_blacklist_state.dart';
+import 'package:carl/constants.dart';
 import 'package:carl/data/repository_dealer.dart';
-import 'package:carl/localization/localization.dart';
 import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
 import 'package:carl/models/navigation_arguments/card_detail_back_arguments.dart';
-import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
-import 'package:carl/ui/authenticated/scan_page.dart';
+import 'package:carl/ui/authenticated/card_percent_indicator_painter.dart';
 import 'package:carl/ui/authenticated/tag_item.dart';
 import 'package:carl/ui/authenticated/visits_by_user.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
@@ -23,23 +22,22 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_ink_well/image_ink_well.dart';
 
-import '../../constants.dart';
-import 'card_percent_indicator_painter.dart';
+import '../../../translations.dart';
 
-class CardDetailPage extends StatefulWidget {
+class CardDetail extends StatefulWidget {
   static const routeName = "/cardDetailPage";
 
   int _cardId;
 
-  CardDetailPage(CardDetailArguments arguments) {
+  CardDetail(CardDetailArguments arguments) {
     this._cardId = arguments.cardId;
   }
 
   @override
-  _CardDetailPageState createState() => _CardDetailPageState();
+  _CardDetailState createState() => _CardDetailState();
 }
 
-class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStateMixin {
+class _CardDetailState extends State<CardDetail> with TickerProviderStateMixin {
   CardDetailBloc _cardDetailBloc;
   ToggleBlacklistBloc _toggleBlacklistBloc;
   bool _isBlackListed = false;
@@ -57,10 +55,6 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
     _toggleBlacklistBloc.dispose();
     _cardDetailBloc.dispose();
     super.dispose();
-  }
-
-  _navigateToScan(BuildContext context) {
-    Navigator.of(context).pushNamed(ScanPage.routeName, arguments: CallSource.detail);
   }
 
   _navigateBack(BuildContext context) {
@@ -137,19 +131,19 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                       return Center(
                         child: ErrorApiCall(
                           errorTitle: state.isNetworkError
-                              ? Localization.of(context).networkErrorTitle
-                              : Localization.of(context).errorServerTitle,
+                              ? Translations.of(context).text("network_error_title")
+                              : Translations.of(context).text("error_server_title"),
                           errorDescription: state.isNetworkError
-                              ? Localization.of(context).networkErrorTitle
-                              : Localization.of(context).errorServerTitle,
+                              ? Translations.of(context).text("network_error_description")
+                              : Translations.of(context).text("error_server_description"),
                         ),
                       );
                     } else if (state is CardByIdLoadingSuccess) {
                       final cardHeight = MediaQuery.of(context).size.height * .2;
                       final percentIndicatorSize = MediaQuery.of(context).size.width * .25;
                       final card = state.card.business;
-                      final userProgression =
-                      state.card.userVisitsCount % card.total == 0 && state.card.userVisitsCount > 0
+                      final userProgression = state.card.userVisitsCount % card.total == 0 &&
+                              state.card.userVisitsCount > 0
                           ? card.total
                           : state.card.userVisitsCount % card.total;
                       _isBlackListed = state.isBlackListed;
@@ -191,7 +185,8 @@ class _CardDetailPageState extends State<CardDetailPage> with TickerProviderStat
                                           children: <Widget>[
                                             FadeInImage(
                                               fit: BoxFit.cover,
-                                              placeholder: AssetImage(Constants.IMAGE_PLACEHOLDER_URL),
+                                              placeholder:
+                                                  AssetImage(Constants.IMAGE_PLACEHOLDER_URL),
                                               image: NetworkImage(card.image.url),
                                             ),
                                             Center(

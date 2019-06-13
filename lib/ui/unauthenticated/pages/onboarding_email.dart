@@ -1,32 +1,32 @@
-import 'package:carl/localization/localization.dart';
+import 'package:carl/translations.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:carl/ui/unauthenticated/indicators.dart';
 import 'package:carl/ui/unauthenticated/onboarding_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class OnBoardingPasswordPage extends StatelessWidget {
-  OnBoardingPasswordPage({
-    @required this.onPasswordSubmitted,
+class OnBoardingEmail extends StatelessWidget {
+  OnBoardingEmail({
+    @required this.onEMailSubmitted,
     this.onBackPressed,
-    this.password
+    this.email,
   });
 
-  final void Function(String) onPasswordSubmitted;
+  final void Function(String) onEMailSubmitted;
   final VoidCallback onBackPressed;
-  String password;
+  String email;
 
-  final _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
 
-  void navigateToNext(String password) {
-    if (onPasswordSubmitted != null) {
-      onPasswordSubmitted(password);
+  void navigateToNext(String email) {
+    if (onEMailSubmitted != null) {
+      onEMailSubmitted(email);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    _passwordController.text = password;
+    _emailController.text = email;
     return WillPopScope(
       onWillPop: onBackPressed,
       child: Material(
@@ -44,8 +44,8 @@ class OnBoardingPasswordPage extends StatelessWidget {
                       height: 30,
                     ),
                     OnBoardingHeader(
-                      title: Localization.of(context).onBoardingPasswordTitle,
-                      position: 3,
+                      title: Translations.of(context).text("on_boarding_email_title"),
+                      position: 2,
                     ),
                   ],
                 ),
@@ -57,28 +57,28 @@ class OnBoardingPasswordPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          width: 300,
+                          width: 200,
                           child: TextField(
-                            obscureText: true,
+                            keyboardType: TextInputType.emailAddress,
                             onSubmitted: (text) {
-                              password = text;
+                              email = text;
                               navigateToNext(text);
                             },
                             onChanged: (text) {
-                              password = text;
+                              email = text;
                             },
-                            controller: _passwordController,
+                            controller: _emailController,
                             style: CarlTheme.of(context).whiteMediumLabel,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: Localization.of(context).onBoardingPasswordHint,
+                                hintText: Translations.of(context).text("on_boarding_email_hint"),
                                 hintStyle: CarlTheme.of(context).white30Label),
                           ),
                         ),
                         Text(
-                          Localization.of(context).onBoardingPasswordLabel,
+                          Translations.of(context).text("on_boarding_email_label"),
                           style: CarlTheme.of(context).white30Label,
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -88,12 +88,12 @@ class OnBoardingPasswordPage extends StatelessWidget {
                   right: 20,
                   child: Indicators(
                     topEnable: true,
-                    bottomEnable: _passwordController.text.isNotEmpty,
+                    bottomEnable: _emailController.text.isNotEmpty,
                     onTopCLicked: () {
                       onBackPressed();
                     },
                     onDownClicked: () {
-                      navigateToNext(_passwordController.text);
+                      navigateToNext(_emailController.text);
                     },
                   ),
                 )

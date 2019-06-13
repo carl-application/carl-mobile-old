@@ -1,8 +1,8 @@
 import 'package:carl/blocs/user_registration/user_registration_bloc.dart';
 import 'package:carl/blocs/user_registration/user_registration_event.dart';
 import 'package:carl/blocs/user_registration/user_registration_state.dart';
-import 'package:carl/localization/localization.dart';
 import 'package:carl/models/registration_model.dart';
+import 'package:carl/translations.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:carl/ui/unauthenticated/date_chooser.dart';
@@ -13,8 +13,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class OnBoardingSexBirthdayPage extends StatefulWidget {
-  OnBoardingSexBirthdayPage(
+class OnBoardingSexBirthday extends StatefulWidget {
+  OnBoardingSexBirthday(
       {@required this.onBackPressed,
       @required this.onEmailAlreadyUsedError,
       @required this.pseudo,
@@ -28,12 +28,12 @@ class OnBoardingSexBirthdayPage extends StatefulWidget {
   final String password;
 
   @override
-  OnBoardingSexBirthdayPageState createState() {
-    return OnBoardingSexBirthdayPageState();
+  OnBoardingSexBirthdayState createState() {
+    return OnBoardingSexBirthdayState();
   }
 }
 
-class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
+class OnBoardingSexBirthdayState extends State<OnBoardingSexBirthday> {
   ToggleController _toggleController;
   DateController _dateController;
   UserRegistrationBloc _registrationBloc;
@@ -77,19 +77,19 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
                         height: 30,
                       ),
                       OnBoardingHeader(
-                          title: Localization.of(context).onBoardingSexAndAgeTitle, position: 4),
+                          title: Translations.of(context).text("on_boarding_sex_and_age_title"), position: 4),
                       SizedBox(
                         height: 40,
                       ),
                       Text(
-                        Localization.of(context).yourSexLabel.toUpperCase(),
+                        Translations.of(context).text("your_sex").toUpperCase(),
                         style: CarlTheme.of(context).white30Label,
                       ),
                       ToggleChooser(
                         choices: [
-                          Localization.of(context).np,
-                          Localization.of(context).man,
-                          Localization.of(context).woman
+                          Translations.of(context).text("np"),
+                          Translations.of(context).text("man"),
+                          Translations.of(context).text("woman")
                         ],
                         toggleController: _toggleController,
                       ),
@@ -99,7 +99,7 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
                       Container(
                         width: 280,
                         child: Text(
-                          Localization.of(context).getBirthdayLabel.toUpperCase(),
+                          Translations.of(context).text("get_birthday_label").toUpperCase(),
                           style: CarlTheme.of(context).white30Label,
                         ),
                       ),
@@ -126,7 +126,7 @@ class OnBoardingSexBirthdayPageState extends State<OnBoardingSexBirthdayPage> {
                             isLoading: isLoading,
                             textStyle: CarlTheme.of(context).bigButtonLabelStyle,
                             width: MediaQuery.of(context).size.width * 0.8,
-                            text: Localization.of(context).validate.toUpperCase(),
+                            text: Translations.of(context).text("validate").toUpperCase(),
                             onPressed: () => _login(),
                           );
                         },

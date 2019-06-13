@@ -4,7 +4,7 @@ import 'package:carl/models/black_listed.dart';
 import 'package:carl/models/business/business_card.dart';
 import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
 import 'package:carl/models/navigation_arguments/card_detail_back_arguments.dart';
-import 'package:carl/ui/authenticated/card_detail_page.dart';
+import 'package:carl/ui/authenticated/pages/card_detail.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -48,7 +48,7 @@ class _CardsSwiperState extends State<CardsSwiper> {
   _navigateToDetail(BuildContext context) async {
     final BusinessCard card = cards[controller.page.toInt()];
     print("Clicked on card ${card.businessName}");
-    final arguments = await Navigator.pushNamed(context, CardDetailPage.routeName,
+    final arguments = await Navigator.pushNamed(context, CardDetail.routeName,
         arguments: CardDetailArguments(card.id));
 
     print("Arguments back from detail are $arguments");

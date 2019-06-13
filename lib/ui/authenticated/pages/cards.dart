@@ -5,13 +5,14 @@ import 'package:carl/blocs/unread_notifications/unread_notification_event.dart';
 import 'package:carl/blocs/unread_notifications/unread_notification_state.dart';
 import 'package:carl/blocs/unread_notifications/unread_notifications_bloc.dart';
 import 'package:carl/data/repository_dealer.dart';
-import 'package:carl/localization/localization.dart';
 import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
+import 'package:carl/translations.dart';
 import 'package:carl/ui/authenticated/business_search_delegate.dart';
 import 'package:carl/ui/authenticated/cards_swiper.dart';
-import 'package:carl/ui/authenticated/good_deals_list_page.dart';
-import 'package:carl/ui/authenticated/scan_page.dart';
-import 'package:carl/ui/authenticated/settings_page.dart';
+import 'package:carl/ui/authenticated/empty_element.dart';
+import 'package:carl/ui/authenticated/pages/good_deals_list.dart';
+import 'package:carl/ui/authenticated/pages/scan.dart';
+import 'package:carl/ui/authenticated/pages/settings.dart';
 import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
 import 'package:carl/ui/shared/loader.dart';
@@ -22,19 +23,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'empty_element.dart';
-
-class CardsPage extends StatelessWidget {
+class Cards extends StatelessWidget {
   int _unreadNotificationsCount = 0;
   CardsBloc _cardsBloc;
   UnreadNotificationsBloc _unreadNotificationsBloc;
 
   _navigateToScan(BuildContext context) {
-    Navigator.of(context).pushNamed(ScanPage.routeName, arguments: CallSource.home);
+    Navigator.of(context).pushNamed(Scan.routeName, arguments: CallSource.home);
   }
 
   _navigateToSettings(BuildContext context) {
-    Navigator.of(context).pushNamed(SettingsPage.routeName);
+    Navigator.of(context).pushNamed(Settings.routeName);
   }
 
   _navigateToSearchPage(BuildContext context) {
@@ -42,7 +41,7 @@ class CardsPage extends StatelessWidget {
   }
 
   _navigateToGoodDeals(BuildContext context) async {
-    final nbSeenDeals = await Navigator.pushNamed(context, GoodDealsListPage.routeName) as int;
+    final nbSeenDeals = await Navigator.pushNamed(context, GoodDealsList.routeName) as int;
     if (nbSeenDeals > 0) {
       _unreadNotificationsBloc.dispatch(RetrieveUnreadNotificationsCountEvent());
     }
@@ -60,8 +59,8 @@ class CardsPage extends StatelessWidget {
           if (state.cards.isEmpty) {
             return EmptyElement(
               assetImageUrl: "assets/empty_cards.png",
-              title: Localization.of(context).emptyCardsTitle,
-              description: Localization.of(context).emptyCardsDescription,
+              title: Translations.of(context).text("empty_cards_title"),
+              description: Translations.of(context).text("empty_cards_description"),
             );
           }
           return CardsSwiper(
@@ -71,11 +70,11 @@ class CardsPage extends StatelessWidget {
         } else if (state is CardsLoadingError) {
           return ErrorApiCall(
             errorTitle: state.isNetworkError
-                ? Localization.of(context).networkErrorTitle
-                : Localization.of(context).errorServerTitle,
+                ? Translations.of(context).text("network_error_title")
+                : Translations.of(context).text("error_server_title"),
             errorDescription: state.isNetworkError
-                ? Localization.of(context).networkErrorDescription
-                : Localization.of(context).errorServerDescription,
+                ? Translations.of(context).text("network_error_description")
+                : Translations.of(context).text("error_server_description"),
           );
         }
       },
@@ -194,7 +193,7 @@ class CardsPage extends StatelessWidget {
                       flex: 7,
                       child: Center(
                         child: CarlBlueGradientButton(
-                          text: Localization.of(context).add,
+                          text: Translations.of(context).text("add"),
                           onPressed: () => _navigateToScan(context),
                           width: MediaQuery.of(context).size.width * .5,
                           textStyle: CarlTheme.of(context).white30Label,

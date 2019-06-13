@@ -1,15 +1,15 @@
 import 'package:carl/blocs/authentication/authentication_bloc.dart';
 import 'package:carl/blocs/authentication/authentication_event.dart';
-import 'package:carl/localization/localization.dart';
+import 'package:carl/translations.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/clickable_text.dart';
+import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_ink_well/image_ink_well.dart';
 
-import '../theme.dart';
 
-class SettingsPage extends StatelessWidget {
+class Settings extends StatelessWidget {
   static const String routeName = "/settingsPage";
 
   _logOut(BuildContext context) {
@@ -23,10 +23,10 @@ class SettingsPage extends StatelessWidget {
         context: context,
         builder: (BuildContext context) {
           return ConfirmationDialog(
-            title: Localization.of(context).logOutConfirmationTitle,
-            description: Localization.of(context).logOutConfirmationDescription,
-            yesButtonText: Localization.of(context).validate,
-            noButtonText: Localization.of(context).cancel,
+            title: Translations.of(context).text("log_out_confirmation_title"),
+            description: Translations.of(context).text("log_out_confirmation_description"),
+            yesButtonText: Translations.of(context).text("validate"),
+            noButtonText: Translations.of(context).text("cancel"),
             onYesClicked: () => _logOut(context),
             onNoClicked: () => Navigator.of(context).pop(),
           );
@@ -45,7 +45,7 @@ class SettingsPage extends StatelessWidget {
             children: <Widget>[
               Center(
                 child: Text(
-                  Localization.of(context).settingsTitle,
+                  Translations.of(context).text("settings_title"),
                   style: CarlTheme.of(context).blackTitle,
                 ),
               ),
@@ -57,7 +57,7 @@ class SettingsPage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     SettingsItem(
-                      label: Localization.of(context).settingsLogoutLabel,
+                      label: Translations.of(context).text('settings_logout_label'),
                       onCLick: () => _showLogoutDialog(context),
                     )
                   ],
@@ -229,7 +229,7 @@ class ConfirmationDialog extends StatelessWidget {
                         ),
 
                         ClickableText(
-                          text: Localization.of(context).cancel,
+                          text: Translations.of(context).text("cancel"),
                           textStyle: CarlTheme.of(context).blackMediumLabel,
                           clickedColor: Colors.white,
                           onClick: () => Navigator.of(context).pop(),

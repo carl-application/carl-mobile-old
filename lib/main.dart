@@ -6,21 +6,22 @@ import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/blocs/authentication/authentication_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/data/repository_dealer.dart';
-import 'package:carl/localization/localization.dart';
-import 'package:carl/ui/authenticated/card_detail_page.dart';
-import 'package:carl/ui/authenticated/cards_page.dart';
-import 'package:carl/ui/authenticated/good_deals_list_page.dart';
-import 'package:carl/ui/authenticated/scan_page.dart';
-import 'package:carl/ui/authenticated/settings_page.dart';
+import 'package:carl/translations.dart';
+import 'package:carl/ui/authenticated/pages/card_detail.dart';
+import 'package:carl/ui/authenticated/pages/cards.dart';
+import 'package:carl/ui/authenticated/pages/good_deals_list.dart';
+import 'package:carl/ui/authenticated/pages/scan.dart';
+import 'package:carl/ui/authenticated/pages/settings.dart';
 import 'package:carl/ui/shared/splash_screen_page.dart';
 import 'package:carl/ui/shared/vertical_slide_transition.dart';
 import 'package:carl/ui/theme.dart';
-import 'package:carl/ui/unauthenticated/login_page.dart';
-import 'package:carl/ui/unauthenticated/unauthenticated_navigation.dart';
+import 'package:carl/ui/unauthenticated/pages/login.dart';
+import 'package:carl/ui/unauthenticated/pages/unauthenticated_navigation.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'blocs/login/login_bloc.dart';
 import 'blocs/search_businesses/search_businesses_bloc.dart';
 import 'blocs/unread_notifications/unread_notification_event.dart';
@@ -28,6 +29,7 @@ import 'blocs/unread_notifications/unread_notifications_bloc.dart';
 import 'data/providers/user_api_provider.dart';
 import 'models/navigation_arguments/card_detail_arguments.dart';
 import 'models/navigation_arguments/scan_nfc_arguments.dart';
+
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -113,7 +115,7 @@ class _AppState extends State<App> {
     if (state is AuthenticationUninitialized) {
       return SplashScreenPage();
     } else if (state is AuthenticationAuthenticated) {
-      return CardsPage();
+      return Cards();
     } else if (state is AuthenticationLoading) {
       return Container(color: CarlTheme.of(context).background);
     }
@@ -142,43 +144,45 @@ class _AppState extends State<App> {
                     builder: (BuildContext context, AuthenticationState state) {
                       return MaterialApp(
                         localizationsDelegates: [
-                          const LocalizationDelegate(),
+                          const TranslationsDelegate(),
+                          GlobalMaterialLocalizations.delegate,
+                          GlobalWidgetsLocalizations.delegate,
                         ],
                         supportedLocales: [
                           const Locale('en', ''),
-                          const Locale('es', ''),
+                          const Locale('fr', ''),
                         ],
                         initialRoute: '/',
                         routes: {},
                         onGenerateRoute: (RouteSettings routeSettings) {
                           final dynamicArguments = routeSettings.arguments;
                           switch (routeSettings.name) {
-                            case CardDetailPage.routeName:
+                            case CardDetail.routeName:
                               if (dynamicArguments is CardDetailArguments) {
                                 return VerticalSlideTransition(
-                                  widget: CardDetailPage(dynamicArguments),
+                                  widget: CardDetail(dynamicArguments),
                                 );
                               }
                               break;
-                            case GoodDealsListPage.routeName:
+                            case GoodDealsList.routeName:
                               return VerticalSlideTransition(
-                                widget: GoodDealsListPage(),
+                                widget: GoodDealsList(),
                               );
                               break;
-                            case LoginPage.routeName:
+                            case Login.routeName:
                               return VerticalSlideTransition(
-                                widget: LoginPage(),
+                                widget: Login(),
                               );
                               break;
-                            case SettingsPage.routeName:
+                            case Settings.routeName:
                               return VerticalSlideTransition(
-                                widget: SettingsPage(),
+                                widget: Settings(),
                               );
                               break;
-                            case ScanPage.routeName:
+                            case Scan.routeName:
                               if (dynamicArguments is CallSource) {
                                 return VerticalSlideTransition(
-                                  widget: ScanPage(
+                                  widget: Scan(
                                     source: dynamicArguments,
                                   ),
                                 );

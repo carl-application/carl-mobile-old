@@ -4,7 +4,6 @@ import 'package:carl/blocs/visits/visits_state.dart';
 import 'package:carl/data/providers/user_dummy_provider.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/data/repository_dealer.dart';
-import 'package:carl/localization/localization.dart';
 import 'package:carl/models/business/visit.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
 import 'package:carl/ui/shared/loader.dart';
@@ -12,6 +11,7 @@ import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../translations.dart';
 import 'empty_element.dart';
 
 const int VISITS_PER_PAGE = 10;
@@ -33,7 +33,7 @@ class VisitsByUser extends StatelessWidget {
             flex: 1,
             child: Center(
               child: Text(
-                Localization.of(context).visitsHistoricTitle,
+                Translations.of(context).text("visits_historic_title"),
                 style: CarlTheme.of(context).blackMediumBoldLabel,
               ),
             ),
@@ -46,7 +46,7 @@ class VisitsByUser extends StatelessWidget {
                   if (index == _visits.length) {
                     if (_visits.length % VISITS_PER_PAGE == 0) {
                       _visitsBloc.dispatch(LoadMoreVisitsEvent(businessId, VISITS_PER_PAGE,
-                            lastFetchedDate: _visits[index - 1].date));
+                          lastFetchedDate: _visits[index - 1].date));
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Center(
@@ -86,7 +86,7 @@ class VisitsByUser extends StatelessWidget {
             if (_visits.isEmpty) {
               return EmptyElement(
                 assetImageUrl: "assets/empty_cards.png",
-                title: Localization.of(context).emptyVisitsLabel,
+                title: Translations.of(context).text("empty_visits"),
                 description: "",
               );
             }
@@ -98,11 +98,11 @@ class VisitsByUser extends StatelessWidget {
           } else if (state is VisitsLoadingError) {
             return ErrorApiCall(
               errorTitle: state.isNetworkError
-                  ? Localization.of(context).networkErrorTitle
-                  : Localization.of(context).errorServerTitle,
+                  ? Translations.of(context).text("network_error_title")
+                  : Translations.of(context).text("error_server_title"),
               errorDescription: state.isNetworkError
-                  ? Localization.of(context).networkErrorDescription
-                  : Localization.of(context).errorServerDescription,
+                  ? Translations.of(context).text("network_error_description")
+                  : Translations.of(context).text("error_server_descritpion"),
             );
           }
         },
@@ -133,7 +133,7 @@ class VisitItem extends StatelessWidget {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      "${Localization.of(context).getWeekDays[visit.localDate.weekday - 1][0].toUpperCase()}${Localization.of(context).getWeekDays[visit.localDate.weekday - 1].substring(1)}",
+                      "${Translations.of(context).array("week_days")[visit.localDate.weekday - 1][0].toUpperCase()}${Translations.of(context).array("week_days")[visit.localDate.weekday - 1].substring(1)}",
                       style: CarlTheme.of(context).blackMediumBoldLabel,
                     ),
                     SizedBox(
@@ -147,7 +147,7 @@ class VisitItem extends StatelessWidget {
                       width: 5,
                     ),
                     Text(
-                      Localization.of(context).getMonths[visit.localDate.month - 1],
+                      Translations.of(context).array("months")[visit.localDate.month - 1],
                       style: CarlTheme.of(context).blackMediumBoldLabel,
                     ),
                     SizedBox(

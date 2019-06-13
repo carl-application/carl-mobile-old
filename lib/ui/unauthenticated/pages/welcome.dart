@@ -1,19 +1,18 @@
-import 'package:carl/localization/localization.dart';
+import 'package:carl/translations.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/clickable_text.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:carl/ui/unauthenticated/pages/login.dart';
 
-import 'login_page.dart';
-
-class WelcomePage extends StatelessWidget {
-  WelcomePage({this.onRegisterAsked});
+class Welcome extends StatelessWidget {
+  Welcome({this.onRegisterAsked});
 
   final VoidCallback onRegisterAsked;
 
   _navigateToLogin(context) {
-    Navigator.of(context).pushNamed(LoginPage.routeName);
+    Navigator.of(context).pushNamed(Login.routeName);
   }
 
   @override
@@ -31,15 +30,12 @@ class WelcomePage extends StatelessWidget {
                   Expanded(
                     flex: 1,
                     child: Center(
-                      child: Hero(
-                        tag: "loginCarlFace",
-                        child: Container(
-                          height: 150,
-                          width: 150,
-                          child: Image.asset(
-                            "assets/ic_carl.png",
-                            fit: BoxFit.contain,
-                          ),
+                      child: Container(
+                        height: 150,
+                        width: 150,
+                        child: Image.asset(
+                          "assets/ic_carl.png",
+                          fit: BoxFit.contain,
                         ),
                       ),
                     ),
@@ -53,12 +49,12 @@ class WelcomePage extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Text(Localization.of(context).welcomePageTitle,
+                              Text(Translations.of(context).text("welcome_page_title"),
                                   textAlign: TextAlign.center, style: CarlTheme.of(context).title),
                               SizedBox(
                                 height: 30,
                               ),
-                              Text(Localization.of(context).welcomePageSubtitle,
+                              Text(Translations.of(context).text("welcome_page_subtitle"),
                                   textAlign: TextAlign.center,
                                   style: CarlTheme.of(context).whiteMediumLabel)
                             ],
@@ -73,7 +69,7 @@ class WelcomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         CarlButton(
-                          text: Localization.of(context).welcomePageRegisterButtonLabel,
+                          text: Translations.of(context).text("welcome_page_register_button_label"),
                           textStyle: CarlTheme.of(context).bigButtonLabelStyle,
                           onPressed: () {
                             onRegisterAsked();
@@ -84,7 +80,7 @@ class WelcomePage extends StatelessWidget {
                           height: 30,
                         ),
                         ClickableText(
-                            text: Localization.of(context).welcomePageLoginButtonLabel,
+                            text: Translations.of(context).text("welcome_page_login_button_label"),
                             textAlign: TextAlign.center,
                             textDirection: TextDirection.ltr,
                             textStyle: CarlTheme.of(context).white30Label,
