@@ -72,16 +72,18 @@ class _GoodDealDetailDialogState extends State<GoodDealDetailDialog> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        new Container(
-                            width: logoSize,
+                        Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle
+                          ),
+                          child: Image.network(
+                            goodDeal.logo,
                             height: logoSize,
-                            decoration: new BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: new DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: new NetworkImage(goodDeal.logo)
-                                )
-                            )),
+                            width: logoSize,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                         SizedBox(height: 20,),
                         Text(
                           goodDeal.businessName,

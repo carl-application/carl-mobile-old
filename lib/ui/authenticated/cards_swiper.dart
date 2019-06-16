@@ -220,7 +220,7 @@ class CardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logoSize = MediaQuery.of(context).size.width * .3;
+    final logoSize = MediaQuery.of(context).size.width * .2;
     return ClipRRect(
       borderRadius: BorderRadius.circular(22.0),
       child: Container(
@@ -258,13 +258,19 @@ class CardItem extends StatelessWidget {
                 ),
               ),
               Center(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(logoSize),
-                  child: Image.network(
-                    card.logo.url,
-                    height: logoSize,
-                    width: logoSize,
-                    fit: BoxFit.cover,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Image.network(
+                      card.logo.url,
+                      height: 50,
+                      width: 50,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
               ),

@@ -1,0 +1,1 @@
+class ScanLimitReachedException implements Exception {}

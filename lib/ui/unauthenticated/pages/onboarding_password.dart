@@ -5,7 +5,7 @@ import 'package:carl/ui/unauthenticated/onboarding_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class OnBoardingPassword extends StatelessWidget {
+class OnBoardingPassword extends StatefulWidget {
   OnBoardingPassword({
     @required this.onPasswordSubmitted,
     this.onBackPressed,
@@ -16,19 +16,57 @@ class OnBoardingPassword extends StatelessWidget {
   final VoidCallback onBackPressed;
   String password;
 
+  @override
+  _OnBoardingPasswordState createState() => _OnBoardingPasswordState();
+}
+
+class _OnBoardingPasswordState extends State<OnBoardingPassword> {
   final _passwordController = TextEditingController();
+  String error = "";
 
   void navigateToNext(String password) {
-    if (onPasswordSubmitted != null) {
-      onPasswordSubmitted(password);
+    if (password.length < 6) {
+      setState(() {
+        error = Translations.of(context).text("on_boarding_password_length_error");
+      });
+      return;
     }
+    bool hasOneUppercase = false;
+    for (int i = 0; i < password.length; i++) {
+      if (password[i] == password[i].toUpperCase()) {
+        hasOneUppercase = true;
+        break;
+      }
+    }
+
+    if (!hasOneUppercase) {
+      setState(() {
+        error = Translations.of(context).text("on_boarding_password_uppercase_error");
+      });
+      return;
+    }
+    if (widget.onPasswordSubmitted != null) {
+      widget.onPasswordSubmitted(password);
+    }
+  }
+
+  Widget showError() {
+      if (this.error.isNotEmpty) {
+        return Text(
+          this.error,
+          style: CarlTheme.of(context).errorTextStyle,
+          maxLines: 2,
+        );
+      } else {
+        return Container();
+      }
   }
 
   @override
   Widget build(BuildContext context) {
-    _passwordController.text = password;
+    _passwordController.text = widget.password;
     return WillPopScope(
-      onWillPop: onBackPressed,
+      onWillPop: widget.onBackPressed,
       child: Material(
         child: Container(
           decoration: BoxDecoration(gradient: CarlTheme.of(context).mainGradient),
@@ -61,11 +99,11 @@ class OnBoardingPassword extends StatelessWidget {
                           child: TextField(
                             obscureText: true,
                             onSubmitted: (text) {
-                              password = text;
+                              widget.password = text;
                               navigateToNext(text);
                             },
                             onChanged: (text) {
-                              password = text;
+                              widget.password = text;
                             },
                             controller: _passwordController,
                             style: CarlTheme.of(context).whiteMediumLabel,
@@ -78,7 +116,8 @@ class OnBoardingPassword extends StatelessWidget {
                         Text(
                           Translations.of(context).text("on_boarding_password_label"),
                           style: CarlTheme.of(context).white30Label,
-                        )
+                        ),
+                        showError()
                       ],
                     ),
                   ),
@@ -90,7 +129,7 @@ class OnBoardingPassword extends StatelessWidget {
                     topEnable: true,
                     bottomEnable: _passwordController.text.isNotEmpty,
                     onTopCLicked: () {
-                      onBackPressed();
+                      widget.onBackPressed();
                     },
                     onDownClicked: () {
                       navigateToNext(_passwordController.text);

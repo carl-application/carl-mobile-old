@@ -126,6 +126,8 @@ flutter:
 
   - assets/sky.jpg
   - assets/notification_off.png
+  - assets/scan_limit.png
+  - assets/scan_success.png
 
   - animations/
   #  - images/a_dot_ham.jpeg

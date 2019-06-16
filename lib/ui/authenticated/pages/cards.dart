@@ -196,7 +196,7 @@ class Cards extends StatelessWidget {
                           text: Translations.of(context).text("add"),
                           onPressed: () => _navigateToScan(context),
                           width: MediaQuery.of(context).size.width * .5,
-                          textStyle: CarlTheme.of(context).white30Label,
+                          textStyle: CarlTheme.of(context).whiteBigLabel,
                         ),
                       ),
                     ),

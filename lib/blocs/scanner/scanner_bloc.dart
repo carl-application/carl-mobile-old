@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/models/exceptions/business_not_found_exception.dart';
+import 'package:carl/models/exceptions/scan_limit_reached_exception.dart';
 
 import 'scanner_event.dart';
 import 'scanner_state.dart';
@@ -28,7 +29,8 @@ class ScannerBloc extends Bloc<ScannerEvent, ScannerState> {
       } catch (error) {
         yield ScannerError(
             isBusinessNotFoundError: error is BusinessNotFoundException,
-            isNetworkError: error is SocketException);
+            isNetworkError: error is SocketException,
+            isScanLimitReached: error is ScanLimitReachedException);
       }
     }
   }

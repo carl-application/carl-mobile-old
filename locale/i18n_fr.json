@@ -14,7 +14,7 @@
   "man": "Homme",
   "woman": "Femme",
   "np": "NP",
-  "get_birthday_label": "Pour recevoir une surprise le jour de votre anniversaire",
+  "get_birthday_label": "Votre date de naissance",
   "months": [
     "Janvier",
     "Fevrier",
@@ -34,7 +34,7 @@
   "empty_cards_title": "Aucune carte de fidélité",
   "empty_cards_description": "Cliquer sur le bouton ci-dessous pour scanner votre première carte !",
   "error_server_title": "Une erreur est survenue",
-  "error_server_descritpion": "Veuillez ré-essayer ultérieurement",
+  "error_server_description": "Veuillez ré-essayer ultérieurement",
   "visits_historic_title": "Historique des visites",
   "at": "A",
   "empty_good_deals_title": "Aucun bon plan",
@@ -57,8 +57,10 @@
   "login_page_bad_credentials_error_text": "Email ou mot de passe incorrect",
   "on_boarding_password_title": "Un petit mot de passe pour plus de sécutité !",
   "on_boarding_password_hint": "Mon mon de passe super compliqué",
-  "on_boarding_password_label": "Mot de passe",
-  "email_already_exist_error_message": "Cet email existe déjà sur l'application",
+  "on_boarding_password_label": "Minimum de 6 caractères avec 1 majuscule",
+  "on_boarding_password_length_error": "Le mot de passe doit faire 6 caractères",
+  "on_boarding_password_uppercase_error": "Le mot de passe doit avoir 1 majuscule",
+  "email_already_exist_error_message": "Cet email existe déjà sur l'application, choisissez-en un autre",
   "settings_title": "Paramètres",
   "settings_logout_label": "Me déconnecter",
   "log_out_confirmation_title": "Déconnexion",
@@ -67,5 +69,6 @@
   "scan_page_title": "Valider votre visite en scannant le QR-code...",
   "activate": "Activer",
   "new": "Nouveau !",
-  "empty_visits": "Aucune visites"
+  "empty_visits": "Aucune visites",
+  "scan_limit_message": "Limite de scans atteinte pour la journée chez ce commerçant"
 }

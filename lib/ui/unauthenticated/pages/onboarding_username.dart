@@ -43,17 +43,6 @@ class OnBoardingUsername extends StatelessWidget {
       ),
     ));
 
-    fieldsColumnChildren.add(Text(
-      Translations.of(context).text("on_boarding_username_label"),
-      style: CarlTheme.of(context).white30Label,
-    ));
-
-    /*if (state is RegistrationFailed && state.isEmailAlreadyInDatabase) {
-      fieldsColumnChildren.add(Text(
-        Localization.of(context).emailAlreadyExistErrorMessage,
-        style: CarlTheme.of(context).errorTextStyle,
-      ));
-    }*/
     return WillPopScope(
       onWillPop: onBackPressed,
       child: Material(

@@ -190,13 +190,19 @@ class _CardDetailState extends State<CardDetail> with TickerProviderStateMixin {
                                               image: NetworkImage(card.image.url),
                                             ),
                                             Center(
-                                              child: ClipRRect(
-                                                borderRadius: new BorderRadius.circular(50.0),
-                                                child: Image.network(
-                                                  card.logo.url,
-                                                  height: cardHeight * .3,
-                                                  width: cardHeight * .3,
-                                                  fit: BoxFit.cover,
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  shape: BoxShape.circle
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(10.0),
+                                                  child: Image.network(
+                                                    card.logo.url,
+                                                    height: cardHeight * .2,
+                                                    width: cardHeight * .2,
+                                                    fit: BoxFit.cover,
+                                                  ),
                                                 ),
                                               ),
                                             ),

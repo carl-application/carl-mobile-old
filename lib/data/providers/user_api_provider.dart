@@ -11,6 +11,7 @@ import 'package:carl/models/business/visit.dart';
 import 'package:carl/models/exceptions/bad_credentials_exception.dart';
 import 'package:carl/models/exceptions/business_not_found_exception.dart';
 import 'package:carl/models/exceptions/email_already_exist_exception.dart';
+import 'package:carl/models/exceptions/scan_limit_reached_exception.dart';
 import 'package:carl/models/exceptions/server_exception.dart';
 import 'package:carl/models/good_deal.dart';
 import 'package:carl/models/registration_model.dart';
@@ -335,6 +336,11 @@ class UserApiProvider implements UserProvider {
       },
     );
 
+    if (response.statusCode == 404) {
+      print("Getting image not found for id = $id");
+      return null;
+    }
+
     if (response.statusCode != 200) {
       print("Error getting image by id  : ${response.statusCode}");
       print("Response ${response}");
@@ -445,6 +451,12 @@ class UserApiProvider implements UserProvider {
       print("No business found : ${response.statusCode}");
       print("Response ${response}");
       throw BusinessNotFoundException();
+    }
+
+    if (response.statusCode == 403) {
+      print("Scan limit reached for today ! ${response.statusCode}");
+
+      throw ScanLimitReachedException();
     }
 
     if (response.statusCode != 200) {

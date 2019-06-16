@@ -29,8 +29,9 @@ class ScannerSuccess extends ScannerState {
 class ScannerError extends ScannerState {
   final bool isBusinessNotFoundError;
   final bool isNetworkError;
+  final bool isScanLimitReached;
 
-  ScannerError({this.isBusinessNotFoundError, this.isNetworkError});
+  ScannerError({this.isBusinessNotFoundError, this.isNetworkError, this.isScanLimitReached});
 
   @override
   String toString() => 'ScannerError';

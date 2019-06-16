@@ -7,6 +7,7 @@ import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
 import 'package:carl/translations.dart';
 import 'package:carl/ui/authenticated/card_percent_indicator_painter.dart';
 import 'package:carl/ui/authenticated/empty_element.dart';
+import 'package:carl/ui/authenticated/pages/card_detail.dart';
 import 'package:carl/ui/shared/carl_button.dart';
 import 'package:carl/ui/shared/clickable_text.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
@@ -16,8 +17,6 @@ import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_ink_well/image_ink_well.dart';
-
-import 'package:carl/ui/authenticated/pages/card_detail.dart';
 
 class Scan extends StatefulWidget {
   static const String routeName = "/scanPage";
@@ -39,8 +38,8 @@ class _ScanState extends State<Scan> {
   _navigateToCardDetail(BuildContext context, int businessId) {
     Navigator.of(context).pop();
     if (widget.source == CallSource.home) {
-      Navigator.of(context).pushReplacementNamed(CardDetail.routeName,
-          arguments: CardDetailArguments(businessId));
+      Navigator.of(context)
+          .pushReplacementNamed(CardDetail.routeName, arguments: CardDetailArguments(businessId));
     }
   }
 
@@ -121,7 +120,7 @@ class _ScanState extends State<Scan> {
     final double percentIndicatorSize = MediaQuery.of(context).size.width * .3;
     await showDialog(
         context: context,
-        barrierDismissible: false,
+        barrierDismissible: true,
         builder: (BuildContext context) {
           return Dialog(
               elevation: 0.0,
@@ -210,6 +209,15 @@ class _ScanState extends State<Scan> {
                                               ),
                                               Positioned(
                                                 top: 20,
+                                                left: 20,
+                                                child: Image.asset(
+                                                  "assets/scan_success.png",
+                                                  width: MediaQuery.of(context).size.width * .1,
+                                                  height: MediaQuery.of(context).size.width * .1,
+                                                ),
+                                              ),
+                                              Positioned(
+                                                top: 20,
                                                 right: 20,
                                                 child: Container(
                                                   height: MediaQuery.of(context).size.width * .1,
@@ -262,6 +270,36 @@ class _ScanState extends State<Scan> {
                               assetImageUrl: "assets/empty_cards.png",
                               title: "Aucun business trouvé",
                               description: "Ce Qr code semble incorrect !",
+                            );
+                          } else if (state.isScanLimitReached) {
+                            final imageSize = MediaQuery.of(context).size.width * .3;
+                            errorWidget = Center(
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(1000.0)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(20.0),
+                                      child: Image.asset(
+                                        "assets/scan_limit.png",
+                                        fit: BoxFit.contain,
+                                        width: imageSize,
+                                        height: imageSize,
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  Text(
+                                    Translations.of(context).text('scan_limit_message'),
+                                    style: CarlTheme.of(context).blackMediumLabel,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
                             );
                           } else {
                             errorWidget = ErrorApiCall(

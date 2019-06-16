@@ -11,7 +11,7 @@
   "man": "Man",
   "woman": "Woman",
   "np": "NP",
-  "get_birthday_label": "To receive a surprise on your birthday",
+  "get_birthday_label": "Your birth date",
   "months": [
     "January",
     "February",
@@ -31,7 +31,7 @@
   "empty_cards_title": "No fidlity cards",
   "empty_cards_description": "Click on button to start scanning your first card !",
   "error_server_title": "An error occured",
-  "error_server_descritpion": "Please try again later",
+  "error_server_description": "Please try again later",
   "visits_historic_title": "Visits historic",
   "at": "At",
   "empty_good_deals_title": "No Good Deals",
@@ -57,8 +57,10 @@
   "on_boarding_email_label": "Mail",
   "on_boarding_password_title": "A little password for more securitry !",
   "on_boarding_password_hint": "My awesomly non-hackable password",
-  "on_boarding_password_label": "Password",
-  "email_already_exist_error_message": "Email already exists on this application",
+  "on_boarding_password_label": "Minimum of 6 chars with 1 uppercase letter",
+  "on_boarding_password_length_error": "Your password must have 6 chars",
+  "on_boarding_password_uppercase_error": "Your password must have 1 uppercase char",
+  "email_already_exist_error_message": "Email already exists on this application, please choose another",
   "settings_title": "Settings",
   "settings_logout_label": "Log out",
   "log_out_confirmation_title": "Log out",
@@ -67,5 +69,6 @@
   "scan_page_title": "Validate your visit by scanning the QR-code...",
   "activate": "Activate",
   "new": "New !",
-  "empty_visits": "No visits"
+  "empty_visits": "No visits",
+  "scan_limit_message": "Today's scans limit reached for this merchant"
 }

@@ -75,10 +75,6 @@ class OnBoardingEmail extends StatelessWidget {
                                 hintStyle: CarlTheme.of(context).white30Label),
                           ),
                         ),
-                        Text(
-                          Translations.of(context).text("on_boarding_email_label"),
-                          style: CarlTheme.of(context).white30Label,
-                        ),
                       ],
                     ),
                   ),
