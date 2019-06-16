@@ -65,6 +65,7 @@ class _OnBoardingPasswordState extends State<OnBoardingPassword> {
   @override
   Widget build(BuildContext context) {
     _passwordController.text = widget.password;
+    _passwordController.selection = TextSelection.fromPosition(TextPosition(offset: _passwordController.text.length));
     return WillPopScope(
       onWillPop: widget.onBackPressed,
       child: Material(
@@ -95,7 +96,7 @@ class _OnBoardingPasswordState extends State<OnBoardingPassword> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          width: 300,
+                          width: 500,
                           child: TextField(
                             obscureText: true,
                             onSubmitted: (text) {
@@ -109,6 +110,7 @@ class _OnBoardingPasswordState extends State<OnBoardingPassword> {
                             style: CarlTheme.of(context).whiteMediumLabel,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
+
                                 hintText: Translations.of(context).text("on_boarding_password_hint"),
                                 hintStyle: CarlTheme.of(context).white30Label),
                           ),
