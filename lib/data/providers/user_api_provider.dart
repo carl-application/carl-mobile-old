@@ -226,8 +226,9 @@ class UserApiProvider implements UserProvider {
     final List<Visit> visits = List();
     final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
 
+    final now = DateTime.now().toIso8601String();
     final response = await http.get(
-      "$API_RETRIEVE_VISITS?businessId=$businessId&fetchLimit=$fetchLimit&lastFetchedDate=${lastFetchedDate != null ? lastFetchedDate.toIso8601String() : ""}",
+      "$API_RETRIEVE_VISITS?now=$now&businessId=$businessId&fetchLimit=$fetchLimit&lastFetchedDate=${lastFetchedDate != null ? lastFetchedDate.toIso8601String() : ""}",
       headers: {
         HttpHeaders.authorizationHeader: tokenizedHeader,
       },
@@ -439,8 +440,9 @@ class UserApiProvider implements UserProvider {
   Future<ScanVisitResponse> scanVisit(String businessKey) async {
     final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
 
+    final now = DateTime.now().toIso8601String();
     final response = await http.post(
-      "$API_SCAN_VISIT/$businessKey",
+      "$API_SCAN_VISIT/?businessKey=$businessKey&date=$now",
       headers: {
         HttpHeaders.authorizationHeader: tokenizedHeader,
         HttpHeaders.contentTypeHeader: "application/json"

@@ -3,7 +3,7 @@ class Visit {
   final DateTime _date;
   final int businessId;
 
-  get localDate => _date.toLocal();
+  get localDate => _date;
 
   get date => _date;
 

@@ -178,69 +178,59 @@ class ConfirmationDialog extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(20.0),
           ),
-          height: dialogSize,
-          width: dialogSize,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
+          height: 200,
+          width: 200,
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        title,
+                        style: CarlTheme.of(context).blackTitle,
+                      ),
+                      SizedBox(height: 15,),
+                      Text(
+                        description,
+                        style: CarlTheme.of(context).greyMediumLabel,
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    RaisedButton(
+                      colorBrightness: Theme.of(context).brightness,
+                      color: Colors.grey,
+                      elevation: 2,
+                      padding: EdgeInsets.only(top: 15, right: 30, bottom: 15, left: 30),
+                      shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                      onPressed: onNoClicked,
+                      child: Text(
+                        noButtonText,
+                        style: CarlTheme.of(context).whiteMediumLabel,
+                      ),
+                    ),
+                    RaisedButton(
+                      colorBrightness: Theme.of(context).brightness,
                       color: CarlTheme.of(context).primaryColor,
-                      borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(20), topLeft: Radius.circular(20))),
-                  child: Center(
-                    child: Text(
-                      title,
-                      style: CarlTheme.of(context).whiteBoldBigLabel,
+                      elevation: 2,
+                      padding: EdgeInsets.only(top: 15, right: 30, bottom: 15, left: 30),
+                      shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                      onPressed: onYesClicked,
+                      child: Text(
+                        yesButtonText,
+                        style: CarlTheme.of(context).whiteMediumLabel,
+                      ),
                     ),
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    description,
-                    style: CarlTheme.of(context).blackMediumLabel,
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomRight: Radius.circular(20), bottomLeft: Radius.circular(20))),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        CarlButton(
-                          text: yesButtonText,
-                          width: MediaQuery.of(context).size.width * .25,
-                          textStyle: CarlTheme.of(context).whiteBigLabel,
-                          color: CarlTheme.of(context).primaryColor,
-                          onPressed: () => onYesClicked(),
-                          elevation: 1,
-                        ),
-
-                        ClickableText(
-                          text: Translations.of(context).text("cancel"),
-                          textStyle: CarlTheme.of(context).blackMediumLabel,
-                          clickedColor: Colors.white,
-                          onClick: () => Navigator.of(context).pop(),
-                        )
-
-                      ],
-                    ),
-                  ),
-                ),
-              )
-            ],
+                  ],
+                )
+              ],
+            ),
           )),
     );
   }

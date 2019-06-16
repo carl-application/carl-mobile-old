@@ -247,8 +247,8 @@ class CardItem extends StatelessWidget {
                   child: isBlackListed
                       ? Image.asset(
                           "assets/notification_off.png",
-                          width: 50,
-                          height: 50,
+                          width: 30,
+                          height: 30,
                         )
                       : Image.asset(
                           "assets/ic_bell_card.png",
