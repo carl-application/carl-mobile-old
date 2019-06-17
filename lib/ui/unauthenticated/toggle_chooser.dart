@@ -52,7 +52,6 @@ class _ToggleChooserState extends State<ToggleChooser> {
                 padding: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(20.0)),
                   ),
                   child: Text(
