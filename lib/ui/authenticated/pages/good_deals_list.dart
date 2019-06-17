@@ -51,7 +51,11 @@ class GoodDealsList extends StatelessWidget {
       color: CarlTheme.of(context).background,
       child: SafeArea(
         child: Padding(
-          padding: CarlTheme.of(context).pagePadding,
+          padding: EdgeInsets.only(
+              top: CarlTheme.of(context).pageVerticalPadding,
+              left: CarlTheme.of(context).pageHorizontalPadding,
+              right: CarlTheme.of(context).pageHorizontalPadding,
+          ),
           child: Column(
             children: <Widget>[
               Center(
@@ -187,8 +191,8 @@ class GoodDealsList extends StatelessWidget {
                   },
                 ),
               ),
-              Container(
-                height: 50,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: CircleImageInkWell(
                   onPressed: () => _navigateBack(context),
                   size: 50,

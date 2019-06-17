@@ -28,15 +28,13 @@ class Welcome extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                    flex: 1,
-                    child: Center(
-                      child: Container(
-                        height: 150,
-                        width: 150,
-                        child: Image.asset(
-                          "assets/ic_carl.png",
-                          fit: BoxFit.contain,
-                        ),
+                    flex: 2,
+                    child: Container(
+                      height: MediaQuery.of(context).size.width * .4,
+                      width: MediaQuery.of(context).size.width * .4,
+                      child: Image.asset(
+                        "assets/ic_carl.png",
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),

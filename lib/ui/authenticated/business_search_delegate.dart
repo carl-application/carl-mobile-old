@@ -37,6 +37,7 @@ class BusinessSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
+    if (query.isEmpty) return Container();
     final _searchBloc = BlocProvider.of<SearchBusinessesBloc>(context);
     final List<Color> tagsColors = CarlTheme.of(context).tagsColors;
     _searchBloc.dispatch(SearchBusinessesByNameEvent(query));
