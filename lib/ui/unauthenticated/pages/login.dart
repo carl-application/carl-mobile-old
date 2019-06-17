@@ -7,6 +7,7 @@ import 'package:carl/ui/shared/carl_textfield.dart';
 import 'package:carl/ui/shared/clickable_text.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,10 +21,6 @@ class Login extends StatelessWidget {
   LoginBloc _loginBloc;
 
   _login() {
-    print("Logging with credentitals :");
-    print("userName : ${_usernameController.text}");
-    print("password : ${_passwordController.text}");
-
     _loginBloc.dispatch(
         LoginButtonPressed(username: _usernameController.text, password: _passwordController.text));
   }
@@ -133,7 +130,7 @@ class Login extends StatelessWidget {
                         bloc: _loginBloc,
                         builder: (BuildContext context, LoginState loginState) {
                           if (loginState is LoginSuccess) {
-                            _navigateBack(context);
+                            SchedulerBinding.instance.addPostFrameCallback((_) => _navigateBack(context));
                           }
                           return Column(
                             children: <Widget>[
