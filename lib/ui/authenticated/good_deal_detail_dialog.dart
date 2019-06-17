@@ -11,10 +11,10 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GoodDealDetailDialog extends StatefulWidget {
-
   final int id;
+  final VoidCallback onRead;
 
-  const GoodDealDetailDialog({Key key, this.id}) : super(key: key);
+  const GoodDealDetailDialog({Key key, this.id, this.onRead}) : super(key: key);
 
   @override
   _GoodDealDetailDialogState createState() => _GoodDealDetailDialogState();
@@ -40,6 +40,13 @@ class _GoodDealDetailDialogState extends State<GoodDealDetailDialog> {
     Navigator.of(context).pop();
   }
 
+  _notifyReading() {
+    BlocProvider.of<UnreadNotificationsBloc>(context).dispatch(RemoveOneUnreadNotificationsEvent());
+    if (widget.onRead != null) {
+      widget.onRead();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final logoSize = MediaQuery.of(context).size.width * .2;
@@ -49,10 +56,7 @@ class _GoodDealDetailDialogState extends State<GoodDealDetailDialog> {
       child: Container(
         height: MediaQuery.of(context).size.height * .7,
         width: MediaQuery.of(context).size.width * .8,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20.0)
-        ),
+        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(20.0)),
         child: BlocBuilder<GoodDealDetailEvent, GoodDealDetailState>(
             bloc: _goodDealDetailBloc,
             builder: (BuildContext context, GoodDealDetailState state) {
@@ -61,9 +65,7 @@ class _GoodDealDetailDialogState extends State<GoodDealDetailDialog> {
                   child: Loader(),
                 );
               } else if (state is GoodDealByIdLoadingSuccess) {
-                SchedulerBinding.instance.addPostFrameCallback((_) =>
-                    BlocProvider.of<UnreadNotificationsBloc>(context)
-                        .dispatch(RemoveOneUnreadNotificationsEvent()));
+                SchedulerBinding.instance.addPostFrameCallback((_) => _notifyReading());
                 final goodDeal = state.goodDeal;
                 return Padding(
                   padding: EdgeInsets.all(20),
@@ -73,10 +75,7 @@ class _GoodDealDetailDialogState extends State<GoodDealDetailDialog> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle
-                          ),
+                          decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
                           child: Image.network(
                             goodDeal.logo,
                             height: logoSize,
@@ -84,7 +83,9 @@ class _GoodDealDetailDialogState extends State<GoodDealDetailDialog> {
                             fit: BoxFit.cover,
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
                         Text(
                           goodDeal.businessName,
                           style: CarlTheme.of(context).notificationDetailBusinessName,

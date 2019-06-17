@@ -4,7 +4,7 @@ class GoodDeal {
   final String title;
   final String shortDescription;
   final String description;
-  final bool seen;
+  bool seen;
   final String businessName;
   final String logo;
 

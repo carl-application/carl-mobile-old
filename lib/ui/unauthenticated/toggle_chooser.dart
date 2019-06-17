@@ -7,9 +7,10 @@ class ToggleController {
 }
 
 class ToggleChooser extends StatefulWidget {
-  ToggleChooser({@required this.choices, @required this.toggleController});
+  ToggleChooser({@required this.choices, @required this.labels, @required this.toggleController});
 
   final List<String> choices;
+  final List<String> labels;
   final ToggleController toggleController;
 
   @override
@@ -18,6 +19,7 @@ class ToggleChooser extends StatefulWidget {
 
 class _ToggleChooserState extends State<ToggleChooser> {
   get choices => widget.choices;
+  get labels => widget.labels;
   var _selectedIndex = 0;
 
   @override
@@ -39,7 +41,7 @@ class _ToggleChooserState extends State<ToggleChooser> {
   List<Widget> buildElements(int selectedIndex) {
     final List<Widget> widgets = [];
 
-    for (var index = 0; index < choices.length; index++) {
+    for (var index = 0; index < labels.length; index++) {
       if (selectedIndex == index) {
         widgets.add(Expanded(
             key: Key("$index"),
@@ -54,7 +56,7 @@ class _ToggleChooserState extends State<ToggleChooser> {
                     borderRadius: BorderRadius.all(Radius.circular(20.0)),
                   ),
                   child: Text(
-                    choices[index].toString().toUpperCase(),
+                    labels[index].toUpperCase(),
                     textAlign: TextAlign.center,
                     style: CarlTheme.of(context).blueBigLabel,
                   ),
@@ -63,7 +65,7 @@ class _ToggleChooserState extends State<ToggleChooser> {
             )));
       } else {
         final textWidget = Text(
-          choices[index].toString().toUpperCase(),
+          labels[index].toUpperCase(),
           textAlign: TextAlign.center,
           style: CarlTheme.of(context).whiteBigLabel,
         );

@@ -77,7 +77,8 @@ class OnBoardingSexBirthdayState extends State<OnBoardingSexBirthday> {
                         height: 30,
                       ),
                       OnBoardingHeader(
-                          title: Translations.of(context).text("on_boarding_sex_and_age_title"), position: 4),
+                          title: Translations.of(context).text("on_boarding_sex_and_age_title"),
+                          position: 4),
                       SizedBox(
                         height: 40,
                       ),
@@ -86,7 +87,8 @@ class OnBoardingSexBirthdayState extends State<OnBoardingSexBirthday> {
                         style: CarlTheme.of(context).white30Label,
                       ),
                       ToggleChooser(
-                        choices: [
+                        choices: ["np", "man", "woman"],
+                        labels: [
                           Translations.of(context).text("np"),
                           Translations.of(context).text("man"),
                           Translations.of(context).text("woman")
@@ -119,7 +121,8 @@ class OnBoardingSexBirthdayState extends State<OnBoardingSexBirthday> {
                           final isLoading = state is RegistrationLoading ? true : false;
                           if (state is RegistrationFailed) {
                             if (state.isEmailAlreadyInDatabase) {
-                              SchedulerBinding.instance.addPostFrameCallback((_) => widget.onEmailAlreadyUsedError());
+                              SchedulerBinding.instance
+                                  .addPostFrameCallback((_) => widget.onEmailAlreadyUsedError());
                             }
                           }
                           return CarlButton(

@@ -16,12 +16,12 @@ import 'package:image_ink_well/image_ink_well.dart';
 class GoodDealsList extends StatelessWidget {
   static const routeName = "/goodDealsListPage";
 
-  _navigateToDetail(BuildContext context, GoodDeal deal) async {
+  _navigateToDetail(BuildContext context, GoodDeal deal, VoidCallback onRead) async {
     //Navigator.of(context).pushNamed(GoodDealDetailPage.routeName, arguments: deal.id);
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return GoodDealDetailDialog(id: deal.id);
+          return GoodDealDetailDialog(id: deal.id, onRead: onRead,);
         });
   }
 
@@ -160,7 +160,10 @@ class GoodDealsList extends StatelessWidget {
                                   child: Material(
                                     child: InkWell(
                                       onTap: () {
-                                        _navigateToDetail(context, deals[index]);
+                                        _navigateToDetail(context, deals[index], () {
+                                          print("haveRead notification");
+                                          _goodDealsBloc.dispatch(HaveReadGoodDealEvent(index));
+                                        });
                                       },
                                     ),
                                     type: MaterialType.transparency,

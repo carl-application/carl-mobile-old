@@ -1,8 +1,8 @@
 import 'package:carl/models/good_deal.dart';
 import 'package:equatable/equatable.dart';
 
-abstract class GoodDealsState extends Equatable {
-  GoodDealsState([List props = const []]) : super(props);
+abstract class GoodDealsState {
+  GoodDealsState([List props = const []]) : super();
 }
 
 class GoodDealsLoading extends GoodDealsState {

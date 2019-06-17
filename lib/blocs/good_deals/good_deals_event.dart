@@ -8,3 +8,12 @@ class RetrieveGoodDealsEvent extends GoodDealsEvent {
   @override
   String toString() => 'RetrieveGoodDealsEvent';
 }
+
+class HaveReadGoodDealEvent extends GoodDealsEvent {
+  final int index;
+
+  HaveReadGoodDealEvent(this.index);
+
+  @override
+  String toString() => 'HaveReadGoodDealEvent';
+}
