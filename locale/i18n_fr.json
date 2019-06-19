@@ -55,7 +55,7 @@
   "login_page_email_hint_text": "Email",
   "login_page_password_hint_text": "Mot de passe",
   "login_page_bad_credentials_error_text": "Email ou mot de passe incorrect",
-  "on_boarding_password_title": "Un petit mot de passe pour plus de sécutité !",
+  "on_boarding_password_title": "Un petit mot de passe pour plus de sécurité !",
   "on_boarding_password_hint": "Mon mon de passe super compliqué",
   "on_boarding_password_label": "Minimum de 6 caractères avec 1 majuscule",
   "on_boarding_password_length_error": "Le mot de passe doit faire 6 caractères",
@@ -70,5 +70,7 @@
   "activate": "Activer",
   "new": "Nouveau !",
   "empty_visits": "Aucune visites",
-  "scan_limit_message": "Limite de scans atteinte pour la journée chez ce commerçant"
+  "scan_limit_message": "Limite de scans atteinte pour la journée chez ce commerçant",
+  "scan_no_business_found_title": "QRCode inconnu",
+  "scan_no_business_found_description": "Aucun pro ne correspond"
 }

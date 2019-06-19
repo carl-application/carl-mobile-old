@@ -143,6 +143,7 @@ class _AppState extends State<App> {
                     bloc: _authenticationBloc,
                     builder: (BuildContext context, AuthenticationState state) {
                       return MaterialApp(
+                        debugShowCheckedModeBanner: false,
                         localizationsDelegates: [
                           const TranslationsDelegate(),
                           GlobalMaterialLocalizations.delegate,

@@ -70,5 +70,7 @@
   "activate": "Activate",
   "new": "New !",
   "empty_visits": "No visits",
-  "scan_limit_message": "Today's scans limit reached for this merchant"
+  "scan_limit_message": "Today's scans limit reached for this merchant",
+  "scan_no_business_found_title": "QRCode unknown",
+  "scan_no_business_found_description": "No business correspond"
 }

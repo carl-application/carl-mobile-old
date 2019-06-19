@@ -268,13 +268,15 @@ class _ScanState extends State<Scan> {
                           if (state.isBusinessNotFoundError) {
                             errorWidget = EmptyElement(
                               assetImageUrl: "assets/empty_cards.png",
-                              title: "Aucun business trouvé",
-                              description: "Ce Qr code semble incorrect !",
+                              title: Translations.of(context).text("scan_no_business_found_title"),
+                              description: Translations.of(context).text("scan_no_business_found_description"),
                             );
                           } else if (state.isScanLimitReached) {
                             final imageSize = MediaQuery.of(context).size.width * .3;
                             errorWidget = Center(
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
                                   Container(
                                     decoration: BoxDecoration(
