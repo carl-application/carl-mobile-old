@@ -1,13 +1,11 @@
 import 'package:carl/blocs/authentication/authentication_bloc.dart';
 import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/translations.dart';
-import 'package:carl/ui/shared/carl_button.dart';
-import 'package:carl/ui/shared/clickable_text.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_ink_well/image_ink_well.dart';
-
+import 'package:package_info/package_info.dart';
 
 class Settings extends StatelessWidget {
   static const String routeName = "/settingsPage";
@@ -19,7 +17,7 @@ class Settings extends StatelessWidget {
   }
 
   _showLogoutDialog(BuildContext context) async {
-     showDialog(
+    showDialog(
         context: context,
         builder: (BuildContext context) {
           return ConfirmationDialog(
@@ -63,14 +61,32 @@ class Settings extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                height: 50,
-                child: CircleImageInkWell(
-                  onPressed: () => Navigator.of(context).pop(),
-                  size: 50,
-                  image: AssetImage('assets/ic_close.png'),
-                  splashColor: Colors.black26,
-                ),
+              Column(
+                children: <Widget>[
+                  FutureBuilder(
+                    future: PackageInfo.fromPlatform(),
+                    builder: (BuildContext context, AsyncSnapshot<PackageInfo> snapshot) {
+                      print("snap = $snapshot");
+                      if (snapshot.hasData) {
+                        return Text(
+                          "v.${snapshot.data.version}",
+                          style: CarlTheme.of(context).greyLittleLabel,
+                        );
+                      }
+                      return Container();
+                    },
+                  ),
+                  SizedBox(height: 10,),
+                  Container(
+                    height: 50,
+                    child: CircleImageInkWell(
+                      onPressed: () => Navigator.of(context).pop(),
+                      size: 50,
+                      image: AssetImage('assets/ic_close.png'),
+                      splashColor: Colors.black26,
+                    ),
+                  ),
+                ],
               )
             ],
           ),
@@ -192,7 +208,9 @@ class ConfirmationDialog extends StatelessWidget {
                         title,
                         style: CarlTheme.of(context).blackTitle,
                       ),
-                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 15,
+                      ),
                       Text(
                         description,
                         style: CarlTheme.of(context).greyMediumLabel,
@@ -208,7 +226,8 @@ class ConfirmationDialog extends StatelessWidget {
                       color: Colors.grey,
                       elevation: 2,
                       padding: EdgeInsets.only(top: 15, right: 30, bottom: 15, left: 30),
-                      shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                      shape:
+                          new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                       onPressed: onNoClicked,
                       child: Text(
                         noButtonText,
@@ -220,7 +239,8 @@ class ConfirmationDialog extends StatelessWidget {
                       color: CarlTheme.of(context).primaryColor,
                       elevation: 2,
                       padding: EdgeInsets.only(top: 15, right: 30, bottom: 15, left: 30),
-                      shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                      shape:
+                          new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                       onPressed: onYesClicked,
                       child: Text(
                         yesButtonText,

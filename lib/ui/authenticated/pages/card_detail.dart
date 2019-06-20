@@ -192,9 +192,7 @@ class _CardDetailState extends State<CardDetail> with TickerProviderStateMixin {
                                             Center(
                                               child: Container(
                                                 decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  shape: BoxShape.circle
-                                                ),
+                                                    color: Colors.white, shape: BoxShape.circle),
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(10.0),
                                                   child: Image.network(
@@ -331,7 +329,7 @@ class _CardDetailState extends State<CardDetail> with TickerProviderStateMixin {
                             Container(
                                 child: CircleImageInkWell(
                               onPressed: () => _navigateBack(context),
-                              size: 40,
+                              size: 50,
                               image: AssetImage('assets/ic_close.png'),
                               splashColor: Colors.black26,
                             ))
