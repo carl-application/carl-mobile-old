@@ -97,4 +97,8 @@ class UserRepository {
   Future<List<BusinessCard>> searchBusinessesByName(String name) {
     return userProvider.searchBusinessesByName(name);
   }
+
+  Future<void> deleteAccount() {
+    return userProvider.deleteAccount();
+  }
 }

@@ -32,6 +32,8 @@ class CarlTheme extends InheritedWidget {
 
   get scannerBlackBorder => Color.fromRGBO(74, 74, 74, 1);
 
+  get redColor => Color.fromRGBO(208, 2, 27, 1);
+
   get mainGradient => LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
@@ -81,6 +83,12 @@ class CarlTheme extends InheritedWidget {
 
   get bigBlackTitle => TextStyle(color: Colors.black, fontSize: 28, fontWeight: FontWeight.bold);
 
+  get redTitle => TextStyle(
+        color: redColor,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      );
+
   get blackTitle => TextStyle(color: Colors.black, fontSize: 24, fontWeight: FontWeight.bold);
 
   get black12MediumLabel => TextStyle(color: Colors.black54, fontSize: 18);
@@ -96,15 +104,18 @@ class CarlTheme extends InheritedWidget {
 
   get whiteBigLabel => TextStyle(color: Colors.white, fontSize: 18);
 
-  get whiteBoldBigLabel => TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold);
+  get whiteBoldBigLabel =>
+      TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold);
 
   get blueTitle => TextStyle(color: accentColor, fontSize: 24, fontWeight: FontWeight.bold);
 
-  get notificationDetailBusinessName => TextStyle(color: Color.fromRGBO(10,37,73, 1), fontSize: 24, fontWeight: FontWeight.bold);
+  get notificationDetailBusinessName =>
+      TextStyle(color: Color.fromRGBO(10, 37, 73, 1), fontSize: 24, fontWeight: FontWeight.bold);
 
-  get notificationDetailDescription => TextStyle(color: Color.fromRGBO(10,37,73, .5), fontSize: 16);
-  
-  get notificationDetailTitle => TextStyle(color: Color.fromRGBO(10,37,73, .8), fontSize: 20);
+  get notificationDetailDescription =>
+      TextStyle(color: Color.fromRGBO(10, 37, 73, .5), fontSize: 16);
+
+  get notificationDetailTitle => TextStyle(color: Color.fromRGBO(10, 37, 73, .8), fontSize: 20);
 
   get blueBigLabel => TextStyle(color: accentColor, fontSize: 18);
 
@@ -113,6 +124,8 @@ class CarlTheme extends InheritedWidget {
   get blackSmallLabel => TextStyle(color: Colors.black, fontSize: 15);
 
   get whiteMediumLabel => TextStyle(color: Colors.white, fontSize: 14);
+
+  get whiteMediumPlusLabel => TextStyle(color: Colors.white, fontSize: 16);
 
   get bigButtonLabelStyle =>
       TextStyle(fontSize: 16, color: accentColor, fontWeight: FontWeight.bold);
@@ -125,7 +138,7 @@ class CarlTheme extends InheritedWidget {
 
   get blackMediumNumber => TextStyle(color: Colors.black, fontSize: 18);
 
-  get errorTextStyle => TextStyle(color: Colors.red, fontSize: 18);
+  get errorTextStyle => TextStyle(color: redColor, fontSize: 18);
 
   get littleNumberWhite30 => TextStyle(
         color: Color.fromRGBO(255, 255, 255, 0.8),

@@ -52,4 +52,6 @@ abstract class UserProvider {
   Future<ScanVisitResponse> scanVisit(String businessKey);
 
   Future<List<BusinessCard>> searchBusinessesByName(String name);
+
+  Future<void> deleteAccount();
 }

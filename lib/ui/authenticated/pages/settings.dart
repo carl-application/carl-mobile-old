@@ -16,6 +16,23 @@ class Settings extends StatelessWidget {
     BlocProvider.of<AuthenticationBloc>(context).dispatch(LoggedOut());
   }
 
+  _deleteAccount(BuildContext context) {
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    BlocProvider.of<AuthenticationBloc>(context).dispatch(DeleteAccount());
+  }
+
+  _showDeletionAccountDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return DeletionAccountDialog(
+            onYesClicked: () => _deleteAccount(context),
+            onNoClicked: () => Navigator.of(context).pop(),
+          );
+        });
+  }
+
   _showLogoutDialog(BuildContext context) async {
     showDialog(
         context: context,
@@ -57,6 +74,13 @@ class Settings extends StatelessWidget {
                     SettingsItem(
                       label: Translations.of(context).text('settings_logout_label'),
                       onCLick: () => _showLogoutDialog(context),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    SettingsItem(
+                      label: Translations.of(context).text('settings_deletion_label'),
+                      onCLick: () => _showDeletionAccountDialog(context),
                     )
                   ],
                 ),
@@ -76,7 +100,9 @@ class Settings extends StatelessWidget {
                       return Container();
                     },
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(
+                    height: 10,
+                  ),
                   Container(
                     height: 50,
                     child: CircleImageInkWell(
@@ -166,6 +192,102 @@ class SettingsItem extends StatelessWidget {
   }
 }
 
+class DeletionAccountDialog extends StatelessWidget {
+  const DeletionAccountDialog({Key key, this.onYesClicked, this.onNoClicked}) : super(key: key);
+
+  final VoidCallback onYesClicked;
+  final VoidCallback onNoClicked;
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: EdgeInsets.all(15.0),
+          decoration: BoxDecoration(
+            color: CarlTheme.of(context).background,
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: MediaQuery.of(context).size.width * .3,
+                  width: MediaQuery.of(context).size.width * .3,
+                  child: Image.asset(
+                    "assets/ic_carl.png",
+                    fit: BoxFit.contain,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  Translations.of(context).text("deletion_dialog_title"),
+                  style: CarlTheme.of(context).redTitle,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  Translations.of(context).text("deletion_dialog_description"),
+                  style: CarlTheme.of(context).greyLittleLabel,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  padding: EdgeInsets.all(10.0),
+                  decoration: BoxDecoration(
+                      color: CarlTheme.of(context).redColor,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(10.0)),
+                  child: Text(
+                    Translations.of(context).text("deletion_dialog_important"),
+                    style: CarlTheme.of(context).whiteMediumPlusLabel,
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    RaisedButton(
+                      colorBrightness: Theme.of(context).brightness,
+                      color: Colors.grey,
+                      elevation: 2,
+                      padding: EdgeInsets.only(top: 15, right: 30, bottom: 15, left: 30),
+                      shape:
+                      new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                      onPressed: onNoClicked,
+                      child: Text(
+                        Translations.of(context).text("cancel"),
+                        style: CarlTheme.of(context).whiteMediumLabel,
+                      ),
+                    ),
+                    RaisedButton(
+                      colorBrightness: Theme.of(context).brightness,
+                      color: CarlTheme.of(context).primaryColor,
+                      elevation: 2,
+                      padding: EdgeInsets.only(top: 15, right: 30, bottom: 15, left: 30),
+                      shape:
+                      new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                      onPressed: onYesClicked,
+                      child: Text(
+                        Translations.of(context).text("validate"),
+                        style: CarlTheme.of(context).whiteMediumLabel,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+        ));
+  }
+}
+
 class ConfirmationDialog extends StatelessWidget {
   final String title;
   final String description;
@@ -185,7 +307,6 @@ class ConfirmationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dialogSize = MediaQuery.of(context).size.width * .7;
     return Dialog(
       elevation: 0.0,
       backgroundColor: Colors.transparent,

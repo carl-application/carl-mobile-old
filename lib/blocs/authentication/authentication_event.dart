@@ -24,3 +24,8 @@ class LoggedOut extends AuthenticationEvent {
   @override
   String toString() => 'LoggedOut';
 }
+
+class DeleteAccount extends AuthenticationEvent {
+  @override
+  String toString() => 'DeleteAccount';
+}

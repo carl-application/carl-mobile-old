@@ -204,4 +204,10 @@ class UserDummyProvider implements UserProvider {
             (businessCard) => businessCard.businessName.toLowerCase().contains(name.toLowerCase()))
         .toList();
   }
+
+  @override
+  Future<void> deleteAccount() async {
+    await Future.delayed(Duration(seconds: 1));
+    return null;
+  }
 }

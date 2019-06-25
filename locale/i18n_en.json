@@ -63,6 +63,7 @@
   "email_already_exist_error_message": "Email already exists on this application, please choose another",
   "settings_title": "Settings",
   "settings_logout_label": "Log out",
+  "settings_deletion_label": "Delete my account",
   "log_out_confirmation_title": "Log out",
   "log_out_confirmation_description": "Are you sure you want to quit ?",
   "cancel": "Cancel",
@@ -72,5 +73,8 @@
   "empty_visits": "No visits",
   "scan_limit_message": "Today's scans limit reached for this merchant",
   "scan_no_business_found_title": "QRCode unknown",
-  "scan_no_business_found_description": "No business correspond"
+  "scan_no_business_found_description": "No business correspond",
+  "deletion_dialog_title": "Are you sure ?",
+  "deletion_dialog_description": "In order to respect your private data, we'll delete the only data we have that is linked to your identity: your email's address\nThe history of your visits, among others, will still be stored because necessary for the businesses' statistics.\nHowever, keep in mind that the only identity's reliable data we have is your email's address, which has never been (and will never been) given to pros accounts",
+  "deletion_dialog_important": "The deletion of your account is definitive ! We'll never again be able to retrieve your data after their deletion."
 }

@@ -63,5 +63,17 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       await _userRepository.deleteToken();
       yield AuthenticationUnauthenticated();
     }
+
+    if (event is DeleteAccount) {
+      yield AuthenticationLoading();
+      try {
+        await _userRepository.deleteAccount();
+        await _userRepository.deleteToken();
+      } catch (error) {
+        print("Error deleting account : $error");
+      }
+
+      yield AuthenticationUnauthenticated();
+    }
   }
 }

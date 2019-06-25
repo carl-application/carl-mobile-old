@@ -41,6 +41,7 @@ const API_GET_READ_NOTIFICATIONS = "$API_BASE_URL/user/notifications";
 const API_GET_NOTIFICATION_DETAIL = "$API_BASE_URL/user/notifications";
 const API_SCAN_VISIT = "$API_BASE_URL/user/visits/scan";
 const API_SEARCH_BUSINESS_BY_NAME = "$API_BASE_URL/search/business";
+const API_DELETE_ACCOUNT = "$API_BASE_URL/user";
 
 const PREFERENCES_ACCESS_TOKEN_KEY = "preferencesAccessTokenKey";
 const PREFERENCES_REFRESH_TOKEN_KEY = "preferencesRefreshTokenKey";
@@ -484,15 +485,29 @@ class UserApiProvider implements UserProvider {
     );
 
     if (response.statusCode != 200) {
-      print("Error searching business by name : ${response.statusCode}");
-      print("Response ${response}");
       throw ServerException();
     }
     final jsonBody = json.decode(response.body.toString());
 
-    print("jsonBody is = $jsonBody");
-
     cards.addAll((jsonBody as List).map((e) => BusinessCard.fromJson(e)).toList());
     return cards;
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+    final response = await http.delete(
+      "$API_DELETE_ACCOUNT",
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw ServerException();
+    }
+
+    return null;
   }
 }

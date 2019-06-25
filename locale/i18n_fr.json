@@ -63,6 +63,7 @@
   "email_already_exist_error_message": "Cet email existe déjà sur l'application, choisissez-en un autre",
   "settings_title": "Paramètres",
   "settings_logout_label": "Me déconnecter",
+  "settings_deletion_label": "Supprimer mon compte",
   "log_out_confirmation_title": "Déconnexion",
   "log_out_confirmation_description": "Etes-vous certain de vouloir vous déconnecter ?",
   "cancel": "Annuler",
@@ -72,5 +73,8 @@
   "empty_visits": "Aucune visites",
   "scan_limit_message": "Limite de scans atteinte pour la journée chez ce commerçant",
   "scan_no_business_found_title": "QRCode inconnu",
-  "scan_no_business_found_description": "Aucun pro ne correspond"
+  "scan_no_business_found_description": "Aucun pro ne correspond",
+  "deletion_dialog_title": "Êtes-vous sûr ?",
+  "deletion_dialog_description": "Dans le soucis de respecter vos données privées, nous supprimerons l'unique donnée que nous avons qui relie votre compte à votre identité : votre adresse mail\nL'historique des visites, entre autre, sera tout de même gardé car nécessaire aux statistiques des compte pros.\nToutefois, pour rappel, la seule donnée reliant vos informations à votre identité est l'addresse mail, qui n'a jamais (et ne sera jamais) transmise aux comptes pros.",
+  "deletion_dialog_important": "La suppression de votre compte est définitive ! Nous ne pourrons plus jamais récuperer vos informations."
 }
