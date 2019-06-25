@@ -322,7 +322,10 @@ class _ScanState extends State<Scan> {
                     ),
                   )));
         });
-    readerController.startScanning();
+
+    Future.delayed(Duration(seconds: 2), (){
+      readerController?.startScanning();
+    });
   }
 
   @override
