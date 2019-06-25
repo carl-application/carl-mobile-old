@@ -136,8 +136,6 @@ class UserApiProvider implements UserProvider {
     );
 
     if (response.statusCode != 200) {
-      print("Error updating notifications token : ${response.statusCode}");
-      print("Response ${response}");
       throw ServerException();
     }
 

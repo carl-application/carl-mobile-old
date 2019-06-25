@@ -125,7 +125,7 @@ class CarlTheme extends InheritedWidget {
 
   get blackMediumNumber => TextStyle(color: Colors.black, fontSize: 18);
 
-  get errorTextStyle => TextStyle(color: Colors.redAccent, fontSize: 18);
+  get errorTextStyle => TextStyle(color: Colors.red, fontSize: 18);
 
   get littleNumberWhite30 => TextStyle(
         color: Color.fromRGBO(255, 255, 255, 0.8),

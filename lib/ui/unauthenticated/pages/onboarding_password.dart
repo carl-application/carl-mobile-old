@@ -31,23 +31,36 @@ class _OnBoardingPasswordState extends State<OnBoardingPassword> {
       });
       return;
     }
-    bool hasOneUppercase = false;
-    for (int i = 0; i < password.length; i++) {
-      if (password[i] == password[i].toUpperCase()) {
-        hasOneUppercase = true;
-        break;
+
+    var hasUppercase = false;
+    var hasNumber = false;
+    for (var index = 0; index < password.length; index++) {
+      if (_isNumeric(password[index])) {
+        hasNumber = true;
+      } else {
+        if (password[index] == password[index].toUpperCase()) {
+          hasUppercase = true;
+        }
       }
     }
 
-    if (!hasOneUppercase) {
+    if (!hasUppercase || !hasNumber) {
       setState(() {
         error = Translations.of(context).text("on_boarding_password_uppercase_error");
       });
       return;
     }
+
     if (widget.onPasswordSubmitted != null) {
       widget.onPasswordSubmitted(password);
     }
+  }
+
+  bool _isNumeric(String s) {
+    if (s == null) {
+      return false;
+    }
+    return int.tryParse(s) != null;
   }
 
   Widget showError() {
@@ -91,12 +104,12 @@ class _OnBoardingPasswordState extends State<OnBoardingPassword> {
                 Positioned(
                   top: MediaQuery.of(context).size.height * 0.45,
                   child: Container(
-                    height: 100,
+                    width: MediaQuery.of(context).size.width *.9,
+                    height: 150,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Container(
-                          width: 500,
                           child: TextField(
                             obscureText: true,
                             onSubmitted: (text) {
@@ -115,9 +128,12 @@ class _OnBoardingPasswordState extends State<OnBoardingPassword> {
                                 hintStyle: CarlTheme.of(context).white30Label),
                           ),
                         ),
-                        Text(
-                          Translations.of(context).text("on_boarding_password_label"),
-                          style: CarlTheme.of(context).white30Label,
+                        Container(
+                          width: MediaQuery.of(context).size.width * 2,
+                          child: Text(
+                            Translations.of(context).text("on_boarding_password_label"),
+                            style: CarlTheme.of(context).white30Label,
+                          ),
                         ),
                         showError()
                       ],
