@@ -17,11 +17,13 @@ import 'package:carl/ui/shared/vertical_slide_transition.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:carl/ui/unauthenticated/pages/login.dart';
 import 'package:carl/ui/unauthenticated/pages/unauthenticated_navigation.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'blocs/login/login_bloc.dart';
 import 'blocs/search_businesses/search_businesses_bloc.dart';
 import 'blocs/unread_notifications/unread_notification_event.dart';
@@ -29,7 +31,6 @@ import 'blocs/unread_notifications/unread_notifications_bloc.dart';
 import 'data/providers/user_api_provider.dart';
 import 'models/navigation_arguments/card_detail_arguments.dart';
 import 'models/navigation_arguments/scan_nfc_arguments.dart';
-
 
 class SimpleBlocDelegate extends BlocDelegate {
   @override
@@ -40,6 +41,9 @@ class SimpleBlocDelegate extends BlocDelegate {
 
 void main() {
   BlocSupervisor().delegate = SimpleBlocDelegate();
+  FlutterError.onError = (FlutterErrorDetails details) {
+    Crashlytics.instance.onError(details);
+  };
   runApp(App(UserRepository(userProvider: UserApiProvider())));
 }
 
