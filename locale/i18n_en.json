@@ -79,5 +79,7 @@
   "deletion_dialog_important": "The deletion of your account is definitive ! We'll never again be able to retrieve your data after their deletion.",
   "search_label": "Search",
   "details_label": "Details",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "blacklist_confirm_title": "Mute",
+  "blacklist_confirm_description": "You are going to mute this pro.\nThis means that you wont receive push notifications from it.\nHowever, you will always have access to its notifications in your list of Good Deals !"
 }

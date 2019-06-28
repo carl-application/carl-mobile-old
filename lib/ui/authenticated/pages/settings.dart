@@ -295,6 +295,8 @@ class ConfirmationDialog extends StatelessWidget {
   final String noButtonText;
   final VoidCallback onYesClicked;
   final VoidCallback onNoClicked;
+  final double height;
+  final double width;
 
   ConfirmationDialog({
     @required this.title,
@@ -303,6 +305,8 @@ class ConfirmationDialog extends StatelessWidget {
     @required this.noButtonText,
     @required this.onYesClicked,
     @required this.onNoClicked,
+    this.height = 200,
+    this.width = 200
   });
 
   @override
@@ -315,8 +319,8 @@ class ConfirmationDialog extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(20.0),
           ),
-          height: 200,
-          width: 200,
+          height: height,
+          width: width,
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(

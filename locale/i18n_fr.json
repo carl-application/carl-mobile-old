@@ -79,5 +79,7 @@
   "deletion_dialog_important": "La suppression de votre compte est définitive ! Nous ne pourrons plus jamais récuperer vos informations.",
   "search_label": "Recherche",
   "details_label": "Détails",
-  "confirm": "Valider"
+  "confirm": "Valider",
+  "blacklist_confirm_title": "Silencieux",
+  "blacklist_confirm_description": "Vous êtes sur le point de rendre silencieux ce compte pro.\nCela signifie que ses notifications n'apparaîtront plus directement sur votre téléphone.\nEn revanche, ses notifications seront toujours accesibles via votre onglet de Bons Plans !"
 }

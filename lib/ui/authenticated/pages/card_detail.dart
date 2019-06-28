@@ -13,6 +13,7 @@ import 'package:carl/models/navigation_arguments/card_detail_back_arguments.dart
 import 'package:carl/models/navigation_arguments/map_search_arguments.dart';
 import 'package:carl/ui/authenticated/card_percent_indicator_painter.dart';
 import 'package:carl/ui/authenticated/pages/map_search.dart';
+import 'package:carl/ui/authenticated/pages/settings.dart';
 import 'package:carl/ui/authenticated/tag_item.dart';
 import 'package:carl/ui/authenticated/visits_by_user.dart';
 import 'package:carl/ui/shared/clickable_text.dart';
@@ -83,6 +84,26 @@ class _CardDetailState extends State<CardDetail> with TickerProviderStateMixin {
         });
   }
 
+  void _askToToggleBlackList() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return ConfirmationDialog(
+            title: Translations.of(context).text("blacklist_confirm_title"),
+            description: Translations.of(context).text("blacklist_confirm_description"),
+            yesButtonText: Translations.of(context).text("confirm"),
+            noButtonText: Translations.of(context).text("cancel"),
+            onYesClicked: () {
+              Navigator.of(context).pop();
+              _toggleBlacklistBloc
+                  .dispatch(ToggleNotificationBlackListEvent(cardId: widget._cardId));
+            },
+            onNoClicked: () => Navigator.of(context).pop(),
+            height: 300,
+          );
+        });
+  }
+
   Widget _buildIcon(bool isBlackListed) {
     return isBlackListed
         ? RoundedIcon(
@@ -91,8 +112,7 @@ class _CardDetailState extends State<CardDetail> with TickerProviderStateMixin {
             assetIcon: "assets/notification_off.png",
           )
         : RoundedIcon(
-            onClick: () => _toggleBlacklistBloc
-                .dispatch(ToggleNotificationBlackListEvent(cardId: widget._cardId)),
+            onClick: () => _askToToggleBlackList(),
             assetIcon: "assets/ic_bell.png",
           );
   }
