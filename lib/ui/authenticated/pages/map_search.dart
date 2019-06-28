@@ -1,33 +1,45 @@
 import 'dart:async';
 
-import 'package:carl/ui/shared/loader.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/models/placemark.dart';
+import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:geolocator/models/location_accuracy.dart';
-import 'package:geolocator/models/position.dart';
 
-class MapSearch extends StatelessWidget {
+class MapSearch extends StatefulWidget {
   static const routeName = "/mapSearch";
-  final Completer<GoogleMapController> _controller = Completer();
   static const LatLng _center = const LatLng(45.521563, -122.677433);
+
+  @override
+  _MapSearchState createState() => _MapSearchState();
+}
+
+class _MapSearchState extends State<MapSearch> {
+  final Completer<GoogleMapController> _controller = Completer();
+  Set<Marker> _markers = Set();
   final zoom = 10.0;
 
   void _onMapCreated(GoogleMapController controller) async {
     _controller.complete(controller);
-    Position position = await Geolocator().getPosition(LocationAccuracy.high);
-    print("current position found = ${position.latitude} / ${position.longitude}");
+    var currentLocation = <String, double>{};
 
-    /*
-    controller.animateCamera(
-        CameraUpdate.newCameraPosition(
-            CameraPosition(target: LatLng(first.position.latitude, first.position.longitude), zoom: zoom)
-        ));
-    */
+    var location = new Location();
+
+    try {
+      currentLocation = await location.getLocation();
+
+      print("current position found = ${currentLocation["latitude"]} / ${currentLocation["longitude"]}");
+
+      controller.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(currentLocation["latitude"], currentLocation["longitude"]), zoom: zoom)));
+    } catch (error) {
+      currentLocation = null;
+      print("Geolocation permission not granted");
+    }
+
+    _getAllMarkers();
   }
 
   Future<Set<Marker>> _getAllMarkers() async {
+    /*
     final Set<Marker> markers = Set();
     final addresses = [
       "13 Passage Saint Sebastien, Paris 75011, France",
@@ -50,48 +62,29 @@ class MapSearch extends StatelessWidget {
       ));
     }
 
-    print("returning list with ${markers.length} markers");
-    return markers;
+    setState(() {
+      this._markers = markers;
+    });
+    */
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Maps Sample App'),
-          backgroundColor: Colors.green[700],
-        ),
-        body: FutureBuilder<Set<Marker>>(
-          future: _getAllMarkers(),
-          builder: (BuildContext context, AsyncSnapshot<Set<Marker>> snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-                return Text('Press button to start.');
-              case ConnectionState.active:
-              case ConnectionState.waiting:
-                return Center(
-                  child: Loader(),
-                );
-              case ConnectionState.done:
-                if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  final markers = snapshot.data;
-                  return GoogleMap(
-                    onMapCreated: _onMapCreated,
-                    myLocationEnabled: true,
-                    initialCameraPosition: CameraPosition(
-                      target: _center,
-                      zoom: zoom,
-                    ),
-                    markers: markers,
-                  );
-                }
-            }
-          },
-        ),
-      ),
+          appBar: AppBar(
+            title: Text('Maps Sample App'),
+            backgroundColor: Colors.green[700],
+          ),
+          body: GoogleMap(
+            onMapCreated: _onMapCreated,
+            myLocationEnabled: true,
+            initialCameraPosition: CameraPosition(
+              target: MapSearch._center,
+              zoom: zoom,
+            ),
+            markers: _markers,
+          )),
     );
   }
 }
