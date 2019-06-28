@@ -11,6 +11,7 @@ import 'package:carl/ui/authenticated/business_search_delegate.dart';
 import 'package:carl/ui/authenticated/cards_swiper.dart';
 import 'package:carl/ui/authenticated/empty_element.dart';
 import 'package:carl/ui/authenticated/pages/good_deals_list.dart';
+import 'package:carl/ui/authenticated/pages/map.dart';
 import 'package:carl/ui/authenticated/pages/scan.dart';
 import 'package:carl/ui/authenticated/pages/settings.dart';
 import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
@@ -37,7 +38,8 @@ class Cards extends StatelessWidget {
   }
 
   _navigateToSearchPage(BuildContext context) {
-    showSearch(context: context, delegate: BusinessSearchDelegate());
+    Navigator.of(context).pushNamed(MapSearch.routeName);
+    // showSearch(context: context, delegate: BusinessSearchDelegate());
   }
 
   _navigateToGoodDeals(BuildContext context) async {

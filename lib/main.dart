@@ -10,6 +10,7 @@ import 'package:carl/translations.dart';
 import 'package:carl/ui/authenticated/pages/card_detail.dart';
 import 'package:carl/ui/authenticated/pages/cards.dart';
 import 'package:carl/ui/authenticated/pages/good_deals_list.dart';
+import 'package:carl/ui/authenticated/pages/map.dart';
 import 'package:carl/ui/authenticated/pages/scan.dart';
 import 'package:carl/ui/authenticated/pages/settings.dart';
 import 'package:carl/ui/shared/splash_screen_page.dart';
@@ -126,11 +127,23 @@ class _AppState extends State<App> {
     return UnauthenticatedNavigation();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  _forceAppToBeINPortraitMode() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
+  }
+
+  _forceStatusBarBlackText() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+        statusBarColor: Colors.black, // Color for Android
+        statusBarBrightness: Brightness.light // Dark == white status bar -- for IOS.
+    ));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _forceAppToBeINPortraitMode();
+    _forceStatusBarBlackText();
     _unreadNotificationsBloc.dispatch(RefreshUnreadNotificationsCountEvent());
     return BlocProvider<AuthenticationBloc>(
       bloc: _authenticationBloc,
@@ -158,7 +171,9 @@ class _AppState extends State<App> {
                           const Locale('fr', ''),
                         ],
                         initialRoute: '/',
-                        routes: {},
+                        routes: {
+                          MapSearch.routeName: (context) => MapSearch(),
+                        },
                         onGenerateRoute: (RouteSettings routeSettings) {
                           final dynamicArguments = routeSettings.arguments;
                           switch (routeSettings.name) {
