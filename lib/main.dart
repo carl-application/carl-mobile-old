@@ -10,7 +10,7 @@ import 'package:carl/translations.dart';
 import 'package:carl/ui/authenticated/pages/card_detail.dart';
 import 'package:carl/ui/authenticated/pages/cards.dart';
 import 'package:carl/ui/authenticated/pages/good_deals_list.dart';
-import 'package:carl/ui/authenticated/pages/map.dart';
+import 'package:carl/ui/authenticated/pages/map_search.dart';
 import 'package:carl/ui/authenticated/pages/scan.dart';
 import 'package:carl/ui/authenticated/pages/settings.dart';
 import 'package:carl/ui/shared/splash_screen_page.dart';

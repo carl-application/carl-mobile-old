@@ -11,7 +11,7 @@ import 'package:carl/ui/authenticated/business_search_delegate.dart';
 import 'package:carl/ui/authenticated/cards_swiper.dart';
 import 'package:carl/ui/authenticated/empty_element.dart';
 import 'package:carl/ui/authenticated/pages/good_deals_list.dart';
-import 'package:carl/ui/authenticated/pages/map.dart';
+import 'package:carl/ui/authenticated/pages/map_search.dart';
 import 'package:carl/ui/authenticated/pages/scan.dart';
 import 'package:carl/ui/authenticated/pages/settings.dart';
 import 'package:carl/ui/shared/carl_blue_gradient_button.dart';
