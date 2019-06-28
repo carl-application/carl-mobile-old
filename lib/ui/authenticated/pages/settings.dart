@@ -40,7 +40,7 @@ class Settings extends StatelessWidget {
           return ConfirmationDialog(
             title: Translations.of(context).text("log_out_confirmation_title"),
             description: Translations.of(context).text("log_out_confirmation_description"),
-            yesButtonText: Translations.of(context).text("validate"),
+            yesButtonText: Translations.of(context).text("confirm"),
             noButtonText: Translations.of(context).text("cancel"),
             onYesClicked: () => _logOut(context),
             onNoClicked: () => Navigator.of(context).pop(),

@@ -49,12 +49,12 @@
   "network_error_description": "It appears that you are no connected to internet. Retrieving of content unvailable for the moment.",
   "good_deals_title": "Good Deals",
   "login_page_title": "Do you already have a Carl account ?",
-  "login_page_email_hint_text": "Mail",
+  "login_page_email_hint_text": "Email",
   "login_page_password_hint_text": "Password",
   "login_page_bad_credentials_error_text": "Bad Credentials",
-  "on_boarding_email_title": "In order to identify you, I also need your mail. It will never be communicated to professionals ;)",
-  "on_boarding_email_hint": "Here is my mail",
-  "on_boarding_email_label": "Mail",
+  "on_boarding_email_title": "In order to identify you, I also need your Email. It will never be communicated to professionals ;)",
+  "on_boarding_email_hint": "Here is my Email",
+  "on_boarding_email_label": "Email",
   "on_boarding_password_title": "A little password for more securitry !",
   "on_boarding_password_hint": "My awesomly non-hackable password",
   "on_boarding_password_label": "Minimum 6 chars, 1 uppercase and 1 number",
@@ -77,5 +77,7 @@
   "deletion_dialog_title": "Are you sure ?",
   "deletion_dialog_description": "In order to respect your private data, we'll delete the only data we have that is linked to your identity: your email's address\nThe history of your visits, among others, will still be stored because necessary for the businesses' statistics.\nHowever, keep in mind that the only identity's reliable data we have is your email's address, which has never been (and will never been) given to pros accounts",
   "deletion_dialog_important": "The deletion of your account is definitive ! We'll never again be able to retrieve your data after their deletion.",
-  "search_label": "Search"
+  "search_label": "Search",
+  "details_label": "Details",
+  "confirm": "Confirm"
 }

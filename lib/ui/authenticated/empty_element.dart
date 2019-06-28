@@ -10,7 +10,7 @@ class EmptyElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageSize = MediaQuery.of(context).size.width * .3;
+    final imageSize = MediaQuery.of(context).size.width * .2;
     return Scaffold(
       body: Center(
         child: Column(

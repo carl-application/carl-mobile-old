@@ -6,6 +6,7 @@ import 'package:carl/blocs/authentication/authentication_event.dart';
 import 'package:carl/blocs/authentication/authentication_state.dart';
 import 'package:carl/data/repositories/user_repository.dart';
 import 'package:carl/data/repository_dealer.dart';
+import 'package:carl/models/navigation_arguments/map_search_arguments.dart';
 import 'package:carl/translations.dart';
 import 'package:carl/ui/authenticated/pages/card_detail.dart';
 import 'package:carl/ui/authenticated/pages/cards.dart';
@@ -138,7 +139,7 @@ class _AppState extends State<App> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
         statusBarColor: Colors.black, // Color for Android
         statusBarBrightness: Brightness.light // Dark == white status bar -- for IOS.
-    ));
+        ));
   }
 
   @override
@@ -173,12 +174,25 @@ class _AppState extends State<App> {
                         ],
                         initialRoute: '/',
                         routes: {
-                          MapSearch.routeName: (context) => MapSearch(),
                           Search.routeName: (context) => Search(),
                         },
                         onGenerateRoute: (RouteSettings routeSettings) {
                           final dynamicArguments = routeSettings.arguments;
                           switch (routeSettings.name) {
+                            case MapSearch.routeName:
+                              if (dynamicArguments is MapSearchArguments) {
+                                return MaterialPageRoute(builder: (BuildContext context) {
+                                  return MapSearch(
+                                    latitude: dynamicArguments.latitude,
+                                    longitude: dynamicArguments.longitude,
+                                  );
+                                });
+                              } else {
+                                return MaterialPageRoute(builder: (BuildContext context) {
+                                  return MapSearch();
+                                });
+                              }
+                              break;
                             case CardDetail.routeName:
                               if (dynamicArguments is CardDetailArguments) {
                                 return VerticalSlideTransition(

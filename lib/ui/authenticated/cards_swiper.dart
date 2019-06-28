@@ -285,9 +285,10 @@ class CardItem extends StatelessWidget {
                           Text("${total - position}",
                               style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 25.0,
+                                  fontSize: 22.0,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: "SF-Pro-Text-Regular")),
+                          SizedBox(width: 5,),
                           Text("/ $total",
                               style: TextStyle(
                                   color: Colors.white,

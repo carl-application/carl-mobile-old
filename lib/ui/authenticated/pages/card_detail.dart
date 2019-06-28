@@ -10,9 +10,12 @@ import 'package:carl/constants.dart';
 import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
 import 'package:carl/models/navigation_arguments/card_detail_back_arguments.dart';
+import 'package:carl/models/navigation_arguments/map_search_arguments.dart';
 import 'package:carl/ui/authenticated/card_percent_indicator_painter.dart';
+import 'package:carl/ui/authenticated/pages/map_search.dart';
 import 'package:carl/ui/authenticated/tag_item.dart';
 import 'package:carl/ui/authenticated/visits_by_user.dart';
+import 'package:carl/ui/shared/clickable_text.dart';
 import 'package:carl/ui/shared/error_api_call.dart';
 import 'package:carl/ui/shared/loader.dart';
 import 'package:carl/ui/shared/rounded_icon.dart';
@@ -223,12 +226,15 @@ class _CardDetailState extends State<CardDetail> with TickerProviderStateMixin {
                                   card.businessName,
                                   style: CarlTheme.of(context).bigBlackTitle,
                                 ),
-                                Text(
-                                  card.businessAddress,
-                                  style: CarlTheme.of(context).greyLittleLabel,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                ClickableText(
+                                    clickedColor: Colors.black,
+                                    text: card.businessAddress,
+                                    textStyle: CarlTheme.of(context).greyLittleLabel,
+                                    onClick: () {
+                                      Navigator.of(context).pushNamed(MapSearch.routeName,
+                                          arguments: MapSearchArguments(
+                                              latitude: card.latitude, longitude: card.longitude));
+                                    }),
                                 SizedBox(
                                   height: 10,
                                 ),

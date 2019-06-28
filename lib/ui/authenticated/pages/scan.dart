@@ -242,14 +242,14 @@ class _ScanState extends State<Scan> {
                                     ),
                                   ),
                                   CarlButton(
-                                    text: "Détails",
+                                    text: Translations.of(context).text("details_label"),
                                     onPressed: () =>
                                         _navigateToCardDetail(context, businessDetail.business.id),
                                     textStyle: CarlTheme.of(context).whiteBigLabel,
                                     color: CarlTheme.of(context).primaryColor,
                                   ),
                                   SizedBox(
-                                    height: 10,
+                                    height: 12,
                                   ),
                                   ClickableText(
                                     text: "ok",

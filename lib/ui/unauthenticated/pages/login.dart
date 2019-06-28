@@ -80,7 +80,7 @@ class Login extends StatelessWidget {
                               ),
                             ),
                             ClickableText(
-                              text: "annuler",
+                              text: Translations.of(context).text("cancel"),
                               textStyle: CarlTheme.of(context).whiteBoldBigLabel,
                               clickedColor: CarlTheme.of(context).primaryColor,
                               onClick: () => _navigateBack(context),

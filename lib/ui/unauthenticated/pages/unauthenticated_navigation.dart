@@ -23,11 +23,9 @@ class UnauthenticatedNavigation extends StatelessWidget {
   AuthenticationBloc _authenticationBloc;
 
   void navigateTo(int pageNumber) {
-    print("Actual page is $_currentPage");
-    print("Need to navigate to $pageNumber");
     if (pageNumber >= 0 && pageNumber < totalSteps) {
       _currentPage = pageNumber;
-      _controller.animateToPage(pageNumber, duration: Duration(seconds: 2), curve: Curves.linear);
+      _controller.animateToPage(pageNumber, duration: Duration(seconds: 1), curve: Curves.linear);
     }
   }
 

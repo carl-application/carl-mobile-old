@@ -12,8 +12,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class MapSearch extends StatefulWidget {
+  MapSearch({this.latitude, this.longitude});
+
+  final double latitude;
+  final double longitude;
+
   static const routeName = "/mapSearch";
-  static const LatLng _center = const LatLng(48.866667, 2.333333);
 
   @override
   _MapSearchState createState() => _MapSearchState();
@@ -23,6 +27,7 @@ class _MapSearchState extends State<MapSearch> {
   final Completer<GoogleMapController> _controller = Completer();
   Set<Marker> _markers = Set();
   final zoom = 15.0;
+  LatLng _center = LatLng(48.866667, 2.333333);
 
   void _onMapCreated(GoogleMapController controller) async {
     _controller.complete(controller);
@@ -30,12 +35,18 @@ class _MapSearchState extends State<MapSearch> {
 
     var location = new Location();
 
-    try {
-      currentLocation = await location.getLocation();
-      controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-          target: LatLng(currentLocation["latitude"], currentLocation["longitude"]), zoom: zoom)));
-    } catch (error) {
-      currentLocation = null;
+    if (this.widget.latitude != null && this.widget.longitude != null) {
+      controller.animateCamera(CameraUpdate.newCameraPosition(
+          CameraPosition(target: LatLng(this.widget.latitude, this.widget.longitude), zoom: zoom)));
+    } else {
+      try {
+        currentLocation = await location.getLocation();
+        controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+            target: LatLng(currentLocation["latitude"], currentLocation["longitude"]),
+            zoom: zoom)));
+      } catch (error) {
+        currentLocation = null;
+      }
     }
 
     _getAllMarkers();
@@ -48,12 +59,13 @@ class _MapSearchState extends State<MapSearch> {
           return Container(
             color: Color(0xFF737373),
             child: Container(
-              decoration: BoxDecoration(
-                  color: Theme.of(context).canvasColor,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-              child: MapMarkerDetail(business: business,)
-            ),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).canvasColor,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+                child: MapMarkerDetail(
+                  business: business,
+                )),
           );
         });
   }
@@ -66,10 +78,9 @@ class _MapSearchState extends State<MapSearch> {
 
     businesses.forEach((business) {
       markers.add(Marker(
-        markerId: MarkerId(business.id.toString()),
-        position: LatLng(business.latitude, business.longitude),
-        onTap: () => _showDetail(business)
-      ));
+          markerId: MarkerId(business.id.toString()),
+          position: LatLng(business.latitude, business.longitude),
+          onTap: () => _showDetail(business)));
     });
 
     setState(() {
@@ -143,7 +154,7 @@ class _MapSearchState extends State<MapSearch> {
                 onMapCreated: _onMapCreated,
                 myLocationEnabled: true,
                 initialCameraPosition: CameraPosition(
-                  target: MapSearch._center,
+                  target: _center,
                   zoom: zoom,
                 ),
                 markers: _markers,
