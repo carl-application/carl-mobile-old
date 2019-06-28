@@ -1,8 +1,11 @@
 import 'dart:async';
 
+import 'package:carl/ui/authenticated/business_search_delegate.dart';
+import 'package:carl/ui/shared/rounded_icon.dart';
+import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class MapSearch extends StatefulWidget {
   static const routeName = "/mapSearch";
@@ -26,10 +29,11 @@ class _MapSearchState extends State<MapSearch> {
     try {
       currentLocation = await location.getLocation();
 
-      print("current position found = ${currentLocation["latitude"]} / ${currentLocation["longitude"]}");
+      print(
+          "current position found = ${currentLocation["latitude"]} / ${currentLocation["longitude"]}");
 
-      controller.animateCamera(CameraUpdate.newCameraPosition(
-          CameraPosition(target: LatLng(currentLocation["latitude"], currentLocation["longitude"]), zoom: zoom)));
+      controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+          target: LatLng(currentLocation["latitude"], currentLocation["longitude"]), zoom: zoom)));
     } catch (error) {
       currentLocation = null;
       print("Geolocation permission not granted");
@@ -68,23 +72,80 @@ class _MapSearchState extends State<MapSearch> {
     */
   }
 
+  void _showSearch() {
+    showSearch(context: context, delegate: BusinessSearchDelegate());
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: Text('Maps Sample App'),
-            backgroundColor: Colors.green[700],
-          ),
-          body: GoogleMap(
-            onMapCreated: _onMapCreated,
-            myLocationEnabled: true,
-            initialCameraPosition: CameraPosition(
-              target: MapSearch._center,
-              zoom: zoom,
+          body: Container(
+        color: CarlTheme.of(context).background,
+        child: SafeArea(
+            child: Column(
+          children: <Widget>[
+            Material(
+              color: Colors.transparent,
+              child: Container(
+                height: 80,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    children: <Widget>[
+                      RoundedIcon(
+                        assetIcon: "assets/back.png",
+                        onClick: () => Navigator.pop(context),
+                        iconSize: 10,
+                        padding: 10,
+                        backgroundColor: Color.fromRGBO(142, 142, 147, .2),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () => _showSearch(),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                                color: Color.fromRGBO(142, 142, 147, .2)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
+                              child: TextField(
+                                enabled: false,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  filled: false,
+                                  hintText: "Recherche",
+                                  hintStyle: TextStyle(
+                                    color: Color.fromRGBO(142, 142, 147, 1),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
-            markers: _markers,
-          )),
+            Expanded(
+              child: GoogleMap(
+                onMapCreated: _onMapCreated,
+                myLocationEnabled: true,
+                initialCameraPosition: CameraPosition(
+                  target: MapSearch._center,
+                  zoom: zoom,
+                ),
+                markers: _markers,
+              ),
+            )
+          ],
+        )),
+      )),
     );
   }
 }

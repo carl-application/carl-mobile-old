@@ -4,8 +4,17 @@ class RoundedIcon extends StatelessWidget {
   final String assetIcon;
   final Color backgroundColor;
   final VoidCallback onClick;
+  final double iconSize;
+  final double padding;
 
-  const RoundedIcon({Key key, this.assetIcon, this.backgroundColor = Colors.white, this.onClick})
+  const RoundedIcon({
+    Key key,
+    this.assetIcon,
+    this.backgroundColor = Colors.white,
+    this.onClick,
+    this.iconSize,
+    this.padding
+  })
       : super(key: key);
 
   @override
@@ -26,11 +35,11 @@ class RoundedIcon extends StatelessWidget {
             }
           },
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: EdgeInsets.all(padding ?? 10),
             child: Image.asset(
               assetIcon,
-              height: 20,
-              width: 20,
+              height: this.iconSize ?? 20,
+              width: this.iconSize ?? 20,
               fit: BoxFit.contain,
             ),
           ),
