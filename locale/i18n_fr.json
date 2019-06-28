@@ -76,5 +76,6 @@
   "scan_no_business_found_description": "Aucun pro ne correspond",
   "deletion_dialog_title": "Êtes-vous sûr ?",
   "deletion_dialog_description": "Dans le soucis de respecter vos données privées, nous supprimerons l'unique donnée que nous avons qui relie votre compte à votre identité : votre adresse mail\nL'historique des visites, entre autre, sera tout de même gardé car nécessaire aux statistiques des compte pros.\nToutefois, pour rappel, la seule donnée reliant vos informations à votre identité est l'addresse mail, qui n'a jamais (et ne sera jamais) transmise aux comptes pros.",
-  "deletion_dialog_important": "La suppression de votre compte est définitive ! Nous ne pourrons plus jamais récuperer vos informations."
+  "deletion_dialog_important": "La suppression de votre compte est définitive ! Nous ne pourrons plus jamais récuperer vos informations.",
+  "search_label": "Recherche"
 }

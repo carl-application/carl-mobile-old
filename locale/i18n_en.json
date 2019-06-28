@@ -7,7 +7,7 @@
   "on_boarding_username_hint": "They call me...",
   "on_boarding_username_label": "Your first name",
   "on_boarding_sex_and_age_title": "With Carl, these informations will never be linked to your identity ! You will be, for the merchants, an anonymous user.",
-  "your_sex": "Your sex",
+  "your_sex": "Your gender",
   "man": "Man",
   "woman": "Woman",
   "np": "NP",
@@ -76,5 +76,6 @@
   "scan_no_business_found_description": "No business found",
   "deletion_dialog_title": "Are you sure ?",
   "deletion_dialog_description": "In order to respect your private data, we'll delete the only data we have that is linked to your identity: your email's address\nThe history of your visits, among others, will still be stored because necessary for the businesses' statistics.\nHowever, keep in mind that the only identity's reliable data we have is your email's address, which has never been (and will never been) given to pros accounts",
-  "deletion_dialog_important": "The deletion of your account is definitive ! We'll never again be able to retrieve your data after their deletion."
+  "deletion_dialog_important": "The deletion of your account is definitive ! We'll never again be able to retrieve your data after their deletion.",
+  "search_label": "Search"
 }

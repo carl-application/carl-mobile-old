@@ -42,6 +42,7 @@ const API_GET_NOTIFICATION_DETAIL = "$API_BASE_URL/user/notifications";
 const API_SCAN_VISIT = "$API_BASE_URL/user/visits/scan";
 const API_SEARCH_BUSINESS_BY_NAME = "$API_BASE_URL/search/business";
 const API_DELETE_ACCOUNT = "$API_BASE_URL/user";
+const API_GET_BUSINESSES_LOCATIONS = "$API_BASE_URL/business/locations";
 
 const PREFERENCES_ACCESS_TOKEN_KEY = "preferencesAccessTokenKey";
 const PREFERENCES_REFRESH_TOKEN_KEY = "preferencesRefreshTokenKey";
@@ -509,5 +510,27 @@ class UserApiProvider implements UserProvider {
     }
 
     return null;
+  }
+
+  @override
+  Future<List<BusinessCard>> getBusinessesLocations() async {
+    final tokenizedHeader = await Api.getTokenizedAuthorizationHeader();
+    final List<BusinessCard> cards = [];
+    final response = await http.get(
+      "$API_GET_BUSINESSES_LOCATIONS",
+      headers: {
+        HttpHeaders.authorizationHeader: tokenizedHeader,
+        HttpHeaders.contentTypeHeader: "application/json"
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw ServerException();
+    }
+
+    final jsonBody = json.decode(response.body.toString());
+
+    cards.addAll((jsonBody as List).map((e) => BusinessCard.fromJson(e)).toList());
+    return cards;
   }
 }

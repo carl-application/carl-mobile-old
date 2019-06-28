@@ -4,8 +4,18 @@ import 'package:carl/models/business/business_image.dart';
 import 'package:carl/models/business/business_tag.dart';
 
 class BusinessCard {
-  BusinessCard(this.id, this.businessName, this.businessAddress, this.image, this.logo, this.tags,
-      this.total, this.description);
+  BusinessCard(
+      this.id,
+      this.businessName,
+      this.businessAddress,
+      this.image,
+      this.logo,
+      this.tags,
+      this.total,
+      this.description,
+      this.latitude,
+      this.longitude
+      );
 
   final int id;
   final String businessName;
@@ -15,9 +25,10 @@ class BusinessCard {
   final List<Tag> tags;
   final int total;
   final String description;
+  final double latitude;
+  final double longitude;
 
   factory BusinessCard.fromJson(Map<String, dynamic> json) {
-    print("Parsing json $json");
     return BusinessCard(
       json["id"] ?? 0,
       json["name"] ?? "Wrong name",
@@ -27,6 +38,8 @@ class BusinessCard {
       json["tags"] != null ? (json["tags"] as List).map((e) => Tag.fromJson(e)).toList() : [],
       json["fidelityMax"] ?? 10,
       json["description"] ?? "No description",
+      json["latitude"] ?? 0.0,
+      json["longitude"] ?? 0.0
     );
   }
 }

@@ -34,6 +34,8 @@ class CarlTheme extends InheritedWidget {
 
   get redColor => Color.fromRGBO(208, 2, 27, 1);
 
+  get searchGreyColor =>  Color.fromRGBO(142, 142, 147, .15);
+
   get mainGradient => LinearGradient(
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,

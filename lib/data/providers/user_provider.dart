@@ -54,4 +54,6 @@ abstract class UserProvider {
   Future<List<BusinessCard>> searchBusinessesByName(String name);
 
   Future<void> deleteAccount();
+
+  Future<List<BusinessCard>> getBusinessesLocations();
 }

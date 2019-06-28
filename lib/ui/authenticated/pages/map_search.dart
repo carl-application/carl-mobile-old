@@ -1,6 +1,10 @@
 import 'dart:async';
 
+import 'package:carl/data/repository_dealer.dart';
+import 'package:carl/models/business/business_card.dart';
+import 'package:carl/translations.dart';
 import 'package:carl/ui/authenticated/business_search_delegate.dart';
+import 'package:carl/ui/authenticated/pages/map_marker_detail.dart';
 import 'package:carl/ui/shared/rounded_icon.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
@@ -28,48 +32,49 @@ class _MapSearchState extends State<MapSearch> {
 
     try {
       currentLocation = await location.getLocation();
-
-      print(
-          "current position found = ${currentLocation["latitude"]} / ${currentLocation["longitude"]}");
-
       controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
           target: LatLng(currentLocation["latitude"], currentLocation["longitude"]), zoom: zoom)));
     } catch (error) {
       currentLocation = null;
-      print("Geolocation permission not granted");
     }
 
     _getAllMarkers();
   }
 
-  Future<Set<Marker>> _getAllMarkers() async {
-    /*
-    final Set<Marker> markers = Set();
-    final addresses = [
-      "13 Passage Saint Sebastien, Paris 75011, France",
-      "92 rue réaumur, Paris, France",
-      "5 Passage Saint Sebastien, Paris 75011, France"
-    ];
+  _showDetail(BusinessCard business) {
+    showModalBottomSheet<void>(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            color: Color(0xFF737373),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context).canvasColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15), topRight: Radius.circular(15))),
+              child: MapMarkerDetail(business: business,)
+            ),
+          );
+        });
+  }
 
-    for (var address in addresses) {
-      List<Placemark> placeMarks = await Geolocator().toPlacemark(address);
-      final first = placeMarks.first;
-      print("found address = ${first.position.longitude.toString()}");
+  void _getAllMarkers() async {
+    final repository = RepositoryDealer.of(context).userRepository;
+    final businesses = await repository.getBusinessesLocations();
+
+    final Set<Marker> markers = Set();
+
+    businesses.forEach((business) {
       markers.add(Marker(
-        markerId: MarkerId(addresses.indexOf(address).toString()),
-        position: LatLng(first.position.latitude, first.position.longitude),
-        infoWindow: InfoWindow(
-          title: 'Really cool place',
-          snippet: '5 Star Rating',
-        ),
-        icon: BitmapDescriptor.defaultMarker,
+        markerId: MarkerId(business.id.toString()),
+        position: LatLng(business.latitude, business.longitude),
+        onTap: () => _showDetail(business)
       ));
-    }
+    });
 
     setState(() {
       this._markers = markers;
     });
-    */
   }
 
   void _showSearch() {
@@ -98,7 +103,7 @@ class _MapSearchState extends State<MapSearch> {
                         onClick: () => Navigator.pop(context),
                         iconSize: 10,
                         padding: 10,
-                        backgroundColor: Color.fromRGBO(142, 142, 147, .2),
+                        backgroundColor: CarlTheme.of(context).searchGreyColor,
                       ),
                       SizedBox(
                         width: 10,
@@ -109,15 +114,16 @@ class _MapSearchState extends State<MapSearch> {
                           child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                                color: Color.fromRGBO(142, 142, 147, .2)),
+                                color: CarlTheme.of(context).searchGreyColor),
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 10),
                               child: TextField(
                                 enabled: false,
                                 decoration: InputDecoration(
+                                  icon: Icon(Icons.search),
                                   border: InputBorder.none,
                                   filled: false,
-                                  hintText: "Recherche",
+                                  hintText: Translations.of(context).text("search_label"),
                                   hintStyle: TextStyle(
                                     color: Color.fromRGBO(142, 142, 147, 1),
                                   ),

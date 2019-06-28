@@ -33,7 +33,9 @@ class UserDummyProvider implements UserProvider {
           Tag(4, "Tomate"),
         ],
         10,
-        "Une salade offerte pour 10 achetées !"));
+        "Une salade offerte pour 10 achetées !",
+        43.2,
+        23.3));
     list.add(BusinessCard(
         1,
         "KFC",
@@ -42,7 +44,9 @@ class UserDummyProvider implements UserProvider {
         BusinessImage(0, "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"),
         [Tag(0, "poulet")],
         5,
-        "Un bucket offert pour 5 achetés !"));
+        "Un bucket offert pour 5 achetés !",
+        43.2,
+        23.3));
 
     list.add(BusinessCard(
         2,
@@ -52,7 +56,9 @@ class UserDummyProvider implements UserProvider {
         BusinessImage(0, "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"),
         [Tag(0, "fleurs")],
         15,
-        "Le bouquer offert pour 15 achats"));
+        "Le bouquer offert pour 15 achats",
+        43.2,
+        23.3));
     list.add(BusinessCard(
         3,
         "La boulangerie du coin",
@@ -61,7 +67,9 @@ class UserDummyProvider implements UserProvider {
         BusinessImage(0, "https://cdn.pixabay.com/photo/2018/09/24/11/11/coffee-3699657_1280.png"),
         [Tag(0, "pain")],
         10,
-        "Un menu midi offert pour 10 achetés"));
+        "Un menu midi offert pour 10 achetés",
+        43.2,
+        23.3));
   }
 
   @override
@@ -209,5 +217,11 @@ class UserDummyProvider implements UserProvider {
   Future<void> deleteAccount() async {
     await Future.delayed(Duration(seconds: 1));
     return null;
+  }
+
+  @override
+  Future<List<BusinessCard>> getBusinessesLocations() async {
+    await Future.delayed(Duration(seconds: 1));
+    return [];
   }
 }

@@ -101,4 +101,8 @@ class UserRepository {
   Future<void> deleteAccount() {
     return userProvider.deleteAccount();
   }
+
+  Future<List<BusinessCard>> getBusinessesLocations() {
+    return userProvider.getBusinessesLocations();
+  }
 }
