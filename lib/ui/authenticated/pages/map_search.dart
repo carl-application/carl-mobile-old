@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/models/business/business_card.dart';
 import 'package:carl/translations.dart';
-import 'package:carl/ui/authenticated/business_search_delegate.dart';
 import 'package:carl/ui/authenticated/pages/map_marker_detail.dart';
+import 'package:carl/ui/authenticated/pages/search.dart';
 import 'package:carl/ui/shared/rounded_icon.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ import 'package:location/location.dart';
 
 class MapSearch extends StatefulWidget {
   static const routeName = "/mapSearch";
-  static const LatLng _center = const LatLng(45.521563, -122.677433);
+  static const LatLng _center = const LatLng(48.866667, 2.333333);
 
   @override
   _MapSearchState createState() => _MapSearchState();
@@ -22,7 +22,7 @@ class MapSearch extends StatefulWidget {
 class _MapSearchState extends State<MapSearch> {
   final Completer<GoogleMapController> _controller = Completer();
   Set<Marker> _markers = Set();
-  final zoom = 10.0;
+  final zoom = 15.0;
 
   void _onMapCreated(GoogleMapController controller) async {
     _controller.complete(controller);
@@ -78,7 +78,7 @@ class _MapSearchState extends State<MapSearch> {
   }
 
   void _showSearch() {
-    showSearch(context: context, delegate: BusinessSearchDelegate());
+    Navigator.of(context).pushNamed(Search.routeName);
   }
 
   @override

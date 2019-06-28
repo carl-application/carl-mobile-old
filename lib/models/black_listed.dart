@@ -5,7 +5,6 @@ class BlackListed {
   BlackListed(this.id, this.blackListedBusiness);
 
   factory BlackListed.fromJson(Map<String, dynamic> json) {
-    print("parsing json $json");
     return BlackListed(json["id"] ?? 0,
         json["business"] != null ? BlackListedBusiness.fromJson(json["business"]) : null);
   }

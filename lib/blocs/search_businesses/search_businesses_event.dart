@@ -8,6 +8,14 @@ class SearchBusinessesByNameEvent extends SearchBusinessesEvent {
   final String name;
 
   SearchBusinessesByNameEvent(this.name);
+
   @override
   String toString() => 'SearchBusinessesByNameEvent { name: $name }';
+}
+
+class SearchBusinessesClear extends SearchBusinessesEvent {
+  SearchBusinessesClear();
+
+  @override
+  String toString() => 'SearchBusinessesClear';
 }

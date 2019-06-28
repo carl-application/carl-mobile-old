@@ -12,6 +12,7 @@ import 'package:carl/ui/authenticated/pages/cards.dart';
 import 'package:carl/ui/authenticated/pages/good_deals_list.dart';
 import 'package:carl/ui/authenticated/pages/map_search.dart';
 import 'package:carl/ui/authenticated/pages/scan.dart';
+import 'package:carl/ui/authenticated/pages/search.dart';
 import 'package:carl/ui/authenticated/pages/settings.dart';
 import 'package:carl/ui/shared/splash_screen_page.dart';
 import 'package:carl/ui/shared/vertical_slide_transition.dart';
@@ -173,6 +174,7 @@ class _AppState extends State<App> {
                         initialRoute: '/',
                         routes: {
                           MapSearch.routeName: (context) => MapSearch(),
+                          Search.routeName: (context) => Search(),
                         },
                         onGenerateRoute: (RouteSettings routeSettings) {
                           final dynamicArguments = routeSettings.arguments;

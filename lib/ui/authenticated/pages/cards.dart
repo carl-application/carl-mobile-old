@@ -7,7 +7,6 @@ import 'package:carl/blocs/unread_notifications/unread_notifications_bloc.dart';
 import 'package:carl/data/repository_dealer.dart';
 import 'package:carl/models/navigation_arguments/scan_nfc_arguments.dart';
 import 'package:carl/translations.dart';
-import 'package:carl/ui/authenticated/business_search_delegate.dart';
 import 'package:carl/ui/authenticated/cards_swiper.dart';
 import 'package:carl/ui/authenticated/empty_element.dart';
 import 'package:carl/ui/authenticated/pages/good_deals_list.dart';

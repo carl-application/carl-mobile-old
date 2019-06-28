@@ -1,5 +1,7 @@
 import 'package:carl/constants.dart';
 import 'package:carl/models/business/business_card.dart';
+import 'package:carl/models/navigation_arguments/card_detail_arguments.dart';
+import 'package:carl/ui/authenticated/pages/card_detail.dart';
 import 'package:carl/ui/authenticated/tag_item.dart';
 import 'package:carl/ui/theme.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +11,18 @@ class MapMarkerDetail extends StatelessWidget {
 
   final BusinessCard business;
 
+  _openCardDetail(BuildContext context, BusinessCard card) {
+    Navigator.pushNamed(context, CardDetail.routeName, arguments: CardDetailArguments(card.id));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 150,
+        height: 160,
         child: Material(
           color: Colors.transparent,
           child: InkWell(
-            onTap: () => print("ok"),
+            onTap: () => _openCardDetail(context, business),
             child: Padding(
               padding: EdgeInsets.all(20.0),
               child: Row(
@@ -26,15 +32,13 @@ class MapMarkerDetail extends StatelessWidget {
                     alignment: Alignment.topCenter,
                     child: Column(
                       children: <Widget>[
-                        SizedBox(height: 5,),
+                        SizedBox(
+                          height: 5,
+                        ),
                         Container(
                           height: 40,
                           width: 40,
-                          child: FadeInImage(
-                            fit: BoxFit.cover,
-                            placeholder: AssetImage(Constants.IMAGE_PLACEHOLDER_URL),
-                            image: NetworkImage(business.logo.url),
-                          ),
+                          child: Image.network(business.logo.url)
                         ),
                       ],
                     ),
@@ -49,7 +53,9 @@ class MapMarkerDetail extends StatelessWidget {
                         Expanded(
                           child: Column(
                             children: <Widget>[
-                              SizedBox(height: 10,),
+                              SizedBox(
+                                height: 10,
+                              ),
                               Text(
                                 business.businessName,
                                 style: CarlTheme.of(context).blackMediumBoldLabel,
@@ -98,7 +104,9 @@ class MapMarkerDetail extends StatelessWidget {
                                               name: business.tags[index].name,
                                               textStyle: CarlTheme.of(context).whiteMediumLabel,
                                             ),
-                                            SizedBox(width: 5,)
+                                            SizedBox(
+                                              width: 5,
+                                            )
                                           ],
                                         );
                                       }),

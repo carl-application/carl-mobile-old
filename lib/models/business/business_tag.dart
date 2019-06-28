@@ -5,7 +5,6 @@ class Tag {
   Tag(this.id, this.name);
 
   factory Tag.fromJson(Map<String, dynamic> json) {
-    print("parsing json $json");
     return Tag(
       json["id"] ?? 0,
       json["name"] ?? "Wrong tag",

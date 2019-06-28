@@ -12,7 +12,7 @@ class SearchBusinessesBloc extends Bloc<SearchBusinessesEvent, SearchBusinessesS
   final UserRepository _userRepository;
 
   @override
-  SearchBusinessesState get initialState => SearchBusinessesLoading();
+  SearchBusinessesState get initialState => SearchBusinessesInitialState();
 
   @override
   Stream<SearchBusinessesState> mapEventToState(SearchBusinessesEvent event) async* {
@@ -26,6 +26,8 @@ class SearchBusinessesBloc extends Bloc<SearchBusinessesEvent, SearchBusinessesS
         print("cards loading error $error");
         yield SearchBusinessesLoadingError(isNetworkError: error is SocketException);
       }
+    } else if (event is SearchBusinessesClear) {
+      yield SearchBusinessesLoadingSuccess(businesses: []);
     }
   }
 }

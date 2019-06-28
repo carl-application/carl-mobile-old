@@ -67,8 +67,6 @@ class UserApiProvider implements UserProvider {
       throw ServerException();
     }
 
-    print("Login succeed");
-
     final body = json.decode(response.body.toString());
     return TokensResponse.fromJson(body);
   }
@@ -102,7 +100,6 @@ class UserApiProvider implements UserProvider {
 
     final refreshToken = preferences.getString(PREFERENCES_REFRESH_TOKEN_KEY);
 
-    print("Refreshing token");
     final response = await http.post(API_REFRESH_TOKEN_URL,
         headers: {
           HttpHeaders.authorizationHeader: Api.getBasicAuthorizationHeader(),
@@ -114,8 +111,6 @@ class UserApiProvider implements UserProvider {
       print("unable to refresh token, error = ${response.toString()}");
       return false;
     }
-
-    print("token refreshed");
 
     final body = json.decode(response.body.toString());
     final tokens = TokensResponse.fromJson(body);
@@ -189,13 +184,10 @@ class UserApiProvider implements UserProvider {
 
     if (response.statusCode != 200) {
       print("Error getting cards : ${response.statusCode}");
-      print("Response ${response}");
       throw ServerException();
     }
 
     final jsonBody = json.decode(response.body.toString());
-
-    print("jsonBody of cards is = $jsonBody");
 
     cards.addAll((jsonBody as List).map((e) => BusinessCard.fromJson(e)).toList());
     return cards;
@@ -236,13 +228,10 @@ class UserApiProvider implements UserProvider {
 
     if (response.statusCode != 200) {
       print("Error getting visits : ${response.statusCode}");
-      print("Response $response");
       throw ServerException();
     }
 
     final jsonBody = json.decode(response.body.toString());
-
-    print("jsonBody of visits is = $jsonBody");
 
     visits.addAll((jsonBody as List).map((e) => Visit.fromJson(e)).toList());
     return visits;
@@ -263,13 +252,10 @@ class UserApiProvider implements UserProvider {
 
     if (response.statusCode != 200) {
       print("Error getting blacklisted cards : ${response.statusCode}");
-      print("Response ${response}");
       throw ServerException();
     }
 
     final jsonBody = json.decode(response.body.toString());
-
-    print("jsonBody of blacklisted is = $jsonBody");
 
     blackListed.addAll((jsonBody as List).map((e) => BlackListed.fromJson(e)).toList());
     return blackListed;
@@ -289,13 +275,10 @@ class UserApiProvider implements UserProvider {
 
     if (response.statusCode != 200) {
       print("Error getting if business is blacklisted  : ${response.statusCode}");
-      print("Response ${response}");
       throw ServerException();
     }
 
     final jsonBody = json.decode(response.body.toString());
-
-    print("jsonBody is = $jsonBody");
 
     return IsBlackListedResponse.fromJson(jsonBody);
   }
@@ -314,13 +297,10 @@ class UserApiProvider implements UserProvider {
 
     if (response.statusCode != 200) {
       print("Error toggling blacklisted business  : ${response.statusCode}");
-      print("Response ${response}");
       throw ServerException();
     }
 
     final jsonBody = json.decode(response.body.toString());
-
-    print("jsonBody is = $jsonBody");
 
     return IsBlackListedResponse.fromJson(jsonBody);
   }
@@ -344,13 +324,10 @@ class UserApiProvider implements UserProvider {
 
     if (response.statusCode != 200) {
       print("Error getting image by id  : ${response.statusCode}");
-      print("Response ${response}");
       throw ServerException();
     }
 
     final jsonBody = json.decode(response.body.toString());
-
-    print("jsonBody is = $jsonBody");
 
     return BusinessImage.fromJson(jsonBody);
   }
@@ -368,13 +345,10 @@ class UserApiProvider implements UserProvider {
 
     if (response.statusCode != 200) {
       print("Error getting unread notifications count : ${response.statusCode}");
-      print("Response ${response}");
       throw ServerException();
     }
 
     final jsonBody = json.decode(response.body.toString());
-
-    print("jsonBody is = $jsonBody");
 
     return UnreadNotificationsResponse.fromJson(jsonBody);
   }
@@ -401,13 +375,10 @@ class UserApiProvider implements UserProvider {
 
     if (response.statusCode != 200) {
       print("Error getting notifications : ${response.statusCode}");
-      print("Response ${response}");
       throw ServerException();
     }
 
     final jsonBody = json.decode(response.body.toString());
-
-    print("jsonBody is = $jsonBody");
 
     deals.addAll((jsonBody as List).map((e) => GoodDeal.fromJson(e)).toList());
     return deals;
@@ -426,13 +397,10 @@ class UserApiProvider implements UserProvider {
 
     if (response.statusCode != 200) {
       print("Error getting notification detail : ${response.statusCode}");
-      print("Response ${response}");
       throw ServerException();
     }
 
     final jsonBody = json.decode(response.body.toString());
-
-    print("jsonBody is = $jsonBody");
 
     return GoodDeal.fromJson(jsonBody);
   }
@@ -451,25 +419,19 @@ class UserApiProvider implements UserProvider {
 
     if (response.statusCode == 404) {
       print("No business found : ${response.statusCode}");
-      print("Response ${response}");
       throw BusinessNotFoundException();
     }
 
     if (response.statusCode == 403) {
-      print("Scan limit reached for today ! ${response.statusCode}");
-
       throw ScanLimitReachedException();
     }
 
     if (response.statusCode != 200) {
       print("Error scanning visit : ${response.statusCode}");
-      print("Response ${response}");
       throw ServerException();
     }
 
     final jsonBody = json.decode(response.body.toString());
-
-    print("jsonBody is = $jsonBody");
 
     return ScanVisitResponse.fromJson(jsonBody);
   }

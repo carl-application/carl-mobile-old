@@ -9,6 +9,13 @@ class SearchBusinessesLoading extends SearchBusinessesState {
   String toString() => 'SearchBusinessesLoading';
 }
 
+class SearchBusinessesInitialState extends SearchBusinessesState {
+  SearchBusinessesInitialState();
+
+  @override
+  String toString() => 'SearchBusinessesInitialState';
+}
+
 class SearchBusinessesLoadingSuccess extends SearchBusinessesState {
   SearchBusinessesLoadingSuccess({this.businesses});
 

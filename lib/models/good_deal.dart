@@ -20,7 +20,6 @@ class GoodDeal {
       );
 
   factory GoodDeal.fromJson(Map<String, dynamic> json) {
-    print("parsing json $json");
     return GoodDeal(
       json["id"] ?? 0,
       json["date"] != null ? DateTime.parse(json["date"]) : null,
