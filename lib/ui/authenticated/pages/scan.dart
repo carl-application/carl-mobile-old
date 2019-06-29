@@ -252,7 +252,7 @@ class _ScanState extends State<Scan> {
                                     height: 12,
                                   ),
                                   ClickableText(
-                                    text: "ok",
+                                    text: Translations.of(context).text("ok"),
                                     clickedColor: Colors.white,
                                     textStyle: CarlTheme.of(context).black12MediumLabel,
                                     onClick: () {

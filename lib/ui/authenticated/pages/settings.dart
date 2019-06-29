@@ -257,7 +257,7 @@ class DeletionAccountDialog extends StatelessWidget {
                       colorBrightness: Theme.of(context).brightness,
                       color: Colors.grey,
                       elevation: 2,
-                      padding: EdgeInsets.only(top: 15, right: 30, bottom: 15, left: 30),
+                      padding: EdgeInsets.only(top: 15, right: 15, bottom: 15, left: 15),
                       shape:
                       new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                       onPressed: onNoClicked,
@@ -270,7 +270,7 @@ class DeletionAccountDialog extends StatelessWidget {
                       colorBrightness: Theme.of(context).brightness,
                       color: CarlTheme.of(context).primaryColor,
                       elevation: 2,
-                      padding: EdgeInsets.only(top: 15, right: 30, bottom: 15, left: 30),
+                      padding: EdgeInsets.only(top: 15, right: 15, bottom: 15, left: 15),
                       shape:
                       new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
                       onPressed: onYesClicked,
@@ -315,67 +315,65 @@ class ConfirmationDialog extends StatelessWidget {
       elevation: 0.0,
       backgroundColor: Colors.transparent,
       child: Container(
+        padding: const EdgeInsets.all(15.0),
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(20.0),
           ),
           height: height,
           width: width,
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Expanded(
-                  child: Column(
-                    children: <Widget>[
-                      Text(
-                        title,
-                        style: CarlTheme.of(context).blackTitle,
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Text(
-                        description,
-                        style: CarlTheme.of(context).greyMediumLabel,
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                child: Column(
                   children: <Widget>[
-                    RaisedButton(
-                      colorBrightness: Theme.of(context).brightness,
-                      color: Colors.grey,
-                      elevation: 2,
-                      padding: EdgeInsets.only(top: 15, right: 30, bottom: 15, left: 30),
-                      shape:
-                          new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                      onPressed: onNoClicked,
-                      child: Text(
-                        noButtonText,
-                        style: CarlTheme.of(context).whiteMediumLabel,
-                      ),
+                    Text(
+                      title,
+                      style: CarlTheme.of(context).blackTitle,
                     ),
-                    RaisedButton(
-                      colorBrightness: Theme.of(context).brightness,
-                      color: CarlTheme.of(context).primaryColor,
-                      elevation: 2,
-                      padding: EdgeInsets.only(top: 15, right: 30, bottom: 15, left: 30),
-                      shape:
-                          new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
-                      onPressed: onYesClicked,
-                      child: Text(
-                        yesButtonText,
-                        style: CarlTheme.of(context).whiteMediumLabel,
-                      ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      description,
+                      style: CarlTheme.of(context).greyMediumLabel,
                     ),
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  RaisedButton(
+                    colorBrightness: Theme.of(context).brightness,
+                    color: Colors.grey,
+                    elevation: 2,
+                    padding: EdgeInsets.only(top: 15, right: 15, bottom: 15, left: 15),
+                    shape:
+                        new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                    onPressed: onNoClicked,
+                    child: Text(
+                      noButtonText,
+                      style: CarlTheme.of(context).whiteMediumLabel,
+                    ),
+                  ),
+                  RaisedButton(
+                    colorBrightness: Theme.of(context).brightness,
+                    color: CarlTheme.of(context).primaryColor,
+                    elevation: 2,
+                    padding: EdgeInsets.only(top: 15, right: 15, bottom: 15, left: 15),
+                    shape:
+                        new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
+                    onPressed: onYesClicked,
+                    child: Text(
+                      yesButtonText,
+                      style: CarlTheme.of(context).whiteMediumLabel,
+                    ),
+                  ),
+                ],
+              )
+            ],
           )),
     );
   }

@@ -99,7 +99,7 @@ class _CardDetailState extends State<CardDetail> with TickerProviderStateMixin {
                   .dispatch(ToggleNotificationBlackListEvent(cardId: widget._cardId));
             },
             onNoClicked: () => Navigator.of(context).pop(),
-            height: 300,
+            height: 350,
           );
         });
   }
@@ -245,10 +245,12 @@ class _CardDetailState extends State<CardDetail> with TickerProviderStateMixin {
                                 Text(
                                   card.businessName,
                                   style: CarlTheme.of(context).bigBlackTitle,
+                                  textAlign: TextAlign.center,
                                 ),
                                 ClickableText(
                                     clickedColor: Colors.black,
                                     text: card.businessAddress,
+                                    textAlign: TextAlign.center,
                                     textStyle: CarlTheme.of(context).greyLittleLabel,
                                     onClick: () {
                                       Navigator.of(context).pushNamed(MapSearch.routeName,

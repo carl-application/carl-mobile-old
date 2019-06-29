@@ -9,8 +9,8 @@
   "on_boarding_email_title": "Afin de t'identifier, j'ai aussi besoin de ton email. Il ne sera communiqué à aucun pro ;)",
   "on_boarding_email_hint": "Voici mon email",
   "on_boarding_email_label": "Email",
-  "on_boarding_sex_and_age_title": "Avec Carl, ces informations ne seront jamais reliées à votre identité ! Vous serez, aux yeux des commerçants, un utilisateur anonyme.",
-  "your_sex": "Votre sexe",
+  "on_boarding_sex_and_age_title": "Avec Carl, ces informations ne seront jamais reliées à votre identité! Vous serez, aux yeux des commerçants, un utilisateur anonyme.",
+  "your_sex": "Votre genre",
   "man": "Homme",
   "woman": "Femme",
   "np": "NP",
@@ -81,5 +81,6 @@
   "details_label": "Détails",
   "confirm": "Valider",
   "blacklist_confirm_title": "Silencieux",
-  "blacklist_confirm_description": "Vous êtes sur le point de rendre silencieux ce compte pro.\nCela signifie que ses notifications n'apparaîtront plus directement sur votre téléphone.\nEn revanche, ses notifications seront toujours accesibles via votre onglet de Bons Plans !"
+  "blacklist_confirm_description": "Vous êtes sur le point de rendre silencieux ce compte pro.\nCela signifie que ses notifications n'apparaîtront plus directement sur votre téléphone.\nEn revanche, elles seront toujours accesibles via votre onglet de Bons Plans !",
+  "ok": "OK"
 }

@@ -25,6 +25,8 @@ class _SearchState extends State<Search> {
   _onTextChanged(String newText) {
     if (newText.length >= 3) {
       _searchBloc.dispatch(SearchBusinessesByNameEvent(newText));
+    } else {
+      _searchBloc.dispatch(SearchBusinessesClear());
     }
   }
 

@@ -6,7 +6,7 @@
   "on_boarding_username_title": "Nice to meet you, how do your friends call you ?",
   "on_boarding_username_hint": "They call me...",
   "on_boarding_username_label": "Your first name",
-  "on_boarding_sex_and_age_title": "With Carl, these informations will never be linked to your identity ! You will be, for the merchants, an anonymous user.",
+  "on_boarding_sex_and_age_title": "With Carl, this information will never be linked to your identity! You will be, for the merchants, an anonymous user.",
   "your_sex": "Your gender",
   "man": "Man",
   "woman": "Woman",
@@ -81,5 +81,6 @@
   "details_label": "Details",
   "confirm": "Confirm",
   "blacklist_confirm_title": "Mute",
-  "blacklist_confirm_description": "You are going to mute this pro.\nThis means that you wont receive push notifications from it.\nHowever, you will always have access to its notifications in your list of Good Deals !"
+  "blacklist_confirm_description": "You are going to mute this pro.\nThis means that you wont receive push notifications from it.\nHowever, you will always have access to its notifications in your list of Good Deals !",
+  "ok": "OK"
 }
