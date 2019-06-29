@@ -16,7 +16,11 @@ class TagItem extends StatelessWidget {
         child: Center(
             child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
-          child: Text(name, style: textStyle),
+          child: Text(
+              name,
+              style: textStyle,
+            textAlign: TextAlign.center,
+          ),
         )),
       ),
     );

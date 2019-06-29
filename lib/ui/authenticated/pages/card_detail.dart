@@ -261,7 +261,7 @@ class _CardDetailState extends State<CardDetail> with TickerProviderStateMixin {
                                   height: 10,
                                 ),
                                 Container(
-                                  height: card.tags.length > 0 ? 25 : 0,
+                                  height: card.tags.length > 0 ? 30 : 0,
                                   child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
                                       itemCount: card.tags.length,

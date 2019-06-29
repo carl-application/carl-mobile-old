@@ -150,7 +150,7 @@ class _SearchState extends State<Search> {
                                   subtitle: Padding(
                                     padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                                     child: Container(
-                                      height: 25,
+                                      height: 30,
                                       child: ListView.builder(
                                         scrollDirection: Axis.horizontal,
                                         itemCount: business.tags.length,

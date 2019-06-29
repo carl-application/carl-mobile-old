@@ -90,7 +90,7 @@ class MapMarkerDetail extends StatelessWidget {
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Container(
-                                  height: 25,
+                                  height: 30,
                                   width: MediaQuery.of(context).size.width * .7,
                                   child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
