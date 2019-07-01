@@ -43,7 +43,7 @@ class Cards extends StatelessWidget {
 
   _navigateToGoodDeals(BuildContext context) async {
     final nbSeenDeals = await Navigator.pushNamed(context, GoodDealsList.routeName) as int;
-    if (nbSeenDeals > 0) {
+    if (nbSeenDeals != null && nbSeenDeals > 0) {
       _unreadNotificationsBloc.dispatch(RetrieveUnreadNotificationsCountEvent());
     }
   }
